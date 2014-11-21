@@ -40,6 +40,7 @@ namespace CrazyMelService
             poNumber = PoNumber;
             orderDate = OrderDate;
         }
+
         public string SQLInsert()
         {
             return "INSERT INTO " + tableName + " VALUES ('" + custID + "', '" + poNumber + "', '" + orderDate + "');";

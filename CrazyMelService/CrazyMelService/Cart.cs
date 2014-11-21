@@ -9,11 +9,66 @@ namespace CrazyMelService
     [DataContract]
     public class Cart
     {
+        private string tableName { get; set; }
+        private string orderIDColumnName { get; set; }
+        private string prodIDColumnName { get; set; }
+        private string quantityColumnName { get; set; }
+        
         [DataMember]
-        public int OrderID { get; set; }
+        public string orderID { get; set; }
         [DataMember]
-        public int ProdID { get; set; }
+        public string prodID { get; set; }
         [DataMember]
-        public int Quantity { get; set; }       
+        public string quantity { get; set; } 
+      
+        public Cart() 
+        {
+            tableName = "[Cart]";
+            orderIDColumnName = "[OrderID]";
+            prodIDColumnName = "[ProdID]";
+            quantityColumnName = "[Quantity]";
+        }
+
+        public Cart(string OrderID, string ProdID, string Quantity) : base()
+        {
+            orderID = orderID;
+            prodID = ProdID;
+            quantity = Quantity;            
+        }
+
+        public string SQLInsert()
+        {
+            return "INSERT INTO " + tableName + " VALUES ('" + orderID + "', '" + prodID + "', '" + quantity + "');";
+        }
+
+        public string SQLUpdate()
+        {
+            string query = "UPDATE " + tableName + " SET ";
+
+            if (orderID != "")
+            {
+                query += orderIDColumnName + "='" + orderID + "', ";
+            }
+            if (prodID != "")
+            {
+                query += prodIDColumnName + "='" + prodID + "', ";
+            }
+            if (quantity != "")
+            {
+                query += quantityColumnName + "='" + quantity + "', ";
+            }
+            query.Remove(query.Length - 1);
+
+            query += "WHERE " + orderIDColumnName + "='" + orderID + "' AND " + prodIDColumnName + "='" + prodID + "';";
+
+            return query;
+        }
+
+        public string SQLDelete()
+        {
+            return "DELETE FROM  " + tableName + " WHERE " + orderIDColumnName + "='" + orderID + "' AND " + prodIDColumnName + "='" + prodID + "';";
+        }
     }
+
+
 }

@@ -10,3 +10,9 @@ C:\soa\CrazyMelService\CrazyMelService\bin\CrazyMelService.pdb
 C:\soa\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.csprojResolveAssemblyReference.cache
 C:\soa\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.dll
 C:\soa\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.pdb
+C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\bin\CrazyMelService.dll.config
+C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\bin\CrazyMelService.dll
+C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\bin\CrazyMelService.pdb
+C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.csprojResolveAssemblyReference.cache
+C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.dll
+C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.pdb
