@@ -57,5 +57,28 @@ namespace CrazyMelService
         {
             return true;
         }
+
+        //UPDATES
+
+        public bool DeleteCustomer(string CustID, string FirstName, string LastName, string PhoneNumber)
+        {
+
+            return true;
+        }
+
+        public bool DeleteProduct(string ProdID, string ProductName, string Price, string ProdWeight, string InStock)
+        {
+            return true;
+        }
+
+        public bool DeleteOrder(string OrderID, string CustID, string PoNumber, string OrderDate)
+        {
+            return true;
+        }
+
+        public bool DeleteCart(string OrderID, string ProdID, string Quantity)
+        {
+            return true;
+        }
     }
 }

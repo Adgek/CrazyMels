@@ -5,17 +5,17 @@ using System.Runtime.Serialization;
 using System.Web;
 
 namespace CrazyMelService
-{
-    private string tableName { get; set; }
-    private string productIdColumnName { get; set; }
-    private string fproductNameColumnName { get; set; }
-    private string priceColumnName { get; set; }
-    private string prodWeightColumnName { get; set; }  
-    private string inStockColumnName { get; set; }  
-
+{    
     [DataContract]
     public class Product
     {
+        private string tableName { get; set; }
+        private string productIdColumnName { get; set; }
+        private string productNameColumnName { get; set; }
+        private string priceColumnName { get; set; }
+        private string prodWeightColumnName { get; set; }
+        private string inStockColumnName { get; set; }  
+
         [DataMember]
         public string productId { get; set; }
         [DataMember]
@@ -32,7 +32,7 @@ namespace CrazyMelService
         {
             tableName = "[Product]";
             productIdColumnName = "[ProductId]";
-            fproductNameColumnName = "[ProductName]";
+            productNameColumnName = "[ProductName]";
             priceColumnName = "[Price]";
             prodWeightColumnName = "[ProdWeight]";
             inStockColumnName = "[InStock]";
