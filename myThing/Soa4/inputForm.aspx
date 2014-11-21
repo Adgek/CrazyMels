@@ -79,7 +79,7 @@
                 <div class="col-md-3 vertical-center">
                     <br />
                     <label>
-                        <asp:CheckBox runat="server" value="" />
+                        <asp:CheckBox id="Psoldout" runat="server" value="" />
                         Sold Out
                     </label>
                 </div>

@@ -12,6 +12,7 @@ namespace Soa4
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            
         }
 
         protected void searchBtn_Click(object sender, EventArgs e)
@@ -22,7 +23,7 @@ namespace Soa4
         private void redirectToPage(string action)
         {
             Session["firstPageAction"] = action;
-            Server.Transfer("inputForm.aspx", true);
+           Response.Redirect("inputForm.aspx", true);
         }
 
         protected void insertBtn_Click(object sender, EventArgs e)
