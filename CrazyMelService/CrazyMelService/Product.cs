@@ -38,7 +38,7 @@ namespace CrazyMelService
             inStockColumnName = "[InStock]";
         }
 
-        public Product(string ProductName, string Price, string ProdWeight, string InStock, string ProductId = "") : base()
+        public Product(string ProductName, string Price, string ProdWeight, string InStock, string ProductId = "") : this()
         {
             productId = ProductId;
             productName = ProductName;
@@ -68,7 +68,8 @@ namespace CrazyMelService
             if(inStock != ""){
                 query += inStockColumnName + "='" + inStock + "', ";
             }
-            query.Remove(query.Length - 1);
+
+            query = query.Substring(0, query.LastIndexOf(",")) + query.Substring(query.LastIndexOf(",") + 1);
 
             query += "WHERE " + productIdColumnName + "='" + productId + "';";
 

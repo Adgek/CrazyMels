@@ -29,7 +29,7 @@ namespace CrazyMelService
             quantityColumnName = "[Quantity]";
         }
 
-        public Cart(string OrderID, string ProdID, string Quantity) : base()
+        public Cart(string OrderID, string ProdID, string Quantity) : this()
         {
             orderID = OrderID;
             prodID = ProdID;
@@ -57,7 +57,8 @@ namespace CrazyMelService
             {
                 query += quantityColumnName + "='" + quantity + "', ";
             }
-            query.Remove(query.Length - 1);
+
+            query = query.Substring(0, query.LastIndexOf(",")) + query.Substring(query.LastIndexOf(",") + 1);
 
             query += "WHERE " + orderIDColumnName + "='" + orderID + "' AND " + prodIDColumnName + "='" + prodID + "';";
 

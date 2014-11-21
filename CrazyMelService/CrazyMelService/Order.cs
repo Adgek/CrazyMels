@@ -33,7 +33,7 @@ namespace CrazyMelService
             orderDateColumnName = "[OrderDate]";
         }
 
-        public Order(string OrderID, string CustID, string PoNumber, string OrderDate) : base()
+        public Order(string OrderID, string CustID, string PoNumber, string OrderDate) : this()
         {
             orderID = orderID;
             custID = CustID;
@@ -62,7 +62,8 @@ namespace CrazyMelService
             {
                 query += orderDateColumnName + "='" + orderDate + "', ";
             }
-            query.Remove(query.Length - 1);
+
+            query = query.Substring(0, query.LastIndexOf(",")) + query.Substring(query.LastIndexOf(",") + 1);
 
             query += "WHERE " + orderIDColumnName + "='" + orderID + "';";
 
