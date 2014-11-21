@@ -6,35 +6,79 @@ using System.Web;
 
 namespace CrazyMelService
 {
+    private string tableName { get; set; }
+    private string productIdColumnName { get; set; }
+    private string fproductNameColumnName { get; set; }
+    private string priceColumnName { get; set; }
+    private string prodWeightColumnName { get; set; }  
+    private string inStockColumnName { get; set; }  
+
     [DataContract]
     public class Product
     {
         [DataMember]
-        public int ProductId { get; set; }
+        public string productId { get; set; }
         [DataMember]
-        public string ProductName { get; set; }
+        public string productName { get; set; }
         [DataMember]
-        public float Price { get; set; }
+        public string price { get; set; }
         [DataMember]
-        public float ProdWeight { get; set; }
+        public string prodWeight { get; set; }
         [DataMember]
-        public bool InStock { get; set; }
-    }
+        public string inStock { get; set; }
+    
+    
+        public Product() 
+        {
+            tableName = "[Product]";
+            productIdColumnName = "[ProductId]";
+            fproductNameColumnName = "[ProductName]";
+            priceColumnName = "[Price]";
+            prodWeightColumnName = "[ProdWeight]";
+            inStockColumnName = "[InStock]";
+        }
 
-    public partial class Products
-    {
-        private static readonly Products _instance = new Products();
-        private Products() { }
-        public static Products Instance
+        public Product(string ProductName, string Price, string ProdWeight, string InStock, string ProductId = "") : base()
         {
-            get { return _instance; }
+            productId = ProductId;
+            productName = ProductName;
+            price = Price;
+            prodWeight = ProdWeight;
+            inStock = InStock;
         }
-        public List<Product> ProductList
+
+        public string SQLInsert()
         {
-            get { return products; }
+            return "INSERT INTO " + tableName + " VALUES ('" + productName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
         }
-        private List<Product> products = new List<Product>() 
-        { 
-        };
+
+        public string SQLUpdate()
+        {
+            string query = "UPDATE " + tableName + " SET ";
+
+            if(productName != ""){
+                query += productNameColumnName + "='" + productName + "', ";
+            }
+            if(price != ""){
+                query += priceColumnName + "='" + price + "', ";
+            }
+            if(prodWeight != ""){
+                query += prodWeightColumnName + "='" + prodWeight + "', ";
+            }
+            if(inStock != ""){
+                query += inStockColumnName + "='" + inStock + "', ";
+            }
+            query.Remove(query.Length - 1);
+
+            query += "WHERE " + productIdColumnName + "='" + productId + "';";
+
+            return query;
+        }
+
+        public string SQLDelete()
+        {
+            return "DELETE FROM  " + tableName + " WHERE " + productIdColumnName + "='" + productId + "');";
+        }
     }
+    
 }
