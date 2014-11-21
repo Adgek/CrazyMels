@@ -1,0 +1,50 @@
+Pseudo code notes
+
+CUSTOMER
+	What fields specify a customer
+		-custID
+		-firstName
+		-Lastname
+		-phoneNumber?
+	What to return
+		-Customer table matching search query
+
+PRODUCT
+	What fields specify a product
+		-prodId
+		-prodName
+	What to return
+		-Product table
+
+ORDER
+	What fields specify an Order
+		-orderDate
+		-orderID
+		-PONum
+	What to return
+		-Order table matching search query
+
+CART		
+	What fields specify a cart
+		-quantity
+	What to return
+		-cart
+
+Use Cases:
+	Seans given cases
+	USER ENTERED:
+		-CustID in order
+		-prodID in cart
+	RETURNS:
+		-All instances of Cust ordering Product
+
+	USER ENTERED:
+		-custID in order
+		-prodname in product
+	RETURNS:
+		-All instances of Cust ordering Product
+
+Need to make functions that take carts,customers,products,and orders. doesnt matter how they specify each one.
+
+
+
