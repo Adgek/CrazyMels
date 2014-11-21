@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Cart.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="CrazyMel.svc.cs">
