@@ -73,5 +73,26 @@ namespace CrazyMelService
         {
             return "DELETE FROM  " + tableName + " WHERE " + orderIDColumnName + "='" + orderID + "');";
         }
+
+        public bool validateInput()
+        {
+            if (!Validator.ValidateInt(orderID))
+            {
+                return false;
+            }
+            if (!Validator.ValidateInt(custID))
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarChar(poNumber, 30))
+            {
+                return false;
+            }
+            if (!Validator.ValidateDate(orderDate))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

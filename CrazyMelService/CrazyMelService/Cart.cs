@@ -31,7 +31,7 @@ namespace CrazyMelService
 
         public Cart(string OrderID, string ProdID, string Quantity) : base()
         {
-            orderID = orderID;
+            orderID = OrderID;
             prodID = ProdID;
             quantity = Quantity;            
         }
@@ -67,6 +67,23 @@ namespace CrazyMelService
         public string SQLDelete()
         {
             return "DELETE FROM  " + tableName + " WHERE " + orderIDColumnName + "='" + orderID + "' AND " + prodIDColumnName + "='" + prodID + "';";
+        }
+
+        public bool validateInput()
+        {
+            if (!Validator.ValidateInt(orderID))
+            {
+                return false;
+            }
+            if (!Validator.ValidateInt(prodID))
+            {
+                return false;
+            }
+            if (!Validator.ValidateInt(quantity))
+            {
+                return false;
+            }
+            return true;
         }
     }
 

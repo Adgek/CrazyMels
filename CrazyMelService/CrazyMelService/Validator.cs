@@ -32,7 +32,7 @@ namespace CrazyMelService
     		}
     		return true;
     	}
-    	public static  bool ValidateInt(string input)
+    	public static bool ValidateInt(string input)
     	{
     		try
     		{
@@ -44,7 +44,7 @@ namespace CrazyMelService
     		}
     		return true;
     	}
-    	public static  bool ValidateFloat(string input)
+    	public static bool ValidateFloat(string input)
     	{
     		try
     		{
@@ -56,6 +56,15 @@ namespace CrazyMelService
     		}
     		return true;
     	}
+    	public static bool ValidateDate(string input)
+		{
+			DateTime testDateTimeValue;
+			if(!DateTime.TryParse(input, out testDateTimeValue))
+			{
+				return false;
+			}
+			return true;
+		}
 	}
     }
 }

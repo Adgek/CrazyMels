@@ -79,6 +79,31 @@ namespace CrazyMelService
         {
             return "DELETE FROM  " + tableName + " WHERE " + productIdColumnName + "='" + productId + "');";
         }
+
+        public bool validateInput()
+        {
+            if (!Validator.ValidateInt(productId))
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarChar(productName, 100))
+            {
+                return false;
+            }
+            if (!Validator.ValidateFloat(price))
+            {
+                return false;
+            }
+            if (!Validator.ValidateFloat(prodWeight))
+            {
+                return false;
+            }
+            if (!Validator.ValidateBool(inStock))
+            {
+                return false;
+            }
+            return true;
+        }
     }
     
 }

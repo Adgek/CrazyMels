@@ -70,6 +70,27 @@ namespace CrazyMelService
         {
             return "DELETE FROM  " + tableName + " WHERE " + custIDColumnName + "='" + custID + "');";
         }
+
+        public bool validateInput()
+        {
+            if (!Validator.ValidateInt(custID))
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarChar(firstName, 50))
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarChar(lastName, 50))
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarChar(phoneNumber, 12))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
     
