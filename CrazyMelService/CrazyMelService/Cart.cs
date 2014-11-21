@@ -72,7 +72,7 @@ namespace CrazyMelService
 
         public bool validateInput()
         {
-            if (!Validator.ValidateInt(orderID))
+            if (!Validator.ValidateInt(orderID) && orderID != "")
             {
                 return false;
             }

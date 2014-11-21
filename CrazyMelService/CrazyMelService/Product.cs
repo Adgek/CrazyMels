@@ -83,11 +83,11 @@ namespace CrazyMelService
 
         public bool validateInput()
         {
-            if (!Validator.ValidateInt(productId))
+            if (!Validator.ValidateInt(productId) && productId != "")
             {
                 return false;
             }
-            if (!Validator.ValidateVarChar(productName, 100))
+            if (!Validator.ValidateVarchar(productName, 100))
             {
                 return false;
             }

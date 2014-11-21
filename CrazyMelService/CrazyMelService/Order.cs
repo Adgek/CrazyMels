@@ -85,7 +85,7 @@ namespace CrazyMelService
             {
                 return false;
             }
-            if (!Validator.ValidateVarChar(poNumber, 30))
+            if (!Validator.ValidateVarchar(poNumber, 30))
             {
                 return false;
             }

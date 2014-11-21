@@ -74,19 +74,19 @@ namespace CrazyMelService
 
         public bool validateInput()
         {
-            if (!Validator.ValidateInt(custID))
+            if (!Validator.ValidateInt(custID) && custID != "")
             {
                 return false;
             }
-            if (!Validator.ValidateVarChar(firstName, 50))
+            if (!Validator.ValidateVarchar(firstName, 50))
             {
                 return false;
             }
-            if (!Validator.ValidateVarChar(lastName, 50))
+            if (!Validator.ValidateVarchar(lastName, 50))
             {
                 return false;
             }
-            if (!Validator.ValidateVarChar(phoneNumber, 12))
+            if (!Validator.ValidateVarchar(phoneNumber, 12))
             {
                 return false;
             }

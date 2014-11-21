@@ -19,11 +19,15 @@ namespace CrazyMelService
 
         //4 inserts, one for each table. in each, check data, if valid data connect to DB,insert data to db 
         public bool InsertCustomer(string FirstName, string LastName, string PhoneNumber)
-        {
+        {    
             Customer c = new Customer(FirstName, LastName, PhoneNumber);
+
+            if (!c.validateInput()) { return false; }
+
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             d.OpenSQLConnection();
             d.Qeury(c.SQLInsert());
+            
             return true;
         }
 
