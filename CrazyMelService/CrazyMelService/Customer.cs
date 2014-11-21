@@ -33,12 +33,12 @@ namespace CrazyMelService
             phoneNumberColumnName = "[PhoneNumber]";
         }
 
-        public Customer(string FirstName, string LastName, string PhoneNumber, string CustID = "") : base()
+        public Customer(string FirstName, string LastName, string PhoneNumber, string CustID = "") : this()
         {
             custID = CustID;
             firstName = FirstName;
             lastName = LastName;
-            phoneNumber = PhoneNumber;
+            phoneNumber = PhoneNumber;            
         }
 
         public string SQLInsert()
@@ -59,7 +59,8 @@ namespace CrazyMelService
             if(phoneNumber != ""){
                 query += phoneNumberColumnName + "='" + phoneNumber + "', ";
             }
-            query.Remove(query.Length - 1);
+           
+            query = query.Substring(0, query.LastIndexOf(",")) + query.Substring(query.LastIndexOf(",") + 1);
 
             query += "WHERE " + custIDColumnName + "='" + custID + "';";
 
