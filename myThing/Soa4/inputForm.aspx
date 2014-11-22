@@ -10,8 +10,6 @@
 
 
     <div class="row">
-        <div class="col-md-4">
-        </div>
         <div class="col-md-4 text-center">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -22,7 +20,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8 ">
+            <div class="panel panel-default">
+                <div class="panel-body" id="errorDiv" runat="server">
+                
+                </div>
+            </div>
         </div>
     </div>
 
@@ -36,19 +39,19 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="custID">custID</label>
-                    <asp:TextBox runat="server" class="form-control" ID="CcustID" placeholder="Enter custID" />
+                    <asp:TextBox runat="server" ToolTip="CustId" class="form-control" ID="CcustID" placeholder="Enter custID" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">firstName</label>
-                    <asp:TextBox runat="server" class="form-control" ID="CfirstName" placeholder="Enter firstName" />
+                    <asp:TextBox runat="server" ToolTip="FirstName" class="form-control" ID="CfirstName" placeholder="Enter firstName" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">lastName</label>
-                    <asp:TextBox runat="server" class="form-control" ID="ClastName" placeholder="Enter lastName" />
+                    <asp:TextBox runat="server" ToolTip="LastName" class="form-control" ID="ClastName" placeholder="Enter lastName" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">phoneNumber</label>
-                    <asp:TextBox runat="server" class="form-control" ID="CphoneNumber" placeholder="xxx-xxx-xxxx" />
+                    <asp:TextBox runat="server" ToolTip="PhoneNumber" class="form-control" ID="CphoneNumber" placeholder="xxx-xxx-xxxx" />
                 </div>
             </div>
         </div>
@@ -62,24 +65,24 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="custID">prodID</label>
-                    <asp:TextBox runat="server" class="form-control" ID="PprodID" placeholder="Enter prodID" />
+                    <asp:TextBox runat="server" ToolTip="ProdID" class="form-control" ID="PprodID" placeholder="Enter prodID" />
                 </div>
                 <div class="col-md-2">
                     <label for="custID">prodName</label>
-                    <asp:TextBox runat="server" class="form-control" ID="PprodName" placeholder="Enter prodName" />
+                    <asp:TextBox runat="server" ToolTip="ProdName" class="form-control" ID="PprodName" placeholder="Enter prodName" />
                 </div>
                 <div class="col-md-2">
                     <label for="custID">price</label>
-                    <asp:TextBox runat="server" class="form-control" ID="Pprice" placeholder="Enter price" />
+                    <asp:TextBox runat="server" ToolTip="Price" class="form-control" ID="Pprice" placeholder="Enter price" />
                 </div>
                 <div class="col-md-2">
                     <label for="custID">prodWeight</label>
-                    <asp:TextBox runat="server" class="form-control" ID="Pweight" placeholder="Enter prodWeight" />
+                    <asp:TextBox runat="server" ToolTip="ProdWeight" class="form-control" ID="Pweight" placeholder="Enter prodWeight" />
                 </div>
                 <div class="col-md-3 vertical-center">
                     <br />
                     <label>
-                        <asp:CheckBox id="Psoldout" runat="server" value="" />
+                        <asp:CheckBox id="Psoldout" ToolTip="InStock"  runat="server" value="" />
                         Sold Out
                     </label>
                 </div>
@@ -95,19 +98,19 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="custID">orderID</label>
-                    <asp:TextBox runat="server" class="form-control" ID="OorderID" placeholder="Enter orderID" />
+                    <asp:TextBox runat="server" class="form-control" ToolTip="OrderID" ID="OorderID" placeholder="Enter orderID" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">custID</label>
-                    <asp:TextBox runat="server" class="form-control" ID="OcustID2" placeholder="Enter custID" />
+                    <asp:TextBox runat="server" class="form-control" ToolTip="CustID" ID="OcustID2" placeholder="Enter custID" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">poNumber</label>
-                    <asp:TextBox runat="server" class="form-control" ID="OpoNumber" placeholder="Enter poNumber" />
+                    <asp:TextBox runat="server" class="form-control" ToolTip="PoNumber" ID="OpoNumber" placeholder="Enter poNumber" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">orderDate</label>
-                    <asp:TextBox runat="server" class="form-control" ID="OorderDate" placeholder="MM-DD-YY" />
+                    <asp:TextBox runat="server" class="form-control" ToolTip="OrderDate" ID="OorderDate" placeholder="MM-DD-YY" />
                 </div>
             </div>
         </div>
@@ -121,15 +124,15 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="custID">orderID</label>
-                    <asp:TextBox runat="server" class="form-control" ID="CAorderID2" placeholder="Enter orderID" />
+                    <asp:TextBox runat="server" class="form-control" ToolTip="OrderID" ID="CAorderID2" placeholder="Enter orderID" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">prodID</label>
-                    <asp:TextBox runat="server" class="form-control" ID="CAprodID2" placeholder="Enter custID" />
+                    <asp:TextBox runat="server" class="form-control" ToolTip="ProdID" ID="CAprodID2" placeholder="Enter custID" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">quantity</label>
-                    <asp:TextBox runat="server" class="form-control" ID="CAquantity" placeholder="Enter quantity" />
+                    <asp:TextBox runat="server" class="form-control" ToolTip="Quantity" ID="CAquantity" placeholder="Enter quantity" />
                 </div>
                 <div class="col-md-3">
                 </div>

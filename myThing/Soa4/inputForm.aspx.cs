@@ -15,6 +15,8 @@ namespace Soa4
 
         Dictionary<string, List<TextBox>> inputBoxes = new Dictionary<string, List<TextBox>>();
 
+        Dictionary<string, Dictionary<string, string>> infoPair = new Dictionary<string, Dictionary<string, string>>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             InitInputList();
@@ -137,22 +139,128 @@ namespace Soa4
 
         private void insert()
         {
-
+            parseAndCheckInput();
         }
 
         private void update()
         {
-
+            parseAndCheckInput();
         }
 
         private void delete()
         {
+            parseAndCheckInput();
+        }
 
+        private Boolean parseAndCheckInput()
+        {
+            Boolean valid = true;
+            List<string> errors = new List<string>();
+            if (parseInputForSingleRow())
+            {
+                errors.AddRange(mustContainID());
+                errors.AddRange(ValidateChars());
+                if(errors.Count > 0)
+                {
+                    errorDiv.InnerHtml = "";
+                    foreach(string error in errors)
+                        errorDiv.InnerHtml += "<p class=\"bg-danger\">" + error + "</p>";
+                    valid = false;
+                }
+            }
+            else
+            {
+                valid = false;
+            }
+            return valid;
+        }
+
+        private List<string> mustContainID()
+        {
+            List<string> errors = new List<string>();
+            foreach(KeyValuePair<string,Dictionary<string,string>> kvp in infoPair)
+            {
+                Boolean foundID = false;
+                foreach(KeyValuePair<string,string> pair in kvp.Value)
+                {
+                    if(pair.Key.Contains("ID"))
+                    {
+                        foundID = true;
+                    }
+                }
+                if(!foundID)
+                {
+                    errors.Add("To " + (string)Session["firstPageAction"] + " a " + kvp.Value + " you must enter a " + kvp.Value + " ID.");
+                }
+            }
+            return errors;
+        }
+
+        private List<string> ValidateChars()
+        {
+            List<string> errors = new List<string>();
+            foreach (KeyValuePair<string, Dictionary<string, string>> kvp in infoPair)
+            {
+                foreach (KeyValuePair<string, string> pair in kvp.Value)
+                {
+                    if(!checkIfAllCharsAreValid(pair.Value))
+                    {
+                        errors.Add("The field " + pair.Key + " is invalid. It may only contains the following characters: A-Z a-z 0-9 _ . -");
+                    }
+                }
+            }
+            return errors;
+        }
+
+        private Boolean parseInputForSingleRow()
+        {
+            int? whereInfoWasFound = null;
+            int count = 0;
+
+
+            foreach (KeyValuePair<string, List<TextBox>> entry in inputBoxes)
+            {
+                foreach (TextBox tb in entry.Value)
+                {
+                    if (!String.IsNullOrWhiteSpace(tb.Text))
+                    {
+                        if (whereInfoWasFound == null)
+                            whereInfoWasFound = count;
+                        if (whereInfoWasFound != count)
+                            return false;
+                        if(!infoPair.ContainsKey(entry.Key)) 
+                        {
+                            infoPair.Add(entry.Key, new Dictionary<string, string>());
+                        }
+                        infoPair[entry.Key].Add(tb.ToolTip, tb.Text);
+                    }
+                }
+                count++;
+            }
+            return true;
+        }
+
+        private void parseInputForAllRows()
+        {
+            foreach (KeyValuePair<string, List<TextBox>> entry in inputBoxes)
+            {
+                foreach (TextBox tb in entry.Value)
+                {
+                    if (!String.IsNullOrWhiteSpace(tb.Text))
+                    {
+                        if (!infoPair.ContainsKey(entry.Key))
+                        {
+                            infoPair.Add(entry.Key, new Dictionary<string, string>());
+                        }
+                        infoPair[entry.Key].Add(tb.ToolTip, tb.Text);
+                    }
+                }
+            }
         }
 
         private void search()
         {
-
+            parseInputForAllRows();
         }
 
         protected void getOut_Click(object sender, EventArgs e)
