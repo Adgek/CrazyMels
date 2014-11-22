@@ -35,7 +35,7 @@ namespace CrazyMelService
             con.Close();
         }
 
-        public void Qeury(string QueryString)
+        public void Query(string QueryString)
         {            
             SqlCommand cmd = new SqlCommand(QueryString, con);
             cmd.ExecuteNonQuery();            

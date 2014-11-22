@@ -14,7 +14,7 @@ namespace ConsoleApplication1
         {
                // Restful service URL
             string url =
-         "http://localhost:57871/CrazyMel.svc/insertCustomer";
+         "http://localhost:57871/CrazyMel.svc/deleteCustomer";
 
             // declare ascii encoding
             ASCIIEncoding encoding = new ASCIIEncoding();
@@ -23,9 +23,9 @@ namespace ConsoleApplication1
             string SampleXml = @"<Object>" +
                                     
                                     "<Type>Customer</Type>" +
-                                    "<CustID>1</CustID>" +
-                                    "<FirstName>matt</FirstName>" +
-                                    "<LastName>anselmo</LastName>" +
+                                    "<CustID>6</CustID>" +
+                                    "<FirstName>Leia</FirstName>" +
+                                    "<LastName>skywalker</LastName>" +
                                     "<PhoneNumber>2267501111</PhoneNumber>"+
                                    
                                 "</Object>";
@@ -35,7 +35,7 @@ namespace ConsoleApplication1
             // declare httpwebrequet wrt url defined above
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
             // set method as post
-            webrequest.Method = "POST";
+            webrequest.Method = "DELETE";
             // set content type
             webrequest.ContentType = "application/x-www-form-urlencoded";
             // set content length
@@ -48,7 +48,7 @@ namespace ConsoleApplication1
             HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
 
             // set utf8 encoding
-            Encoding enc = System.Text.Encoding.GetEncoding("utf-8?");
+            Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
             // read response stream from response object
             StreamReader loResponseStream = 
 		new StreamReader(webresponse.GetResponseStream(), enc);

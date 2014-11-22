@@ -17,9 +17,9 @@ namespace CrazyMelService
         private string inStockColumnName { get; set; }  
 
         [DataMember]
-        public string prodId { get; set; }
+        public string prodID { get; set; }
         [DataMember]
-        public string produName { get; set; }
+        public string prodName { get; set; }
         [DataMember]
         public string price { get; set; }
         [DataMember]
@@ -40,8 +40,8 @@ namespace CrazyMelService
 
         public Product(string ProductName, string Price, string ProdWeight, string InStock, string ProductId = "") : this()
         {
-            productId = ProductId;
-            productName = ProductName;
+            prodID = ProductId;
+            prodName = ProductName;
             price = Price;
             prodWeight = ProdWeight;
             inStock = InStock;
@@ -49,15 +49,15 @@ namespace CrazyMelService
 
         public string SQLInsert()
         {
-            return "INSERT INTO " + tableName + " VALUES ('" + productName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
+            return "INSERT INTO " + tableName + " VALUES ('" + prodName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
         }
 
         public string SQLUpdate()
         {
             string query = "UPDATE " + tableName + " SET ";
 
-            if(productName != ""){
-                query += productNameColumnName + "='" + productName + "', ";
+            if(prodName != ""){
+                query += productNameColumnName + "='" + prodName + "', ";
             }
             if(price != ""){
                 query += priceColumnName + "='" + price + "', ";
@@ -71,23 +71,27 @@ namespace CrazyMelService
 
             query = query.Substring(0, query.LastIndexOf(",")) + query.Substring(query.LastIndexOf(",") + 1);
 
-            query += "WHERE " + productIdColumnName + "='" + productId + "';";
+            query += "WHERE " + productIdColumnName + "='" + prodID + "';";
 
             return query;
         }
 
         public string SQLDelete()
         {
-            return "DELETE FROM  " + tableName + " WHERE " + productIdColumnName + "='" + productId + "');";
+            string query = "";
+            query += "DELETE FROM [Cart] WHERE [Cart].OrderID=(SELECT [ProdID] FROM [Order] WHERE [ProdID]=" + prodID + ");";
+            query += "DELETE FROM [Order] WHERE [ProdID]=" + prodID + ";";
+            query += "DELETE FROM [Product] WHERE [ProdID]=" + prodID + ";";
+            return query;
         }
 
         public bool validateInput()
         {
-            if (!Validator.ValidateInt(productId) && productId != "")
+            if (!Validator.ValidateInt(prodID) && prodID != "")
             {
                 return false;
             }
-            if (!Validator.ValidateVarchar(productName, 100))
+            if (!Validator.ValidateVarchar(prodName, 100))
             {
                 return false;
             }

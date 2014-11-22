@@ -72,7 +72,10 @@ namespace CrazyMelService
 
         public string SQLDelete()
         {
-            return "DELETE FROM  " + tableName + " WHERE " + orderIDColumnName + "='" + orderID + "');";
+            string query = "";
+            query += "DELETE FROM [Cart] WHERE [Cart].OrderID=" + orderID + ";";
+            query += "DELETE FROM [Order] WHERE [OrderID]=" + orderID + ";";            
+            return query;
         }
 
         public bool validateInput()

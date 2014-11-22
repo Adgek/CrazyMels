@@ -112,6 +112,9 @@ namespace CrazyMelService
 
         public bool UpdateCustomer(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
             Customer c = (Customer)XMLParse.ParseXML(xmlString);
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
@@ -128,6 +131,9 @@ namespace CrazyMelService
 
         public bool UpdateProduct(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
             Product c = (Product)XMLParse.ParseXML(xmlString);
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
@@ -144,6 +150,9 @@ namespace CrazyMelService
 
         public bool UpdateOrder(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
             Order c = (Order)XMLParse.ParseXML(xmlString);
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
@@ -160,6 +169,9 @@ namespace CrazyMelService
 
         public bool UpdateCart(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
             Cart c = (Cart)XMLParse.ParseXML(xmlString);
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
@@ -176,23 +188,39 @@ namespace CrazyMelService
 
         //UPDATES
 
-        public bool DeleteCustomer(string CustID, string FirstName, string LastName, string PhoneNumber)
+        public bool DeleteCustomer(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
+            Customer c = (Customer)XMLParse.ParseXML(xmlString);
+
+            if (!c.validateInput()) { return false; }
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLDelete());
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
 
             return true;
         }
 
-        public bool DeleteProduct(string ProdID, string ProductName, string Price, string ProdWeight, string InStock)
+        public bool DeleteProduct(Stream data)
         {
             return true;
         }
 
-        public bool DeleteOrder(string OrderID, string CustID, string PoNumber, string OrderDate)
+        public bool DeleteOrder(Stream data)
         {
             return true;
         }
 
-        public bool DeleteCart(string OrderID, string ProdID, string Quantity)
+        public bool DeleteCart(Stream data)
         {
             return true;
         }
