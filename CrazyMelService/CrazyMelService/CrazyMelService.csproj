@@ -74,6 +74,7 @@
     <Compile Include="CrazyMel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validator.cs" />
+    <Compile Include="XMLParse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

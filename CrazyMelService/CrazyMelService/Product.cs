@@ -17,9 +17,9 @@ namespace CrazyMelService
         private string inStockColumnName { get; set; }  
 
         [DataMember]
-        public string productId { get; set; }
+        public string prodId { get; set; }
         [DataMember]
-        public string productName { get; set; }
+        public string produName { get; set; }
         [DataMember]
         public string price { get; set; }
         [DataMember]
@@ -31,8 +31,8 @@ namespace CrazyMelService
         public Product() 
         {
             tableName = "[Product]";
-            productIdColumnName = "[ProductId]";
-            productNameColumnName = "[ProductName]";
+            productIdColumnName = "[ProdId]";
+            productNameColumnName = "[ProdName]";
             priceColumnName = "[Price]";
             prodWeightColumnName = "[ProdWeight]";
             inStockColumnName = "[InStock]";

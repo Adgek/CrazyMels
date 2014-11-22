@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -14,91 +15,95 @@ namespace CrazyMelService
         //INSERTS
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",//"GET",
                                 ResponseFormat = WebMessageFormat.Xml,
-                                BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "InsertCustomer/{FirstName}/{LastName}/{PhoneNumber}")]
-        bool InsertCustomer(string FirstName, string LastName, string PhoneNumber);
+                                BodyStyle = WebMessageBodyStyle.Bare,                                
+                                UriTemplate = "InsertCustomer/")]
+        //string FirstName, string LastName, string PhoneNumber
+        bool InsertCustomer(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "InsertProduct/{ProductName}/{Price}/{ProdWeight}/{InStock}")]
-        bool InsertProduct(string ProductName, string Price, string ProdWeight, string InStock);
+                                UriTemplate = "InsertProduct/")]
+        //string ProductName, string Price, string ProdWeight, string InStock
+        bool InsertProduct(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "InsertOrder/{CustID}/{PoNumber}/{OrderDate}")]
-        bool InsertOrder(string CustID, string PoNumber, string OrderDate);
+                                UriTemplate = "InsertOrder/")]
+        //string CustID, string PoNumber, string OrderDate
+        bool InsertOrder(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "InsertCart/{OrderID}/{ProdID}/{Quantity}")]
-        bool InsertCart(string OrderID, string ProdID, string Quantity);
+                                UriTemplate = "InsertCart/")]
+        //string OrderID, string ProdID, string Quantity
+        bool InsertCart(Stream data);
 
         //UPDATES
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "UpdateCustomer/{CustID}/{FirstName}/{LastName}/{PhoneNumber}")]
-        bool UpdateCustomer(string CustID, string FirstName, string LastName, string PhoneNumber);
+                                UriTemplate = "UpdateCustomer/")]
+        bool UpdateCustomer(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "UpdateProduct/{ProdID}/{ProductName}/{Price}/{ProdWeight}/{InStock}")]
-        bool UpdateProduct(string ProdID, string ProductName, string Price, string ProdWeight, string InStock);
+                                UriTemplate = "UpdateProduct/")]
+        bool UpdateProduct(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "UpdateOrder/{OrderID}/{CustID}/{PoNumber}/{OrderDate}")]
-        bool UpdateOrder(string OrderID, string CustID, string PoNumber, string OrderDate);
+                                UriTemplate = "UpdateOrder/")]
+        bool UpdateOrder(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "UpdateCart/{OrderID}/{ProdID}/{Quantity}")]
-        bool UpdateCart(string OrderID, string ProdID, string Quantity);
+                                UriTemplate = "UpdateCart/")]
+        bool UpdateCart(Stream data);
 
         //DELETES
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "DeleteCustomer/{CustID}/{FirstName}/{LastName}/{PhoneNumber}")]
-        bool DeleteCustomer(string CustID, string FirstName, string LastName, string PhoneNumber);
+                                UriTemplate = "DeleteCustomer/")]
+        bool DeleteCustomer(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "DeleteProduct/{ProdID}/{ProductName}/{Price}/{ProdWeight}/{InStock}")]
-        bool DeleteProduct(string ProdID, string ProductName, string Price, string ProdWeight, string InStock);
+                                UriTemplate = "DeleteProduct/")]
+        bool DeleteProduct(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "DeleteOrder/{OrderID}/{CustID}/{PoNumber}/{OrderDate}")]
-        bool DeleteOrder(string OrderID, string CustID, string PoNumber, string OrderDate);
+                                UriTemplate = "DeleteOrder/")]
+        bool DeleteOrder(Stream data);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "DeleteCart/{OrderID}/{ProdID}/{Quantity}")]
-        bool DeleteCart(string OrderID, string ProdID, string Quantity);
+                                UriTemplate = "DeleteCart/")]
+        bool DeleteCart(Stream data);
     }
 }

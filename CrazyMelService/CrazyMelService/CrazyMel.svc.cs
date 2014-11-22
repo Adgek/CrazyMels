@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Xml;
 
 namespace CrazyMelService
 {
@@ -18,15 +20,18 @@ namespace CrazyMelService
         private static string SQL_DATABASE = "CrazyMel";
 
         //4 inserts, one for each table. in each, check data, if valid data connect to DB,insert data to db 
-        public bool InsertCustomer(string FirstName, string LastName, string PhoneNumber)
-        {    
-            Customer c = new Customer(FirstName, LastName, PhoneNumber);
+        public bool InsertCustomer(Stream data)//(string FirstName, string LastName, string PhoneNumber)
+        {           
+            StreamReader reader = new StreamReader(data);           
+            string xmlString = reader.ReadToEnd();
+
+            Customer c = (Customer)XMLParse.ParseXML(xmlString);
 
             if (!c.validateInput()) { return false; }
 
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             d.OpenSQLConnection();
-            d.Qeury(c.SQLInsert());
+            d.Qeury(c.SQLInsert());            
             
             return true;
         }
