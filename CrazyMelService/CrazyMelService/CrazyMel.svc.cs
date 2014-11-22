@@ -28,52 +28,149 @@ namespace CrazyMelService
             Customer c = (Customer)XMLParse.ParseXML(xmlString);
 
             if (!c.validateInput()) { return false; }
-
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
-            d.OpenSQLConnection();
-            d.Qeury(c.SQLInsert());            
+            try
+            { 
+                d.OpenSQLConnection();
+                d.Query(c.SQLInsert());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }          
             
             return true;
         }
 
-        public bool InsertProduct(string ProductName, string Price, string ProdWeight, string InStock)
+        public bool InsertProduct(Stream data)
         {
+            StreamReader reader = new StreamReader(data);           
+            string xmlString = reader.ReadToEnd();
+
+            Product c = (Product)XMLParse.ParseXML(xmlString);
+
+            if (!c.validateInput()) { return false; }
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            { 
+                d.OpenSQLConnection();
+                d.Query(c.SQLInsert());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }          
+            
             return true;
         }
 
-        public bool InsertOrder(string CustID, string PoNumber, string OrderDate)
+        public bool InsertOrder(Stream data)
         {
+            StreamReader reader = new StreamReader(data);           
+            string xmlString = reader.ReadToEnd();
+
+            Order c = (Order)XMLParse.ParseXML(xmlString);
+
+            if (!c.validateInput()) { return false; }
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            { 
+                d.OpenSQLConnection();
+                d.Query(c.SQLInsert());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }          
+            
             return true;
         }
 
-        public bool InsertCart(string OrderID, string ProdID, string Quantity)
+        public bool InsertCart(Stream data)
         {
+            StreamReader reader = new StreamReader(data);           
+            string xmlString = reader.ReadToEnd();
+
+            Cart c = (Cart)XMLParse.ParseXML(xmlString);
+
+            if (!c.validateInput()) { return false; }
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            { 
+                d.OpenSQLConnection();
+                d.Query(c.SQLInsert());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }          
+            
             return true;
         }
 
         //UPDATES
 
-        public bool UpdateCustomer(string CustID, string FirstName, string LastName, string PhoneNumber)
+        public bool UpdateCustomer(Stream data)
         {
-            Customer c = new Customer(FirstName, LastName, PhoneNumber, CustID);
+            Customer c = (Customer)XMLParse.ParseXML(xmlString);
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
-            d.OpenSQLConnection();
-            d.Qeury(c.SQLUpdate());
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLUpdate());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
             return true;            
         }
 
-        public bool UpdateProduct(string ProdID, string ProductName, string Price, string ProdWeight, string InStock)
+        public bool UpdateProduct(Stream data)
         {
+            Product c = (Product)XMLParse.ParseXML(xmlString);
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLUpdate());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
             return true;
         }
 
-        public bool UpdateOrder(string OrderID, string CustID, string PoNumber, string OrderDate)
+        public bool UpdateOrder(Stream data)
         {
+            Order c = (Order)XMLParse.ParseXML(xmlString);
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLUpdate());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
             return true;
         }
 
-        public bool UpdateCart(string OrderID, string ProdID, string Quantity)
+        public bool UpdateCart(Stream data)
         {
+            Cart c = (Cart)XMLParse.ParseXML(xmlString);
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLUpdate());
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
             return true;
         }
 
