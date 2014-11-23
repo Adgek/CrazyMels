@@ -80,9 +80,9 @@ E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Owin.dll
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\System.Web.Optimization.dll
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\System.Web.Providers.dll
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\WebGrease.dll
-E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\System.Web.Optimization.xml
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Antlr3.Runtime.pdb
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Newtonsoft.Json.xml
+E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\System.Web.Optimization.xml
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Microsoft.AspNet.FriendlyUrls.xml
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\EntityFramework.xml
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\EntityFramework.SqlServer.xml

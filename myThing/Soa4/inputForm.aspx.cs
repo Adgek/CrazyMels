@@ -46,7 +46,7 @@ namespace Soa4
                     break;
 
             }
-            info.Text = (string)Session["firstPageAction"];            
+            info.InnerHtml += "<h3>" + (string)Session["firstPageAction"] + " mode</h3>";            
         }
 
         private void InitInputList()
@@ -192,18 +192,38 @@ namespace Soa4
                 errors.AddRange(ValidateChars());
                 if(errors.Count > 0)
                 {
-                    errorDiv.InnerHtml = "";
-                    foreach(string error in errors)
-                        errorDiv.InnerHtml += "<p class=\"bg-danger\">" + error + "</p>";
+
+                    ShowAlert(CreateErrorJson(errors, "danger", "glyphicon glyphicon-warning-sign"));
                     valid = false;
                 }
             }
             else
             {
-                errorDiv.InnerHtml += "<p class=\"bg-danger\">You may only enter data for one type when doing a " + (string)Session["firstPageAction"] + ".</p>";
+                List<string> error = new List<string>();
+                error.Add("You may only enter data for one type when doing a " + (string)Session["firstPageAction"]);
+                ShowAlert(CreateErrorJson(error, "danger", "glyphicon glyphicon-warning-sign"));
                 valid = false;
             }
             return valid;
+        }
+
+        private static string CreateErrorJson(List<string> errors, string type, string icon)
+        {
+            string jsonErrors = "[";
+            int count = 0;
+            foreach (string error in errors)
+            {
+                if (count > 0)
+                    jsonErrors += ",";
+                jsonErrors += "{" +
+                "\"icon\" : \"" + icon + "\"," +
+                "\"type\"   : \"" + type + "\"," +
+                "\"message\" : \"" + error + "\"" +
+                "}";
+                count++;
+            }
+            jsonErrors += "]";
+            return jsonErrors;
         }
 
         private List<string> mustContainID()
@@ -293,9 +313,15 @@ namespace Soa4
         {
             parseInputForAllRows();
         }
+        //glyphicon glyphicon-warning-sign
+        private void ShowAlert(string json)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "close", "ShowAlert('"+ json+ "');", true);
+            return;
+        }
 
         protected void getOut_Click(object sender, EventArgs e)
-        {
+        {           
             Response.Redirect("http://www.google.com");
         }
     }

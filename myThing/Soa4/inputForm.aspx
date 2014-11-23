@@ -4,12 +4,14 @@
 
     <div class="jumbotron">
         <h1>Crazy Melvin's Shopping Emporium</h1>
-        <asp:label runat="server" id="info"></asp:label>
+        <div runat="server" ID="info" class="text-center"></div>
     </div>
     <br />
 
 
     <div class="row">
+        <div class="col-md-4 ">
+        </div>
         <div class="col-md-4 text-center">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -20,12 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8 ">
-            <div class="panel panel-default">
-                <div class="panel-body" id="errorDiv" runat="server">
-                
-                </div>
-            </div>
+        <div class="col-md-4 ">
         </div>
     </div>
 
@@ -82,7 +79,7 @@
                 <div class="col-md-3 vertical-center">
                     <br />
                     <label>
-                        <asp:CheckBox id="Psoldout" ToolTip="InStock"  runat="server" value="" />
+                        <asp:CheckBox ID="Psoldout" ToolTip="InStock" runat="server" value="" />
                         Sold Out
                     </label>
                 </div>
@@ -151,4 +148,35 @@
         </div>
     </div>
 
+<script>
+    function ShowAlert(text) {
+        var json = JSON.parse(text);
+        for (var i = 0; i < json.length; i++) {
+            var obj = json[i];
+            icon = obj.icon;
+            type = obj.type;
+            message = obj.message;
+            $.growl({
+                icon: icon,
+                title: '',
+                message: message
+            }, {
+                element: 'body',
+                type: type,
+                placement: {
+                    from: "top",
+                    align: "center"
+                },
+                timer: 100000
+            });
+        }
+            
+    }
+</script>
 </asp:Content>
+
+
+
+
+
+    
