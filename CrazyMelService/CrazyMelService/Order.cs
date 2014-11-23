@@ -35,7 +35,7 @@ namespace CrazyMelService
 
         public Order(string OrderID, string CustID, string PoNumber, string OrderDate) : this()
         {
-            orderID = orderID;
+            orderID = OrderID;
             custID = CustID;
             poNumber = PoNumber;
             orderDate = OrderDate;
@@ -53,7 +53,7 @@ namespace CrazyMelService
 
         public string SQLInsert()
         {
-            return "INSERT INTO " + tableName + " VALUES ('" + custID + "', '" + poNumber + "', '" + orderDate + "');";
+            return "INSERT INTO " + tableName + "(CustID, OrderDate, PoNumber) VALUES ('" + custID + "', '" + orderDate + "', '" + poNumber + "');";
         }
 
         public string SQLUpdate()
@@ -64,14 +64,14 @@ namespace CrazyMelService
             {
                 query += custIDColumnName + "='" + custID + "', ";
             }
-            if (poNumber != "")
-            {
-                query += poNumberColumnName + "='" + poNumber + "', ";
-            }
             if (orderDate != "")
             {
                 query += orderDateColumnName + "='" + orderDate + "', ";
             }
+            if (poNumber != "")
+            {
+                query += poNumberColumnName + "='" + poNumber + "', ";
+            }            
 
             query = query.Substring(0, query.LastIndexOf(",")) + query.Substring(query.LastIndexOf(",") + 1);
 
