@@ -9,12 +9,19 @@ namespace CrazyMelService
     [DataContract]
     public class Product
     {
+        //Adrian Added value
+        //Increment the values by power of two for added on classes
+        private const char QUIERED_VALUE = 2;
+
         private string tableName { get; set; }
         private string productIdColumnName { get; set; }
         private string productNameColumnName { get; set; }
         private string priceColumnName { get; set; }
         private string prodWeightColumnName { get; set; }
-        private string inStockColumnName { get; set; }  
+        private string inStockColumnName { get; set; }
+
+        //Adrian added value
+        private bool quiered { get; set; } 
 
         [DataMember]
         public string prodID { get; set; }
@@ -27,6 +34,10 @@ namespace CrazyMelService
         [DataMember]
         public string inStock { get; set; }
     
+        //Adrian added Value.... not sure i need the DataMember
+        //This also prob makes errors as it wasnt tested.
+        [DataMember]
+        public List<string> whereQueries { get; set; }
     
         public Product() 
         {
@@ -36,6 +47,7 @@ namespace CrazyMelService
             priceColumnName = "[Price]";
             prodWeightColumnName = "[ProdWeight]";
             inStockColumnName = "[InStock]";
+            quiered = false;
         }
 
         public Product(string ProductName, string Price, string ProdWeight, string InStock, string ProductId = "") : this()
@@ -56,10 +68,49 @@ namespace CrazyMelService
             price = namesArray[2];
             prodWeight = namesArray[3];
             inStock = namesArray[4];
+
+            //Adrian Changes add to the WHERE Query of
+            //QuieredColumns and set the flag to true
+            
+            
+            if(prodID != "")
+            {
+                whereQueries.add(addWhereQuery(prodID, prodIDColumnName));
+                quiered = true;
+            }
+            if(prodName != "")
+            {
+                whereQueries.add(addWhereQuery(prodName, prodNameColumnName));
+                quiered = true;
+            }
+            if(price != "")
+            {
+                whereQueries.add(addWhereQuery(price, priceColumnName));
+                quiered = true;
+            }
+            if(prodWeight != "")
+            {
+                whereQueries.add(addWhereQuery(prodWeight, prodWeightColumnName));
+                quiered = true;
+            }
+            if(inStock != "")
+            {
+                whereQueries.add(addWhereQuery(inStock, inStockColumnName));
+                quiered = true;
+            }
+        }
+
+        //Adrian Added Function. makes a Where query.
+        //Might not work not tested. Might need [ORDER] in here..... not sure.
+        public string AddWhereQuery(string value, string columnName)
+        {
+            return "WHERE " + columnName + "='" + value + "';";
         }
 
         public string SQLInsert()
         {
+            //FIX THIS MATTTT NO ORDER lol
+            this is a compileerror so that Matt sees this
             return "INSERT INTO " + tableName + " VALUES ('" + prodName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
         }
 
@@ -119,6 +170,42 @@ namespace CrazyMelService
                 return false;
             }
             return true;
+        }
+
+        public bool validateInput(bool blankIsValid)
+        {
+            if (!Validator.ValidateInt(prodID) && prodID != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarchar(prodName, 100) && prodName != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateFloat(price) && price != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateFloat(prodWeight) && prodWeight != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateBool(inStock) && inStock != "")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Adrian changes get value of orderQuiery
+        public char wasOrderQuiered()
+        {
+            if(quiered)
+            {
+                return QUIERED_VALUE;
+            }
+
+            return 0;
         }
     }
     

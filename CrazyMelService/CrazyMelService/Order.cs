@@ -9,11 +9,19 @@ namespace CrazyMelService
     [DataContract]
     public class Order
     {
+        //Adrian Added value
+        //Increment the values by power of two for added on classes
+        private const char QUIERED_VALUE = 4;
+
         private string tableName { get; set; }
         private string orderIDColumnName { get; set; }
         private string custIDColumnName { get; set; }
         private string poNumberColumnName { get; set; }
-        private string orderDateColumnName { get; set; }  
+        private string orderDateColumnName { get; set; }
+
+        //Adrian added value
+        private bool quiered { get; set; }
+
 
         [DataMember]
         public string orderID { get; set; }
@@ -22,15 +30,23 @@ namespace CrazyMelService
         [DataMember]
         public string poNumber { get; set; }
         [DataMember]
-        public string orderDate { get; set; }   
+        public string orderDate { get; set; }
+        
+        //Adrian added Value.... not sure i need the DataMember
+        //This also prob makes errors as it wasnt tested.
+        [DataMember]
+        public List<string> whereQueries { get; set; }
+
+           
 
         public Order() 
         {
             tableName = "[Order]";
             orderIDColumnName = "[OrderID]";
             custIDColumnName = "[CustID]";
-            poNumber = "[PoNumber]";
+            poNumberColumnName = "[PoNumber]";
             orderDateColumnName = "[OrderDate]";
+            quiered = false;
         }
 
         public Order(string OrderID, string CustID, string PoNumber, string OrderDate) : this()
@@ -49,6 +65,36 @@ namespace CrazyMelService
             custID = namesArray[1];
             poNumber = namesArray[2];
             orderDate = namesArray[3];
+
+            //Adrian Changes add to the WHERE Query of
+            //QuieredColumns and set the flag to true
+            if(orderID != "")
+            {
+                whereQueries.add(addWhereQuery(orderID, orderIDColumnName));
+                quiered = true;
+            }
+            if(custID != "")
+            {
+                whereQueries.add(addWhereQuery(custID, custIDColumnName));
+                quiered = true;
+            }
+            if(poNumber != "")
+            {
+                whereQueries.add(addWhereQuery(poNumber, poNumberColumnName));
+                quiered = true;
+            }
+            if(orderDate != "")
+            {
+                whereQueries.add(addWhereQuery(orderDate, orderDateColumnName));
+                quiered = true;
+            }
+        }
+
+        //Adrian Added Function. makes a Where query.
+        //Might not work not tested. Might need [ORDER] in here..... not sure.
+        public string AddWhereQuery(string value, string columnName)
+        {
+            return "WHERE " + columnName + "='" + value + "';";
         }
 
         public string SQLInsert()
@@ -90,7 +136,7 @@ namespace CrazyMelService
 
         public bool validateInput()
         {
-            if (!Validator.ValidateInt(orderID))
+            if (!Validator.ValidateInt(orderID) && orderID != "")
             {
                 return false;
             }
@@ -107,6 +153,39 @@ namespace CrazyMelService
                 return false;
             }
             return true;
+        }
+
+        //Adrian changes for Search Delete and Update when blank is valid
+        public bool validateInput(bool blankIsValid)
+        {
+            if (!Validator.ValidateInt(orderID) && orderID != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateInt(custID) && custID != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarchar(poNumber, 30) && poNumber != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateDate(orderDate) && orderDate != "")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Adrian Changes get value of orderQuiery
+        public char wasOrderQuiered()
+        {
+            if(quiered)
+            {
+                return QUIERED_VALUE;
+            }
+
+            return 0;
         }
     }
 }

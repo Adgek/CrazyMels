@@ -9,11 +9,18 @@ namespace CrazyMelService
     [DataContract]
     public class Customer
     {
+        //Adrian Added value
+        //Increment the values by power of two for added on classes
+        private const char QUIERED_VALUE = 1;
+
         private string tableName { get; set; }
         private string custIDColumnName { get; set; }
         private string firstNameColumnName { get; set; }
         private string lastNameColumnName { get; set; }
         private string phoneNumberColumnName { get; set; }  
+
+        //Adrian added value
+        private bool quiered { get; set; }
 
         [DataMember]
         private string custID { get; set; }
@@ -23,6 +30,11 @@ namespace CrazyMelService
         private string lastName { get; set; }
         [DataMember]
         private string phoneNumber { get; set; }
+        
+        //Adrian added Value.... not sure i need the DataMember
+        //This also prob makes errors as it wasnt tested.
+        [DataMember]
+        public List<string> whereQueries { get; set; }
 
         public Customer() 
         {
@@ -31,6 +43,7 @@ namespace CrazyMelService
             firstNameColumnName = "[FirstName]";
             lastNameColumnName = "[LastName]";
             phoneNumberColumnName = "[PhoneNumber]";
+            quiered = false;
         }
 
         public Customer(string FirstName, string LastName, string PhoneNumber, string CustID = "") : this()
@@ -49,10 +62,43 @@ namespace CrazyMelService
             firstName = namesArray[1];
             lastName = namesArray[2];
             phoneNumber = namesArray[3];
+
+            //Adrian Changes add to the WHERE Query of
+            //QuieredColumns and set the flag to true
+            
+            if(custID != "")
+            {
+                whereQueries.add(addWhereQuery(custID, custIDColumnName));
+                quiered = true;
+            }
+            if(firstName != "")
+            {
+                whereQueries.add(addWhereQuery(firstName, firstNameColumnName));
+                quiered = true;
+            }
+            if(lastName != "")
+            {
+                whereQueries.add(addWhereQuery(lastName, lastNameColumnName));
+                quiered = true;
+            }
+            if(phoneNumber != "")
+            {
+                whereQueries.add(addWhereQuery(phoneNumber, phoneNumberColumnName));
+                quiered = true;
+            }
+        }
+
+        //Adrian Added Function. makes a Where query.
+        //Might not work not tested. Might need [ORDER] in here..... not sure.
+        public string AddWhereQuery(string value, string columnName)
+        {
+            return "WHERE " + columnName + "='" + value + "';";
         }
 
         public string SQLInsert()
         {
+            //FIX THIS MATTTT NO ORDER lol
+            this is a compileerror so that Matt sees this
             return "INSERT INTO " + tableName + " VALUES ('" + firstName + "', '" + lastName + "', '" + phoneNumber + "');";
         }
 
@@ -105,6 +151,39 @@ namespace CrazyMelService
                 return false;
             }
             return true;
+        }
+
+        //Adrian changes for Search Delete and Update when blank is valid
+        public bool validateInput(bool blankIsValid)
+        {
+            if (!Validator.ValidateInt(custID) && custID != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarchar(firstName, 50) && firstName != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarchar(lastName, 50) && lastName != "")
+            {
+                return false;
+            }
+            if (!Validator.ValidateVarchar(phoneNumber, 12) && phoneNumber != "")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Adrian changes get value of orderQuiery
+        public char wasOrderQuiered()
+        {
+            if(quiered)
+            {
+                return QUIERED_VALUE;
+            }
+
+            return 0;
         }
     }
 
