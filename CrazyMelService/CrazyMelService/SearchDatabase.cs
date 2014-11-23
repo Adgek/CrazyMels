@@ -24,7 +24,8 @@ namespace CrazyMelService
             orderList = new List<Order>();
             cartList = new List<Cart>();
         }
-        public SearchDatabase(Customer c, Product p, Order o, Cart ca) : this()
+        public SearchDatabase(string c, string p, string o, string ca)
+            : this()
         {
             char delimiter = ',';
             customer = new Customer(c, delimiter);
@@ -34,7 +35,7 @@ namespace CrazyMelService
         }
         public string Search()
         {
-            return customer.custID;
+            return "";
         }
 
 
