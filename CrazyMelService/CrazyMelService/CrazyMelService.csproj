@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="CrazyMel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchDatabase.cs" />
     <Compile Include="Validator.cs" />
     <Compile Include="XMLParse.cs" />
   </ItemGroup>

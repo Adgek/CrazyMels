@@ -14,7 +14,7 @@ namespace ConsoleApplication1
         {
                // Restful service URL
             string url =
-         "http://localhost:57871/CrazyMel.svc/deleteCustomer";
+         "http://localhost:57871/CrazyMel.svc/InsertCustomer";
 
             // declare ascii encoding
             ASCIIEncoding encoding = new ASCIIEncoding();
@@ -23,9 +23,9 @@ namespace ConsoleApplication1
             string SampleXml = @"<Object>" +
                                     
                                     "<Type>Customer</Type>" +
-                                    "<CustID>6</CustID>" +
-                                    "<FirstName>Leia</FirstName>" +
-                                    "<LastName>skywalker</LastName>" +
+                                    "<CustID></CustID>" +
+                                    "<FirstName>Big</FirstName>" +
+                                    "<LastName>Ricky</LastName>" +
                                     "<PhoneNumber>2267501111</PhoneNumber>"+
                                    
                                 "</Object>";
@@ -35,7 +35,7 @@ namespace ConsoleApplication1
             // declare httpwebrequet wrt url defined above
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
             // set method as post
-            webrequest.Method = "DELETE";
+            webrequest.Method = "POST";
             // set content type
             webrequest.ContentType = "application/x-www-form-urlencoded";
             // set content length
