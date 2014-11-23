@@ -36,6 +36,15 @@ namespace CrazyMelService
             quantity = Quantity;            
         }
 
+        public Cart(string constructString, char delimiter) : this()
+        {
+            string[] namesArray = constructString.Split(delimiter);
+
+            orderID = namesArray[0];
+            prodID = namesArray[1];
+            quantity = namesArray[2];
+        }
+
         public string SQLInsert()
         {
             return "INSERT INTO " + tableName + " VALUES ('" + orderID + "', '" + prodID + "', '" + quantity + "');";

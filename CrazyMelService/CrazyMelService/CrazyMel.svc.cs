@@ -281,5 +281,11 @@ namespace CrazyMelService
 
             return true;
         }
+
+        public bool SearchQueries(string CustomerString, string ProductString, string OrderString, string CartString);
+        {
+            //call searchdatabase with 4 strings
+            return true
+        }
     }
 }

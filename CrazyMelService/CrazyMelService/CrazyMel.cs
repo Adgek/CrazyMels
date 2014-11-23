@@ -113,5 +113,13 @@ namespace CrazyMelService
                                 UriTemplate = "GetPO/{po}")]
         //string FirstName, string LastName, string PhoneNumber
         bool GetPO(string po);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",//"GET",
+                                ResponseFormat = WebMessageFormat.Xml,
+                                BodyStyle = WebMessageBodyStyle.Bare,                                
+                                UriTemplate = "Search/{CustomerString}/{ProductString}/{OrderString}/{CartString}")]
+        //string FirstName, string LastName, string PhoneNumber
+        bool SearchQueries(string CustomerString, string ProductString, string OrderString, string CartString);
     }
 }
