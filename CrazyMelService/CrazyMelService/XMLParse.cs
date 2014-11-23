@@ -20,38 +20,38 @@ namespace CrazyMelService
 
             string classType = nodes.Item(0).SelectSingleNode("Type").InnerText;
 
-            if (classType == "Customer")
+            if (String.Equals(classType, "Customer", StringComparison.InvariantCultureIgnoreCase))
             {
-                string custID = nodes.Item(0).SelectSingleNode("CustID").InnerText;
-                string firstName = nodes.Item(0).SelectSingleNode("FirstName").InnerText;
-                string lastName = nodes.Item(0).SelectSingleNode("LastName").InnerText;
-                string phoneNumber = nodes.Item(0).SelectSingleNode("PhoneNumber").InnerText;                
+                string custID = GetNodeData(nodes.Item(0), "CustID");
+                string firstName = GetNodeData(nodes.Item(0), "FirstName");
+                string lastName = GetNodeData(nodes.Item(0), "LastName");
+                string phoneNumber = GetNodeData(nodes.Item(0), "PhoneNumber");                
                 
                 obj = new Customer(firstName, lastName, phoneNumber, custID);
             }
 
-            if (classType == "Product")
+            if (String.Equals(classType, "Product", StringComparison.InvariantCultureIgnoreCase))
             {
-                string prodID = nodes.Item(0).SelectSingleNode("ProdID").InnerText;
-                string prodName = nodes.Item(0).SelectSingleNode("ProductName").InnerText;
-                string price = nodes.Item(0).SelectSingleNode("Price").InnerText;
-                string prodWeight = nodes.Item(0).SelectSingleNode("ProdWeight").InnerText;
-                string inStock = nodes.Item(0).SelectSingleNode("InStock").InnerText;
+                string prodID = GetNodeData(nodes.Item(0), "ProdID"); 
+                string prodName = GetNodeData(nodes.Item(0), "ProductName"); 
+                string price = GetNodeData(nodes.Item(0), "Price"); 
+                string prodWeight = GetNodeData(nodes.Item(0), "ProdWeight"); 
+                string inStock = GetNodeData(nodes.Item(0), "InStock");
 
                 obj = new Product(prodName, price, prodWeight, inStock, prodID);
             }
 
-            if (classType == "Order")
+            if (String.Equals(classType, "Order", StringComparison.InvariantCultureIgnoreCase))
             {
-                string orderID = nodes.Item(0).SelectSingleNode("OrderID").InnerText;
-                string custID = nodes.Item(0).SelectSingleNode("CustID").InnerText;
-                string poNumber = nodes.Item(0).SelectSingleNode("PoNumber").InnerText;
-                string orderDate = nodes.Item(0).SelectSingleNode("OrderDate").InnerText;
+                string orderID = GetNodeData(nodes.Item(0), "OrderID"); 
+                string custID = GetNodeData(nodes.Item(0), "CustID"); 
+                string poNumber = GetNodeData(nodes.Item(0), "PoNumber"); 
+                string orderDate = GetNodeData(nodes.Item(0), "OrderDate");
 
                 obj = new Order(orderID, custID, poNumber, orderDate);
             }
 
-            if (classType == "Cart")
+            if (String.Equals(classType, "Cart", StringComparison.InvariantCultureIgnoreCase))
             {
                 string orderID = nodes.Item(0).SelectSingleNode("OrderID").InnerText;
                 string prodID = nodes.Item(0).SelectSingleNode("ProdID").InnerText;
@@ -62,6 +62,22 @@ namespace CrazyMelService
             
 
             return obj;
+        }
+
+        private static string GetNodeData(XmlNode node, string columnName)
+        {
+            string result = "";
+
+            try
+            {
+                result = node.SelectSingleNode(columnName).InnerText;
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Soa4.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,6 +17,10 @@ namespace Soa4
         Dictionary<string, List<TextBox>> inputBoxes = new Dictionary<string, List<TextBox>>();
 
         Dictionary<string, Dictionary<string, string>> infoPair = new Dictionary<string, Dictionary<string, string>>();
+
+        XMLcreator xmlgen = new XMLcreator();
+
+        REST restObject = new REST();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -139,7 +144,11 @@ namespace Soa4
 
         private void insert()
         {
-            parseAndCheckInput();
+            if(parseAndCheckInput())
+            {
+                string xml = xmlgen.CreateXMLSingle(infoPair[infoPair.Keys.First()], infoPair.Keys.First());
+                restObject.MakeRequest(xml, infoPair.Keys.First(), (string)Session["firstPageAction"], "POST");
+            }
         }
 
         private void update()
@@ -170,6 +179,7 @@ namespace Soa4
             }
             else
             {
+                errorDiv.InnerHtml += "<p class=\"bg-danger\">You may only enter data for one type when doing a " + (string)Session["firstPageAction"] + ".</p>";
                 valid = false;
             }
             return valid;
