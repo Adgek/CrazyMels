@@ -33,7 +33,7 @@ namespace CrazyMelService
             if (String.Equals(classType, "Product", StringComparison.InvariantCultureIgnoreCase))
             {
                 string prodID = GetNodeData(nodes.Item(0), "ProdID"); 
-                string prodName = GetNodeData(nodes.Item(0), "ProductName"); 
+                string prodName = GetNodeData(nodes.Item(0), "ProdName"); 
                 string price = GetNodeData(nodes.Item(0), "Price"); 
                 string prodWeight = GetNodeData(nodes.Item(0), "ProdWeight"); 
                 string inStock = GetNodeData(nodes.Item(0), "InStock");

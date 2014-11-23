@@ -38,7 +38,7 @@ namespace Soa4.Models
             HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
 
             // set utf8 encoding
-            Encoding enc = System.Text.Encoding.GetEncoding("utf-8?");
+            Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
             // read response stream from response object
             StreamReader loResponseStream =
         new StreamReader(webresponse.GetResponseStream(), enc);
