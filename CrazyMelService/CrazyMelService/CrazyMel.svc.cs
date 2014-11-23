@@ -284,6 +284,9 @@ namespace CrazyMelService
 
         public bool SearchQueries(string CustomerString, string ProductString, string OrderString, string CartString);
         {
+            SearchDatabase mySearch = new SearchDatabase(CustomerString, ProductString, OrderString, CartString);
+
+            mySearch.Search();
             //call searchdatabase with 4 strings
             return true
         }

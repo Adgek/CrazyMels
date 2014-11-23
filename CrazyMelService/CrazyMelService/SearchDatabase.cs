@@ -26,10 +26,15 @@ namespace CrazyMelService
         }
         public SearchDatabase(Customer c, Product p, Order o, Cart ca) : this()
         {
-            customer = c;
-            product = p;
-            order = o;
-            cart = ca;
+            char delimiter = ',';
+            customer = new Customer(c, delimiter);
+            product = new Product(c, delimiter);
+            order = new Order(c, delimiter);
+            cart = new Cart(c, delimiter);
+        }
+        public string Search()
+        {
+            return customer.custID;
         }
 
 
