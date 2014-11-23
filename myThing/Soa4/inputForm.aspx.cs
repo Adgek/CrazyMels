@@ -146,8 +146,7 @@ namespace Soa4
         {
             if(parseAndCheckInput())
             {
-                string xml = xmlgen.CreateXMLSingle(infoPair[infoPair.Keys.First()], infoPair.Keys.First());
-                restObject.MakeRequest(xml, infoPair.Keys.First(), (string)Session["firstPageAction"], "POST");
+                sendRequest("POST");
             }
         }
 
@@ -155,8 +154,7 @@ namespace Soa4
         {
             if (parseAndCheckInput())
             {
-                string xml = xmlgen.CreateXMLSingle(infoPair[infoPair.Keys.First()], infoPair.Keys.First());
-                restObject.MakeRequest(xml, infoPair.Keys.First(), (string)Session["firstPageAction"], "PUT");
+                sendRequest("PUT");
             }
         }
 
@@ -164,9 +162,22 @@ namespace Soa4
         {
             if (parseAndCheckInput())
             {
-                string xml = xmlgen.CreateXMLSingle(infoPair[infoPair.Keys.First()], infoPair.Keys.First());
-                restObject.MakeRequest(xml, infoPair.Keys.First(), (string)Session["firstPageAction"], "DELETE");
+                sendRequest("DELETE");
             }
+        }
+
+        private void sendRequest(string verb)
+        {
+            string objType = infoPair.Keys.First();
+            if (objType == "product")
+            {
+                int bit = 0;
+                if (Psoldout.Checked)
+                    bit = 1;
+                infoPair[objType].Add("instock", bit.ToString());
+            }
+            string xml = xmlgen.CreateXMLSingle(infoPair[objType], objType);
+            restObject.MakeRequest(xml, objType, (string)Session["firstPageAction"], verb);
         }
 
         private Boolean parseAndCheckInput()
