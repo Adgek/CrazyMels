@@ -41,6 +41,16 @@ namespace CrazyMelService
             phoneNumber = PhoneNumber;            
         }
 
+        public Customer(string constructString, char delimiter) : this()
+        {
+            string[] namesArray = constructString.Split(delimiter);
+
+            custID = namesArray[0];
+            firstName = namesArray[1];
+            lastName = namesArray[2];
+            phoneNumber = namesArray[3];
+        }
+
         public string SQLInsert()
         {
             return "INSERT INTO " + tableName + " VALUES ('" + firstName + "', '" + lastName + "', '" + phoneNumber + "');";

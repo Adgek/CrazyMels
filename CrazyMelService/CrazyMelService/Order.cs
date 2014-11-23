@@ -41,6 +41,16 @@ namespace CrazyMelService
             orderDate = OrderDate;
         }
 
+        public Order(string constructString, char delimiter) : this()
+        {
+            string[] namesArray = constructString.Split(delimiter);
+
+            orderID = namesArray[0];
+            custID = namesArray[1];
+            poNumber = namesArray[2];
+            orderDate = namesArray[3];
+        }
+
         public string SQLInsert()
         {
             return "INSERT INTO " + tableName + " VALUES ('" + custID + "', '" + poNumber + "', '" + orderDate + "');";

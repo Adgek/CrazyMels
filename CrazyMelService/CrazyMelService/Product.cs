@@ -47,6 +47,17 @@ namespace CrazyMelService
             inStock = InStock;
         }
 
+        public Product(string constructString, char delimiter) : this()
+        {
+            string[] namesArray = constructString.Split(delimiter);
+
+            prodID = namesArray[0];
+            prodName = namesArray[1];
+            price = namesArray[2];
+            prodWeight = namesArray[3];
+            inStock = namesArray[4];
+        }
+
         public string SQLInsert()
         {
             return "INSERT INTO " + tableName + " VALUES ('" + prodName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
