@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Soa4
 {
+    //http://stackoverflow.com/questions/17013300/insert-datetime-into-sql-server-2008-from-c-sharp
     public partial class inputForm : System.Web.UI.Page
     {
         static string regex = @"^[A-Za-z0-9_.-]+$";

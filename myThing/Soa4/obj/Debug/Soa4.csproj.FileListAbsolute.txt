@@ -101,3 +101,4 @@ E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Microsoft.Owin.Security.Microsoft
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Microsoft.Owin.Security.OAuth.xml
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\obj\Debug\Soa4.dll
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\obj\Debug\Soa4.pdb
+E:\Documents\GitHub\CrazyMels\myThing\Soa4\obj\Debug\Soa4.csprojResolveAssemblyReference.cache

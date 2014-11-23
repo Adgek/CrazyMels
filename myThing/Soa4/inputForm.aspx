@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="custID">custID</label>
-                    <asp:TextBox runat="server" ToolTip="CustId" class="form-control" ID="CcustID" placeholder="Enter custID" />
+                    <asp:TextBox runat="server" ToolTip="CustID" class="form-control" ID="CcustID" placeholder="Enter custID" />
                 </div>
                 <div class="col-md-3">
                     <label for="custID">firstName</label>
