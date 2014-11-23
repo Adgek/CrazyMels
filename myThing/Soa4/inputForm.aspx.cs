@@ -171,10 +171,10 @@ namespace Soa4
             string objType = infoPair.Keys.First();
             if (objType == "product")
             {
-                int bit = 0;
+                string Checked = "false";
                 if (Psoldout.Checked)
-                    bit = 1;
-                infoPair[objType].Add("instock", bit.ToString());
+                    Checked = "true";
+                infoPair[objType].Add("InStock", Checked.ToString());
             }
             string xml = xmlgen.CreateXMLSingle(infoPair[objType], objType);
             restObject.MakeRequest(xml, objType, (string)Session["firstPageAction"], verb);

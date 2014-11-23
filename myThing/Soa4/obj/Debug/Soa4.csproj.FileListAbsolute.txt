@@ -99,6 +99,5 @@ E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Microsoft.Owin.Security.Google.xm
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Microsoft.Owin.Security.Twitter.xml
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\bin\Microsoft.Owin.Security.OAuth.xml
-E:\Documents\GitHub\CrazyMels\myThing\Soa4\obj\Debug\Soa4.csprojResolveAssemblyReference.cache
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\obj\Debug\Soa4.dll
 E:\Documents\GitHub\CrazyMels\myThing\Soa4\obj\Debug\Soa4.pdb
