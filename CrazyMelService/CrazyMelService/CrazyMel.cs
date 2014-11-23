@@ -15,7 +15,7 @@ namespace CrazyMelService
         //INSERTS
 
         [OperationContract]
-        [WebInvoke(Method = "POST",//"GET",
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,                                
                                 UriTemplate = "InsertCustomer/")]
@@ -105,5 +105,13 @@ namespace CrazyMelService
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "DeleteCart/")]
         bool DeleteCart(Stream data);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+                                ResponseFormat = WebMessageFormat.Xml,
+                                BodyStyle = WebMessageBodyStyle.Bare,
+                                UriTemplate = "GetPO/{po}")]
+        //string FirstName, string LastName, string PhoneNumber
+        bool GetPO(string po);
     }
 }

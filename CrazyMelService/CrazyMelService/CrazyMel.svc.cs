@@ -212,16 +212,73 @@ namespace CrazyMelService
 
         public bool DeleteProduct(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
+            Product c = (Product)XMLParse.ParseXML(xmlString);
+
+            if (!c.validateInput()) { return false; }
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLDelete());
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
             return true;
         }
 
         public bool DeleteOrder(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
+            Order c = (Order)XMLParse.ParseXML(xmlString);
+
+            if (!c.validateInput()) { return false; }
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLDelete());
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
             return true;
         }
 
         public bool DeleteCart(Stream data)
         {
+            StreamReader reader = new StreamReader(data);
+            string xmlString = reader.ReadToEnd();
+
+            Cart c = (Cart)XMLParse.ParseXML(xmlString);
+
+            if (!c.validateInput()) { return false; }
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+                d.Query(c.SQLDelete());
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool GetPO(string po)
+        {
+
             return true;
         }
     }
