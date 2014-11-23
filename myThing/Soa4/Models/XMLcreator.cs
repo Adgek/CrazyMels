@@ -25,8 +25,7 @@ namespace Soa4.Models
 /*
 
 <Object>
-  <Type>Customer</Type>
-  <CustID>1</CustID>
+  <Type>Customer</Type>  
   <FirstName>matt</FirstName>
   <LastName>anselmo</LastName>
   <PhoneNumber>2267501111</PhoneNumber>  
