@@ -153,12 +153,20 @@ namespace Soa4
 
         private void update()
         {
-            parseAndCheckInput();
+            if (parseAndCheckInput())
+            {
+                string xml = xmlgen.CreateXMLSingle(infoPair[infoPair.Keys.First()], infoPair.Keys.First());
+                restObject.MakeRequest(xml, infoPair.Keys.First(), (string)Session["firstPageAction"], "PUT");
+            }
         }
 
         private void delete()
         {
-            parseAndCheckInput();
+            if (parseAndCheckInput())
+            {
+                string xml = xmlgen.CreateXMLSingle(infoPair[infoPair.Keys.First()], infoPair.Keys.First());
+                restObject.MakeRequest(xml, infoPair.Keys.First(), (string)Session["firstPageAction"], "DELETE");
+            }
         }
 
         private Boolean parseAndCheckInput()
@@ -167,7 +175,8 @@ namespace Soa4
             List<string> errors = new List<string>();
             if (parseInputForSingleRow())
             {
-                errors.AddRange(mustContainID());
+                if ((string)Session["firstPageAction"] != "insert")
+                    errors.AddRange(mustContainID());
                 errors.AddRange(ValidateChars());
                 if(errors.Count > 0)
                 {
