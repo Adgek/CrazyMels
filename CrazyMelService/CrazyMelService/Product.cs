@@ -69,9 +69,7 @@ namespace CrazyMelService
             inStock = namesArray[4];
 
             //Adrian Changes add to the WHERE Query of
-            //QuieredColumns and set the flag to true
-            
-            
+            //QuieredColumns and set the flag to true           
             if(prodID != "")
             {
                 whereQueries.Add(AddWhereQuery(prodID, productIdColumnName));
@@ -108,9 +106,7 @@ namespace CrazyMelService
 
         public string SQLInsert()
         {
-            //FIX THIS MATTTT NO ORDER lol
-            //this is a compileerror so that Matt sees this
-            return "INSERT INTO " + tableName + " VALUES ('" + prodName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
+            return "INSERT INTO " + tableName + " ([ProdName], [Price], [ProdWeight], [InStock]) VALUES ('" + prodName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
         }
 
         public string SQLUpdate()
@@ -141,7 +137,6 @@ namespace CrazyMelService
         {
             string query = "";
             query += "DELETE FROM [Cart] WHERE [Cart].OrderID=(SELECT [ProdID] FROM [Order] WHERE [ProdID]=" + prodID + ");";
-            query += "DELETE FROM [Order] WHERE [ProdID]=" + prodID + ";";
             query += "DELETE FROM [Product] WHERE [ProdID]=" + prodID + ";";
             return query;
         }
@@ -152,7 +147,7 @@ namespace CrazyMelService
             {
                 return false;
             }
-            if (!Validator.ValidateVarchar(prodName, 100))
+            if (!Validator.ValidateVarchar(prodName, 100) || prodName == "")
             {
                 return false;
             }

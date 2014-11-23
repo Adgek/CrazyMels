@@ -141,11 +141,11 @@ namespace CrazyMelService
             {
                 return false;
             }
-            if (!Validator.ValidateVarchar(lastName, 50))
+            if (!Validator.ValidateVarchar(lastName, 50) || lastName == "")
             {
                 return false;
             }
-            if (!Validator.ValidateVarchar(phoneNumber, 12))
+            if (!Validator.ValidateVarchar(phoneNumber, 12) || phoneNumber == "")
             {
                 return false;
             }

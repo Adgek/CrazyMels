@@ -195,7 +195,7 @@ namespace CrazyMelService
 
             Customer c = (Customer)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput(true)) { return false; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
@@ -217,7 +217,7 @@ namespace CrazyMelService
 
             Product c = (Product)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput(true)) { return false; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
@@ -239,7 +239,7 @@ namespace CrazyMelService
 
             Order c = (Order)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput(true)) { return false; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
@@ -261,7 +261,7 @@ namespace CrazyMelService
 
             Cart c = (Cart)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput(true)) { return false; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
