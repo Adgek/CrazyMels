@@ -11,7 +11,7 @@ namespace CrazyMelService
     {
         //Adrian Added value
         //Increment the values by power of two for added on classes
-        private const char QUIERED_VALUE = 1;
+        private const int QUIERED_VALUE = 1;
 
         private string tableName { get; set; }
         private string custIDColumnName { get; set; }
@@ -32,8 +32,7 @@ namespace CrazyMelService
         private string phoneNumber { get; set; }
         
         //Adrian added Value.... not sure i need the DataMember
-        //This also prob makes errors as it wasnt tested.
-        [DataMember]
+        //This also prob makes errors as it wasnt tested.    
         public List<string> whereQueries { get; set; }
 
         public Customer() 
@@ -68,22 +67,22 @@ namespace CrazyMelService
             
             if(custID != "")
             {
-                whereQueries.add(addWhereQuery(custID, custIDColumnName));
+                whereQueries.Add(AddWhereQuery(custID, custIDColumnName));
                 quiered = true;
             }
             if(firstName != "")
             {
-                whereQueries.add(addWhereQuery(firstName, firstNameColumnName));
+                whereQueries.Add(AddWhereQuery(firstName, firstNameColumnName));
                 quiered = true;
             }
             if(lastName != "")
             {
-                whereQueries.add(addWhereQuery(lastName, lastNameColumnName));
+                whereQueries.Add(AddWhereQuery(lastName, lastNameColumnName));
                 quiered = true;
             }
             if(phoneNumber != "")
             {
-                whereQueries.add(addWhereQuery(phoneNumber, phoneNumberColumnName));
+                whereQueries.Add(AddWhereQuery(phoneNumber, phoneNumberColumnName));
                 quiered = true;
             }
         }
@@ -98,7 +97,7 @@ namespace CrazyMelService
         public string SQLInsert()
         {
             //FIX THIS MATTTT NO ORDER lol
-            this is a compileerror so that Matt sees this
+            //this is a compileerror so that Matt sees this
             return "INSERT INTO " + tableName + " VALUES ('" + firstName + "', '" + lastName + "', '" + phoneNumber + "');";
         }
 
@@ -176,7 +175,7 @@ namespace CrazyMelService
         }
 
         //Adrian changes get value of orderQuiery
-        public char wasOrderQuiered()
+        public int WasCustomerQuiered()
         {
             if(quiered)
             {

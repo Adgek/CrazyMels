@@ -11,7 +11,7 @@ namespace CrazyMelService
     {
         //Adrian Added value
         //Increment the values by power of two for added on classes
-        private const char QUIERED_VALUE = 8;
+        private const int QUIERED_VALUE = 8;
 
         private string tableName { get; set; }
         private string orderIDColumnName { get; set; }
@@ -30,7 +30,6 @@ namespace CrazyMelService
       
         //Adrian added Value.... not sure i need the DataMember
         //This also prob makes errors as it wasnt tested.
-        [DataMember]
         public List<string> whereQueries { get; set; }
 
         public Cart() 
@@ -62,17 +61,17 @@ namespace CrazyMelService
             
             if(orderID != "")
             {
-                whereQueries.add(addWhereQuery(orderID, orderIDColumnName));
+                whereQueries.Add(AddWhereQuery(orderID, orderIDColumnName));
                 quiered = true;
             }
             if(prodID != "")
             {
-                whereQueries.add(addWhereQuery(prodID, prodIDColumnName));
+                whereQueries.Add(AddWhereQuery(prodID, prodIDColumnName));
                 quiered = true;
             }
             if(quantity != "")
             {
-                whereQueries.add(addWhereQuery(quantity, quantityColumnName));
+                whereQueries.Add(AddWhereQuery(quantity, quantityColumnName));
                 quiered = true;
             }
         }
@@ -87,7 +86,7 @@ namespace CrazyMelService
         public string SQLInsert()
         {
             //FIX THIS MATTTT NO ORDER lol
-            this is a compileerror so that Matt sees this
+            //this is a compileerror so that Matt sees this
             return "INSERT INTO " + tableName + " VALUES ('" + orderID + "', '" + prodID + "', '" + quantity + "');";
         }
 
@@ -158,7 +157,7 @@ namespace CrazyMelService
         }
 
         //Adrian changes get value of orderQuiery
-        public char wasOrderQuiered()
+        public int WasCartQuiered()
         {
             if(quiered)
             {

@@ -11,7 +11,7 @@ namespace CrazyMelService
     {
         //Adrian Added value
         //Increment the values by power of two for added on classes
-        private const char QUIERED_VALUE = 4;
+        private const int QUIERED_VALUE = 4;
 
         private string tableName { get; set; }
         private string orderIDColumnName { get; set; }
@@ -21,7 +21,6 @@ namespace CrazyMelService
 
         //Adrian added value
         private bool quiered { get; set; }
-
 
         [DataMember]
         public string orderID { get; set; }
@@ -33,11 +32,8 @@ namespace CrazyMelService
         public string orderDate { get; set; }
         
         //Adrian added Value.... not sure i need the DataMember
-        //This also prob makes errors as it wasnt tested.
-        [DataMember]
-        public List<string> whereQueries { get; set; }
-
-           
+        //This also prob makes errors as it wasnt tested.        
+        public List<string> whereQueries { get; set; }           
 
         public Order() 
         {
@@ -70,22 +66,22 @@ namespace CrazyMelService
             //QuieredColumns and set the flag to true
             if(orderID != "")
             {
-                whereQueries.add(addWhereQuery(orderID, orderIDColumnName));
+                whereQueries.Add(AddWhereQuery(orderID, orderIDColumnName));
                 quiered = true;
             }
             if(custID != "")
             {
-                whereQueries.add(addWhereQuery(custID, custIDColumnName));
+                whereQueries.Add(AddWhereQuery(custID, custIDColumnName));
                 quiered = true;
             }
             if(poNumber != "")
             {
-                whereQueries.add(addWhereQuery(poNumber, poNumberColumnName));
+                whereQueries.Add(AddWhereQuery(poNumber, poNumberColumnName));
                 quiered = true;
             }
             if(orderDate != "")
             {
-                whereQueries.add(addWhereQuery(orderDate, orderDateColumnName));
+                whereQueries.Add(AddWhereQuery(orderDate, orderDateColumnName));
                 quiered = true;
             }
         }
@@ -178,7 +174,7 @@ namespace CrazyMelService
         }
 
         //Adrian Changes get value of orderQuiery
-        public char wasOrderQuiered()
+        public int WasOrderQuiered()
         {
             if(quiered)
             {

@@ -41,7 +41,7 @@ namespace CrazyMelService
             }
 
             //get combination of Search
-            int useCaseValue = customer.wasCustomerQuiered() + product.wasProductQuiered() + order.wasOrderQuiered() + cart.wasCartQuiered();
+            int useCaseValue = customer.WasCustomerQuiered() + product.WasProductQuiered() + order.WasOrderQuiered() + cart.WasCartQuiered();
 
             //If statement on value to determine usecase
             switch (useCaseValue)
@@ -88,7 +88,7 @@ namespace CrazyMelService
             }
         }
 
-        public bool ValidateSearchFields
+        public bool ValidateSearchFields()
         {
             bool IGNORE_BLANK_ENTRIES_FOR_VALIDATION = true;//This might be bad code Kyle/Matt. Kinda smells to have overloaded method just to share same name? I unno lol
                                                             //Maybe make the bool mean something and have both functions in one on an if statement. might be better.
@@ -97,7 +97,7 @@ namespace CrazyMelService
             if (!product.validateInput(IGNORE_BLANK_ENTRIES_FOR_VALIDATION)) { return false; }
             if (!order.validateInput(IGNORE_BLANK_ENTRIES_FOR_VALIDATION)) { return false; }
             if (!cart.validateInput(IGNORE_BLANK_ENTRIES_FOR_VALIDATION)) { return false; }
-            return true
+            return true;
         }
 
 

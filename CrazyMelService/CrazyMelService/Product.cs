@@ -11,7 +11,7 @@ namespace CrazyMelService
     {
         //Adrian Added value
         //Increment the values by power of two for added on classes
-        private const char QUIERED_VALUE = 2;
+        private const int QUIERED_VALUE = 2;
 
         private string tableName { get; set; }
         private string productIdColumnName { get; set; }
@@ -35,8 +35,7 @@ namespace CrazyMelService
         public string inStock { get; set; }
     
         //Adrian added Value.... not sure i need the DataMember
-        //This also prob makes errors as it wasnt tested.
-        [DataMember]
+        //This also prob makes errors as it wasnt tested.        
         public List<string> whereQueries { get; set; }
     
         public Product() 
@@ -75,27 +74,27 @@ namespace CrazyMelService
             
             if(prodID != "")
             {
-                whereQueries.add(addWhereQuery(prodID, prodIDColumnName));
+                whereQueries.Add(AddWhereQuery(prodID, productIdColumnName));
                 quiered = true;
             }
             if(prodName != "")
             {
-                whereQueries.add(addWhereQuery(prodName, prodNameColumnName));
+                whereQueries.Add(AddWhereQuery(prodName, productNameColumnName));
                 quiered = true;
             }
             if(price != "")
             {
-                whereQueries.add(addWhereQuery(price, priceColumnName));
+                whereQueries.Add(AddWhereQuery(price, priceColumnName));
                 quiered = true;
             }
             if(prodWeight != "")
             {
-                whereQueries.add(addWhereQuery(prodWeight, prodWeightColumnName));
+                whereQueries.Add(AddWhereQuery(prodWeight, prodWeightColumnName));
                 quiered = true;
             }
             if(inStock != "")
             {
-                whereQueries.add(addWhereQuery(inStock, inStockColumnName));
+                whereQueries.Add(AddWhereQuery(inStock, inStockColumnName));
                 quiered = true;
             }
         }
@@ -110,7 +109,7 @@ namespace CrazyMelService
         public string SQLInsert()
         {
             //FIX THIS MATTTT NO ORDER lol
-            this is a compileerror so that Matt sees this
+            //this is a compileerror so that Matt sees this
             return "INSERT INTO " + tableName + " VALUES ('" + prodName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
         }
 
@@ -198,7 +197,7 @@ namespace CrazyMelService
         }
 
         //Adrian changes get value of orderQuiery
-        public char wasOrderQuiered()
+        public int WasProductQuiered()
         {
             if(quiered)
             {
