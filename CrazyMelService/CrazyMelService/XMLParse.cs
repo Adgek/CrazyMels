@@ -53,9 +53,9 @@ namespace CrazyMelService
 
             if (String.Equals(classType, "Cart", StringComparison.InvariantCultureIgnoreCase))
             {
-                string orderID = nodes.Item(0).SelectSingleNode("OrderID").InnerText;
-                string prodID = nodes.Item(0).SelectSingleNode("ProdID").InnerText;
-                string quantity = nodes.Item(0).SelectSingleNode("Quantity").InnerText;
+                string orderID = GetNodeData(nodes.Item(0), "OrderID"); 
+                string prodID = GetNodeData(nodes.Item(0), "ProdID"); 
+                string quantity = GetNodeData(nodes.Item(0), "Quantity");
 
                 obj = new Cart(orderID, prodID, quantity);
             } 
