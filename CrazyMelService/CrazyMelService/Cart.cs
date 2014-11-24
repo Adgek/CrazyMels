@@ -13,10 +13,10 @@ namespace CrazyMelService
         //Increment the values by power of two for added on classes
         private const int QUIERED_VALUE = 8;
 
-        private string tableName { get; set; }
-        private string orderIDColumnName { get; set; }
-        private string prodIDColumnName { get; set; }
-        private string quantityColumnName { get; set; }
+        public string tableName { get; set; }
+        public string orderIDColumnName { get; set; }
+        public string prodIDColumnName { get; set; }
+        public string quantityColumnName { get; set; }
         
         //Adrian added value
         private bool quiered { get; set; }
@@ -30,7 +30,7 @@ namespace CrazyMelService
       
         //Adrian added Value.... not sure i need the DataMember
         //This also prob makes errors as it wasnt tested.
-        public List<string> whereQueries { get; set; }
+        public List<string> whereQueries;
 
         public Cart() 
         {
@@ -39,6 +39,7 @@ namespace CrazyMelService
             prodIDColumnName = "[ProdID]";
             quantityColumnName = "[Quantity]";
             quiered = false;
+            whereQueries = new List<string>();
         }
 
         public Cart(string OrderID, string ProdID, string Quantity) : this()
@@ -80,7 +81,7 @@ namespace CrazyMelService
         //Might not work not tested. Might need [ORDER] in here..... not sure.
         public string AddWhereQuery(string value, string columnName)
         {
-            return "WHERE " + columnName + "='" + value + "';";
+            return "[Cart]." + columnName + "='" + value + "'";
         }
 
         public string SQLInsert()
@@ -145,11 +146,11 @@ namespace CrazyMelService
             {
                 return false;
             }
-            if (!Validator.ValidateInt(prodID) && orderID != "")
+            if (!Validator.ValidateInt(prodID) && prodID != "")
             {
                 return false;
             }
-            if (!Validator.ValidateInt(quantity)  && orderID != "")
+            if (!Validator.ValidateInt(quantity)  && quantity != "")
             {
                 return false;
             }

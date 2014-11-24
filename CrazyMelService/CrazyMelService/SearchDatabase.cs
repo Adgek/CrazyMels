@@ -17,21 +17,24 @@ namespace CrazyMelService
         List<Order> orderList;
         List<Cart> cartList;
 
+        public List<string> searchColumns;
+
         public SearchDatabase()
         {
             customerList = new List<Customer>();
             productList = new List<Product>();
             orderList = new List<Order>();
             cartList = new List<Cart>();
+
+            searchColumns = new List<string>();
         }
-        public SearchDatabase(string c, string p, string o, string ca)
-            : this()
+        public SearchDatabase(string c, string p, string o, string ca) : this()
         {
             char delimiter = ',';
             customer = new Customer(c, delimiter);
-            product = new Product(c, delimiter);
-            order = new Order(c, delimiter);
-            cart = new Cart(c, delimiter);
+            product = new Product(p, delimiter);
+            order = new Order(o, delimiter);
+            cart = new Cart(ca, delimiter);
         }
         public string SearchPo(string po)
         {
@@ -98,9 +101,8 @@ namespace CrazyMelService
 
         public bool ValidateSearchFields()
         {
-            bool IGNORE_BLANK_ENTRIES_FOR_VALIDATION = true;//This might be bad code Kyle/Matt. Kinda smells to have overloaded method just to share same name? I unno lol
-                                                            //Maybe make the bool mean something and have both functions in one on an if statement. might be better.
-            //validate user input
+            bool IGNORE_BLANK_ENTRIES_FOR_VALIDATION = true;
+
             if (!customer.validateInput(IGNORE_BLANK_ENTRIES_FOR_VALIDATION)) { return false; }
             if (!product.validateInput(IGNORE_BLANK_ENTRIES_FOR_VALIDATION)) { return false; }
             if (!order.validateInput(IGNORE_BLANK_ENTRIES_FOR_VALIDATION)) { return false; }
@@ -108,117 +110,199 @@ namespace CrazyMelService
             return true;
         }
 
-
-
-
-        //This is where i started Pseudocoding. Hope its easy to code. getting a bit late lol
-        //***********************************
-        // If this works fine i'm sure there is a better pattern here to make it 
-        //more efficient and better coding. We can discuse that later Tommorrow
-        //unless you see something i dont which is quick and easy. I'm noticing alot of 
-        //repitition in my psuedocode of Inner joins and the Foreach's of certain tables.
-        //************************************
-        //Good Luck and Keep me in the loop tommorrow. The games at one till 4 then dinner after so I will be at Kyles at night.:)
         public string searchCustomers()
         {
-            //Select *
-                //FOREACH value in customer.whereQueries to print out where statements
-            return "success Return Goes here";   
+            AddCustomerColumnNames();
+
+            string query = "SELECT * FROM [Customer] ";
+            query += GetWheres();
+
+            return query;   
         }
 
+        
         public string searchProducts()
-        {  
-            //Select *
-                //FOREACH value in products.whereQueries to print out where statements
-            return "success Return Goes here";   
+        {
+            AddProductColumnNames();
+
+            string query = "SELECT * FROM [Product] ";
+
+            query += GetWheres();
+
+            return query;     
         }
+
+        
 
         public string searchOrders()
         {
-            //Select *
-                //FOREACH value in Orders.whereQueries to print out where statements
-            return "success Return Goes here";   
+            AddOrderColumnNames();
+
+            string query = "SELECT * FROM [Order] ";
+            query += GetWheres();
+
+            return query;    
         }
+
+        
 
         public string searchCustomersOrders()
         {
-            //Select *
-                //Inner Join Customers and Orders
-                //FOREACH value in customer.whereQueries
-                //FOREACH value in Orders.whereQueries
-            return "success Return Goes here";   
-        }
+            AddCustomerColumnNames();
+            AddOrderColumnNames();
 
+            string query = "SELECT * FROM [Customer] INNER JOIN [Order] ON [Customer].[CustID]=[Order].[CustID] ";
+
+            query += GetWheres();
+            return query;   
+        }
+                
         public string searchProductsInCustomersOrders()
         {
-            //Select *
-                //Inner Join Orders, Products, Carts and Customers
-                    // Carts for linking is not displayed
-                    // Customers because of our ID Rule is displayed
-                //FOREACH value in products.whereQueries
-                //FOREACH value in Orders.whereQueries
-            return "success Return Goes here";   
-        }
+            AddProductColumnNames();
+            AddOrderColumnNames();
 
+            string query = "SELECT [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock, [Order].OrderID, [Order].CustID, [Order].PoNumber, [Order].OrderDate FROM [Product]";
+            query += " INNER JOIN [Cart] ON [Cart].ProdID=[Product].ProdID";
+            query += " INNER JOIN [Order] ON [Order].OrderID=[Cart].OrderID ";                                   
+
+            query += GetWheres();
+            
+            return query;      
+        }
+        
         public string searchCarts()
         {
-            //Select *
-                //FOREACH value in Carts.whereQueries to print out where statements
-            return "success Return Goes here";   
+            AddCartColumnNames();
+
+            string query = "SELECT * FROM [Cart] ";
+            
+            query += GetWheres();
+        
+            return query;   
         }
 
         //This one is funky might be too tired to think straight...lol
         public string searchCustomersOrdersQuantities()
         {
-            //Select *
-                //Inner Join Customers Orders Carts and Products 
-                    // Orders because of our OrderID rule
-                    // Products because of our prodID rule
-                //FOREACH value in customer.whereQueries
-                //FOREACH value in Carts.whereQueries
-            return "success Return Goes here";   
+            AddCustomerColumnNames();
+            AddCartColumnNames();
+
+            string query = "SELECT [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber, [Cart].OrderID, [Cart].ProdID, [Cart].Quantity FROM [Customer]";
+            query += " INNER JOIN [Order] ON [Order].CustID=[Customer].CustID";
+            query += " INNER JOIN [Cart] ON [Cart].OrderID=[Order].OrderID ";
+
+            query += GetWheres();
+            return query;      
         }
 
         public string searchProductQuantities()
         {
-            //Select *
-                //Inner Join Products and Carts
-                //FOREACH value in products.whereQueries
-                //FOREACH value in Carts.whereQueries
-            return "success Return Goes here";
+            AddProductColumnNames();
+            AddCartColumnNames();
+
+            string query = "SELECT * FROM [Product]";
+            query += " INNER JOIN [Cart] ON [Cart].ProdID=[Product].ProdID ";           
+
+            query += GetWheres();
+            return query;      
         }
 
         public string searchCartsinOrders()
         {
-            //Select *
-                //Inner Join Orders and Carts
-                //FOREACH value in Orders.whereQueries
-                //FOREACH value in Carts.whereQueries
-            return "success Return Goes here";   
+            AddOrderColumnNames();
+            AddCartColumnNames();
+
+            string query = "SELECT * FROM [Order]";
+            query += " INNER JOIN [Cart] ON [Cart].OrderID=[Order].OrderID ";
+
+            query += GetWheres();
+            return query;    
         }
 
         public string searchCustomersQuantitiesInSpecificOrders()
         {
-            //Select *
-                //Inner Join Customers, Orders, Carts and Products
-                    //Products because of prodID rule
-                //FOREACH value in customer.whereQueries
-                //FOREACH value in Orders.whereQueries
-                //FOREACH value in Carts.whereQueries
-            return "success Return Goes here";   
+            AddCustomerColumnNames();
+            AddOrderColumnNames();
+            AddCartColumnNames();
+
+            string query = "SELECT [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber, [Order].OrderID, [Order].CustID, [Order].PoNumber, [Order].OrderDate, [Cart].OrderID, [Cart].ProdID, [Cart].Quantity FROM [Customer]";
+            query += " INNER JOIN [Order] ON [Order].CustID=[Customer].CustID";
+            query += " INNER JOIN [Cart] ON [Cart].OrderID=[Order].OrderID ";
+
+            query += GetWheres();
+            return query;       
         }
 
         public string searchProductsQuantitiesInSpecificOrders()
         {
-            //Select *
-                //Inner Join Products, Orders, Carts and Customers
-                    //Customers because of custID rule
-                //FOREACH value in product.whereQueries
-                //FOREACH value in Orders.whereQueries
-                //FOREACH value in Carts.whereQueries
-            return "success Return Goes here";   
+            AddProductColumnNames();
+            AddOrderColumnNames();
+            AddCartColumnNames();
+
+            string query = "SELECT [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock, [Order].OrderID, [Order].CustID, [Order].PoNumber, [Order].OrderDate, [Cart].OrderID, [Cart].ProdID, [Cart].Quantity FROM [Product]";
+            query += " INNER JOIN [Cart] ON [Cart].ProdID=[Product].ProdID";
+            query += " INNER JOIN [Order] ON [Order].OrderID=[Cart].OrderID ";
+
+            query += GetWheres();
+            return query;
         }
 
+        private string GetWheres()
+        {
+            string query = "WHERE ";
+            foreach (string item in customer.whereQueries)
+            {
+                query += item + " AND ";
+            }
+            foreach (string item in product.whereQueries)
+            {
+                query += item + " AND ";
+            }
+            foreach (string item in order.whereQueries)
+            {
+                query += item + " AND ";
+            }
+            foreach (string item in cart.whereQueries)
+            {
+                query += item + " AND ";
+            }
+            query = query.Substring(0, query.LastIndexOf(" AND ")) + query.Substring(query.LastIndexOf(" AND ") + 5);
+            query += ";";
 
+            return query;
+        }
+
+        private void AddCustomerColumnNames()
+        {
+            searchColumns.Add(customer.custIDColumnName);
+            searchColumns.Add(customer.firstNameColumnName);
+            searchColumns.Add(customer.lastNameColumnName);
+            searchColumns.Add(customer.phoneNumberColumnName);
+        }
+
+        private void AddProductColumnNames()
+        {
+            searchColumns.Add(product.productIdColumnName);
+            searchColumns.Add(product.productNameColumnName);
+            searchColumns.Add(product.priceColumnName);
+            searchColumns.Add(product.prodWeightColumnName);
+            searchColumns.Add(product.inStockColumnName);
+        }
+
+        private void AddOrderColumnNames()
+        {
+            searchColumns.Add(order.orderIDColumnName);
+            searchColumns.Add(order.custIDColumnName);
+            searchColumns.Add(order.poNumberColumnName);
+            searchColumns.Add(order.orderDateColumnName);
+        }
+
+        private void AddCartColumnNames()
+        {
+            searchColumns.Add(cart.orderIDColumnName);
+            searchColumns.Add(cart.prodIDColumnName);
+            searchColumns.Add(cart.quantityColumnName);
+        }
     }
 }

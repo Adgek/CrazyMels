@@ -13,11 +13,11 @@ namespace CrazyMelService
         //Increment the values by power of two for added on classes
         private const int QUIERED_VALUE = 1;
 
-        private string tableName { get; set; }
-        private string custIDColumnName { get; set; }
-        private string firstNameColumnName { get; set; }
-        private string lastNameColumnName { get; set; }
-        private string phoneNumberColumnName { get; set; }  
+        public string tableName { get; set; }
+        public string custIDColumnName { get; set; }
+        public string firstNameColumnName { get; set; }
+        public string lastNameColumnName { get; set; }
+        public string phoneNumberColumnName { get; set; }  
 
         //Adrian added value
         private bool quiered { get; set; }
@@ -33,7 +33,7 @@ namespace CrazyMelService
         
         //Adrian added Value.... not sure i need the DataMember
         //This also prob makes errors as it wasnt tested.    
-        public List<string> whereQueries { get; set; }
+        public List<string> whereQueries;
 
         public Customer() 
         {
@@ -43,6 +43,7 @@ namespace CrazyMelService
             lastNameColumnName = "[LastName]";
             phoneNumberColumnName = "[PhoneNumber]";
             quiered = false;
+            whereQueries = new List<string>();
         }
 
         public Customer(string FirstName, string LastName, string PhoneNumber, string CustID = "") : this()
@@ -91,7 +92,7 @@ namespace CrazyMelService
         //Might not work not tested. Might need [ORDER] in here..... not sure.
         public string AddWhereQuery(string value, string columnName)
         {
-            return "WHERE " + columnName + "='" + value + "';";
+            return "[Customer]." + columnName + "='" + value + "'";
         }
 
         public string SQLInsert()

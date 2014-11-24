@@ -119,7 +119,7 @@ namespace CrazyMelService
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,                                
                                 UriTemplate = "Search/{CustomerString}/{ProductString}/{OrderString}/{CartString}")]
-        //string FirstName, string LastName, string PhoneNumber
-        bool SearchQueries(string CustomerString, string ProductString, string OrderString, string CartString);
+        //Search/1,Matthew,Anselmo,1231231111/1,Banana,,,,/,,,/,,,
+        bool Search(string CustomerString, string ProductString, string OrderString, string CartString);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -284,12 +285,23 @@ namespace CrazyMelService
             return true;
         }
 
-        public bool SearchQueries(string CustomerString, string ProductString, string OrderString, string CartString)
+        public bool Search(string CustomerString, string ProductString, string OrderString, string CartString)
         {
             SearchDatabase mySearch = new SearchDatabase(CustomerString, ProductString, OrderString, CartString);
+            string sqlQuery = mySearch.Search();
 
-            mySearch.Search();
-            //call searchdatabase with 4 strings
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+
+                d.SearchQuery(sqlQuery, mySearch);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
             return true;
         }
     }

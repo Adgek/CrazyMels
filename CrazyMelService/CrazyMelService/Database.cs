@@ -41,6 +41,42 @@ namespace CrazyMelService
             cmd.ExecuteNonQuery();            
         }
 
+        public void SearchQuery(string query, SearchDatabase sd)
+        {
+            SearchDatabase searchDatabase = sd;            
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            string XMLResponse = "<response>\n";
+                
+            XMLResponse += "<row>\n";
+
+            foreach (string item in sd.searchColumns)
+            {
+                XMLResponse += "<value>" + item + "</value>\n";
+            }
+
+            XMLResponse += "</row>\n";
+
+            foreach (DataRow dr in dt.Rows)
+            {
+
+                XMLResponse += "<row>\n";
+
+                foreach (var item in dr.ItemArray)
+                {
+                    XMLResponse += "<value>" + item.ToString() + "</value>\n";
+                }
+
+                XMLResponse += "</row>\n";
+             }
+
+            XMLResponse += "</response>\n";
+
+        }
+
         private string GetConnectionString(string Server, string Database)
         {
             string connectionString = "Data Source=" + Server + ";Initial Catalog=" + Database + ";Integrated Security=True";
