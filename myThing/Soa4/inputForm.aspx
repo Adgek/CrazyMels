@@ -76,18 +76,22 @@
                     <label for="custID">prodWeight</label>
                     <asp:TextBox runat="server" ToolTip="ProdWeight" class="form-control" ID="Pweight" placeholder="Enter prodWeight" />
                 </div>
-                <div class="col-md-3"> 
-                    <label>soldOut</label> <br />                
+                <div class="col-md-3">
+                    <label>soldOut</label>
+                    <br />
                     <div class="btn-group" id="soldoutDiv">
-                        
+
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="soldoutDrop" runat="server">
                             Don't Care(Default)  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><asp:button class="btn btn-link" runat="Server" id="dontcare" OnClick="soldout_Click" text="Don't Care(Default)"></asp:button></li>
+                            <li>
+                                <asp:Button class="btn btn-link" runat="Server" ID="dontcare" OnClick="soldout_Click" Text="Don't Care(Default)"></asp:Button></li>
                             <li class="divider"></li>
-                            <li><asp:button class="btn btn-link" runat="Server" id="yes" OnClick="soldout_Click" Text="Yes"></asp:button></li>
-                            <li><asp:button class="btn btn-link" runat="Server" id="no" OnClick="soldout_Click" Text="No"></asp:button></li>
+                            <li>
+                                <asp:Button class="btn btn-link" runat="Server" ID="yes" OnClick="soldout_Click" Text="Yes"></asp:Button></li>
+                            <li>
+                                <asp:Button class="btn btn-link" runat="Server" ID="no" OnClick="soldout_Click" Text="No"></asp:Button></li>
                         </ul>
                     </div>
                 </div>
