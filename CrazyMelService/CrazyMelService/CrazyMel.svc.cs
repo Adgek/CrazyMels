@@ -329,7 +329,7 @@ namespace CrazyMelService
                 return e.Message;
             }
 
-            return sqlResponse;            
+            return "SUCCESS: " + sqlResponse;            
         }
 
         //General Search of all fields
@@ -352,7 +352,7 @@ namespace CrazyMelService
                 return e.Message;
             }
 
-            return sqlResponse;
+            return "SUCCESS: " + sqlResponse;
         }
     }
 }
