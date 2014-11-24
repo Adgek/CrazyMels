@@ -98,7 +98,7 @@ namespace CrazyMelService
         {
             //FIX THIS MATTTT NO ORDER lol
             //this is a compileerror so that Matt sees this
-            return "INSERT INTO " + tableName + " VALUES ('" + firstName + "', '" + lastName + "', '" + phoneNumber + "');";
+            return "INSERT INTO " + tableName + "([FirstName], [LastName], [PhoneNumber]) VALUES ('" + firstName + "', '" + lastName + "', '" + phoneNumber + "');";
         }
 
         public string SQLUpdate()

@@ -87,7 +87,7 @@ namespace CrazyMelService
         {
             //FIX THIS MATTTT NO ORDER lol
             //this is a compileerror so that Matt sees this
-            return "INSERT INTO " + tableName + " VALUES ('" + orderID + "', '" + prodID + "', '" + quantity + "');";
+            return "INSERT INTO " + tableName + "([OrderID], [ProdID], [Quantity]) VALUES ('" + orderID + "', '" + prodID + "', '" + quantity + "');";
         }
 
         public string SQLUpdate()
