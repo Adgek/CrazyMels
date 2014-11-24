@@ -10,6 +10,14 @@ namespace Soa4.Models
 {
     public class REST
     {
+        /// <summary>
+        /// handler calling rest service
+        /// </summary>
+        /// <param name="xmlinput">post data</param>
+        /// <param name="secondUrlPart"> last part of url</param>
+        /// <param name="restMethod">the rest method being invoked</param>
+        /// <param name="method">rest verb being used</param>
+        /// <returns></returns>
         public string MakeRequest(string xmlinput, string secondUrlPart,string restMethod, string method)
         {
             // Restful service URL
@@ -53,7 +61,7 @@ namespace Soa4.Models
             webresponse.Close();
             // below steps remove unwanted data from response string
             strResult = strResult.Replace("</string>", "");
-            return strResult;
+            return HttpUtility.HtmlDecode(strResult);
         }
     }
 }

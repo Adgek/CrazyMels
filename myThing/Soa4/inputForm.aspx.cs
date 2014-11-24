@@ -9,7 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace Soa4
 {
-    //http://stackoverflow.com/questions/17013300/insert-datetime-into-sql-server-2008-from-c-sharp
+    /// <summary>
+    /// This class handles the input of from the user
+    /// </summary>
     public partial class inputForm : System.Web.UI.Page
     {
 
@@ -18,7 +20,7 @@ namespace Soa4
         string[] order = new string[] { "OrderID", "CustID", "PoNumber", "OrderDate" };
         string[] cart = new string[] { "OrderID", "ProdID", "Quantity"};
 
-        static string regex = @"^[A-Za-z0-9_.-]+$";
+        static string regex = @"^[A-Za-z0-9 _.-]+$";
         static Regex reg = new Regex(regex);
 
         Dictionary<string, List<TextBox>> inputBoxes = new Dictionary<string, List<TextBox>>();
@@ -29,6 +31,11 @@ namespace Soa4
 
         REST restObject = new REST();
 
+        /// <summary>
+        /// handles page load initialization
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             InitInputList();
@@ -55,6 +62,10 @@ namespace Soa4
             info.InnerHtml = "<h3>" + UppercaseFirst((string)Session["firstPageAction"]) + " mode</h3>";            
         }
 
+        /// <summary>
+        /// build search string to be sent to the rest service
+        /// </summary>
+        /// <returns></returns>
         private string buildSearchString()
         {
             string SearchString = "";
@@ -67,6 +78,12 @@ namespace Soa4
             return SearchString;
         }
 
+        /// <summary>
+        /// builds a section of the search string to be sent to the rest service
+        /// </summary>
+        /// <param name="type">type of info being handled</param>
+        /// <param name="typeArray">type fo array being used to build string</param>
+        /// <returns></returns>
         private string BuildStringSection(string type, string[] typeArray)
         {
             string builtString = "";
@@ -80,8 +97,7 @@ namespace Soa4
                 if(infoPair.ContainsKey(type))
                     temp = infoPair[type].Where(c => c.Key == s).FirstOrDefault().Value;
                 if (temp == null)
-                    temp = "";
-                
+                    temp = "";                
                 builtString += temp;
                 count++;
             }
@@ -89,6 +105,11 @@ namespace Soa4
             return builtString;
         }
 
+        /// <summary>
+        /// change first letter in a string to upper case
+        /// </summary>
+        /// <param name="s">input string</param>
+        /// <returns></returns>
         private string UppercaseFirst(string s)
         {
             // Check for empty string.
@@ -100,6 +121,9 @@ namespace Soa4
             return char.ToUpper(s[0]) + s.Substring(1);
         }
 
+        /// <summary>
+        /// init the list of textboxes
+        /// </summary>
         private void InitInputList()
         {
             inputBoxes.Add("customer", new List<TextBox>());
@@ -127,16 +151,27 @@ namespace Soa4
             inputBoxes["cart"].Add(CAquantity);
         }
 
+        /// <summary>
+        /// validate string for bad chars
+        /// </summary>
+        /// <param name="test">string to check</param>
+        /// <returns></returns>
         private Boolean checkIfAllCharsAreValid(String test)
         {
             return reg.Match(test).Success;
         }
 
+        /// <summary>
+        /// nothing needed to be done here, may need to at a later date
+        /// </summary>
         private void initForSearch()
         {
 
         }
 
+        /// <summary>
+        /// init form for deleting
+        /// </summary>
         private void initForDelete()
         {
             foreach (KeyValuePair<string, List<TextBox>> entry in inputBoxes)
@@ -152,11 +187,17 @@ namespace Soa4
             soldoutDrop.Disabled = true;
         }
 
+        /// <summary>
+        /// init form for updates
+        /// </summary>
         private void initForUpdate()
         {
 
         }
 
+        /// <summary>
+        /// init form for insert
+        /// </summary>
         private void initForInsert()
         {
             disableTextbox(CcustID);
@@ -164,16 +205,30 @@ namespace Soa4
             disableTextbox(OorderID);
         }
 
+        /// <summary>
+        /// disable a textbox
+        /// </summary>
+        /// <param name="tb">tb to disable</param>
         private void disableTextbox(TextBox tb)
         {
             tb.Attributes.Add("disabled", "disabled");
         }
 
+        /// <summary>
+        /// handle go back button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void goBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("Default.aspx", true);
         }
 
+        /// <summary>
+        /// handle execute button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void execute_Click(object sender, EventArgs e)
         {
             string action = (string)Session["firstPageAction"];
@@ -194,20 +249,32 @@ namespace Soa4
             }
         }
 
+        /// <summary>
+        /// handle sold out drop down click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void soldout_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
             soldoutDrop.InnerHtml = b.Text + "  <span class=\"caret\"></span>";
         }
 
+        /// <summary>
+        /// insert method handler
+        /// </summary>
         private void insert()
         {
             if(parseAndCheckInput())
             {
                 sendRequest("POST");
+                
             }
         }
 
+        /// <summary>
+        /// update method handler
+        /// </summary>
         private void update()
         {
             if (parseAndCheckInput())
@@ -216,6 +283,9 @@ namespace Soa4
             }
         }
 
+        /// <summary>
+        /// delete method handler
+        /// </summary>
         private void delete()
         {
             if (parseAndCheckInput())
@@ -224,6 +294,10 @@ namespace Soa4
             }
         }
 
+        /// <summary>
+        /// handle sending request to the rest service
+        /// </summary>
+        /// <param name="verb">rest verb being used</param>
         private void sendRequest(string verb)
         {
             string objType = infoPair.Keys.First();
@@ -232,19 +306,30 @@ namespace Soa4
                 infoPair[objType].Add("InStock", GetSoldOut());
             }
             string xml = xmlgen.CreateXMLSingle(infoPair[objType], objType);
-            restObject.MakeRequest(xml, objType, (string)Session["firstPageAction"], verb);
+            string rep = restObject.MakeRequest(xml, objType, (string)Session["firstPageAction"], verb);
+            List<string> response = new List<string>();
+            response.Add(rep);
+            ShowAlert(CreateErrorJson(response, "info", "glyphicon glyphicon-warning-sign"));
         }
 
+        /// <summary>
+        /// get sold out drop down value
+        /// </summary>
+        /// <returns></returns>
         private string GetSoldOut()
         {
             string Checked = "";
             if (soldoutDrop.InnerText.Contains("Yes"))
-                Checked = "true";
-            else if (soldoutDrop.InnerText.Contains("No"))
                 Checked = "false";
+            else if (soldoutDrop.InnerText.Contains("No"))
+                Checked = "true";
             return Checked;
         }
 
+        /// <summary>
+        /// parse and check input for bad values
+        /// </summary>
+        /// <returns>true = valid, false = invalid</returns>
         private Boolean parseAndCheckInput()
         {
             Boolean valid = true;
@@ -271,6 +356,13 @@ namespace Soa4
             return valid;
         }
 
+        /// <summary>
+        /// create json for showing alerts
+        /// </summary>
+        /// <param name="errors">string to use</param>
+        /// <param name="type">type of message</param>
+        /// <param name="icon">icon to display</param>
+        /// <returns></returns>
         private static string CreateErrorJson(List<string> errors, string type, string icon)
         {
             string jsonErrors = "[";
@@ -290,6 +382,10 @@ namespace Soa4
             return jsonErrors;
         }
 
+        /// <summary>
+        /// check if id was filled in for update or delete
+        /// </summary>
+        /// <returns></returns>
         private List<string> mustContainID()
         {
             List<string> errors = new List<string>();
@@ -311,6 +407,10 @@ namespace Soa4
             return errors;
         }
 
+        /// <summary>
+        /// validate only valid chars were used
+        /// </summary>
+        /// <returns></returns>
         private List<string> ValidateChars()
         {
             List<string> errors = new List<string>();
@@ -327,6 +427,10 @@ namespace Soa4
             return errors;
         }
 
+        /// <summary>
+        /// parse input for a single row in the form
+        /// </summary>
+        /// <returns></returns>
         private Boolean parseInputForSingleRow()
         {
             int? whereInfoWasFound = null;
@@ -355,6 +459,9 @@ namespace Soa4
             return true;
         }
 
+        /// <summary>
+        /// parse input for all rows in the form
+        /// </summary>
         private void parseInputForAllRows()
         {
             foreach (KeyValuePair<string, List<TextBox>> entry in inputBoxes)
@@ -373,13 +480,21 @@ namespace Soa4
             }
         }
 
+        /// <summary>
+        /// search handler method
+        /// </summary>
         private void search()
         {
             parseInputForAllRows();
             ValidateActiveColumns();
-            restObject.MakeRequest("", buildSearchString(), "Search", "GET");
+            string response = restObject.MakeRequest("", buildSearchString(), "Search/", "GET");
+            Session["serviceResponse"] = response;
+            Response.Redirect("tableOutput.aspx", true);
         }
 
+        /// <summary>
+        /// validate active columns in the form
+        /// </summary>
         private void ValidateActiveColumns()
         {
             if(infoPair.ContainsKey("product") && infoPair.ContainsKey("customer"))
@@ -391,12 +506,21 @@ namespace Soa4
             return;
         }
 
+        /// <summary>
+        /// invoke show alert on page
+        /// </summary>
+        /// <param name="json"></param>
         private void ShowAlert(string json)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "close", "ShowAlert('"+ json + "');", true);
             return;
         }
 
+        /// <summary>
+        /// get out handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void getOut_Click(object sender, EventArgs e)
         {           
             Response.Redirect("http://www.google.com");

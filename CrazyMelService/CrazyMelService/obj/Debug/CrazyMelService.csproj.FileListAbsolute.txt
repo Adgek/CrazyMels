@@ -16,3 +16,9 @@ C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\bin\CrazyMelS
 C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.csprojResolveAssemblyReference.cache
 C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.dll
 C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.pdb
+E:\Documents\GitHub\CrazyMels\CrazyMelService\CrazyMelService\bin\CrazyMelService.dll.config
+E:\Documents\GitHub\CrazyMels\CrazyMelService\CrazyMelService\bin\CrazyMelService.dll
+E:\Documents\GitHub\CrazyMels\CrazyMelService\CrazyMelService\bin\CrazyMelService.pdb
+E:\Documents\GitHub\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.csprojResolveAssemblyReference.cache
+E:\Documents\GitHub\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.dll
+E:\Documents\GitHub\CrazyMels\CrazyMelService\CrazyMelService\obj\Debug\CrazyMelService.pdb

@@ -59,31 +59,31 @@ namespace CrazyMelService
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-            string XMLResponse = "<response>\n";
+            string XMLResponse = "\n<response>\n";
                 
-            XMLResponse += "<row>\n";
+            XMLResponse += "    <row>\n";
 
             foreach (string item in sd.searchColumns)
             {
-                XMLResponse += "<value>" + item + "</value>\n";
+                XMLResponse += "        <value>" + item + "</value>\n";
             }
 
-            XMLResponse += "</row>\n";
+            XMLResponse += "    </row>\n";
 
             foreach (DataRow dr in dt.Rows)
             {
 
-                XMLResponse += "<row>\n";
+                XMLResponse += "    <row>\n";
 
                 foreach (var item in dr.ItemArray)
                 {
-                    XMLResponse += "<value>" + item.ToString() + "</value>\n";
+                    XMLResponse += "        <value>" + item.ToString() + "</value>\n";
                 }
 
-                XMLResponse += "</row>\n";
+                XMLResponse += "    </row>\n";
              }
 
-            XMLResponse += "</response>\n";
+            XMLResponse += "</response>";
 
             return XMLResponse;
         }

@@ -5,6 +5,9 @@ using System.Web;
 
 namespace Soa4.Models
 {
+    /// <summary>
+    /// create xml to be sent to rest service
+    /// </summary>
     public class XMLcreator
     {
         public string CreateXMLSingle(Dictionary<string, string> info, string type)
