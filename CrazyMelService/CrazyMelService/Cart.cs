@@ -123,7 +123,20 @@ namespace CrazyMelService
         public string SQLDelete()
         {
             string query = "";
-            query += "DELETE FROM [Cart] WHERE [Cart].OrderID=" + orderID + " AND [Cart].ProdID=" + prodID + ";";            
+            if (prodID == "")
+            {
+                query += "DELETE FROM [Cart] WHERE [Cart].OrderID=" + orderID + ";";
+                return query;
+            }
+            else if (orderID == "")
+            {
+                query += "DELETE FROM [Cart] WHERE [Cart].ProdID=" + prodID + ";";
+                return query;
+            }
+
+            query += "DELETE FROM [Cart] WHERE [Cart].OrderID=" + orderID + " AND [Cart].ProdID=" + prodID + ";";
+
+                        
             return query;
         }
 

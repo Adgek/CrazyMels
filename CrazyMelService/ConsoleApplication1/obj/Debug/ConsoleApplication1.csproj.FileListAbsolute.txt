@@ -4,3 +4,9 @@ C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\ConsoleApplication1\bin\Debug
 C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 C:\Users\Matthew\Desktop\CrazyMels\CrazyMelService\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+E:\Documents\GitHub\CrazyMels\CrazyMelService\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+E:\Documents\GitHub\CrazyMels\CrazyMelService\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+E:\Documents\GitHub\CrazyMels\CrazyMelService\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+E:\Documents\GitHub\CrazyMels\CrazyMelService\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+E:\Documents\GitHub\CrazyMels\CrazyMelService\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+E:\Documents\GitHub\CrazyMels\CrazyMelService\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

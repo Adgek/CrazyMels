@@ -61,6 +61,11 @@ namespace Soa4
                     break;
 
             }
+            if (action != "search")
+            {
+                soldoutDrop.InnerText = "No";
+                dontcare.Visible = false;
+            }
             info.InnerHtml = "<h3>" + UppercaseFirst((string)Session["firstPageAction"]) + " mode</h3>";            
         }
         /// <summary>
