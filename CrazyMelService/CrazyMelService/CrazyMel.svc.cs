@@ -285,25 +285,26 @@ namespace CrazyMelService
             return true;
         }
 
-        public XmlDocument Search(string CustomerString, string ProductString, string OrderString, string CartString)
+        public string Search(string CustomerString, string ProductString, string OrderString, string CartString)
         {
             XmlDocument xml = null;
             SearchDatabase mySearch = new SearchDatabase(CustomerString, ProductString, OrderString, CartString);
             string sqlQuery = mySearch.Search();
+            string sqlResponse = "";
 
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
                 d.OpenSQLConnection();
 
-                xml = d.SearchQuery(sqlQuery, mySearch);
+                sqlResponse = d.SearchQuery(sqlQuery, mySearch);
             }
             catch (Exception e)
             {
-                return null;
+                return "";
             }
 
-            return xml;
+            return sqlResponse;
         }
     }
 }

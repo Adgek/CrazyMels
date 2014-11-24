@@ -121,6 +121,6 @@ namespace CrazyMelService
                                 BodyStyle = WebMessageBodyStyle.Bare,                                
                                 UriTemplate = "Search/{CustomerString}/{ProductString}/{OrderString}/{CartString}")]
         //Search/1,Matthew,Anselmo,1231231111/1,Banana,,,,/,,,/,,,
-        XmlDocument Search(string CustomerString, string ProductString, string OrderString, string CartString);
+        string Search(string CustomerString, string ProductString, string OrderString, string CartString);
     }
 }

@@ -43,7 +43,7 @@ namespace CrazyMelService
             cmd.ExecuteNonQuery();            
         }
 
-        public XmlDocument SearchQuery(string query, SearchDatabase sd)
+        public string SearchQuery(string query, SearchDatabase sd)
         {
             SearchDatabase searchDatabase = sd;            
             SqlCommand cmd = new SqlCommand(query, con);
@@ -77,11 +77,7 @@ namespace CrazyMelService
 
             XMLResponse += "</response>\n";
 
-            XmlDocument xmlDoc = new XmlDocument();   //Represents an XML document, 
-            // Initializes a new instance of the XmlDocument class.          
-            xmlDoc.LoadXml(XMLResponse);
-
-            return xmlDoc;
+            return XMLResponse;
         }
 
         private string GetConnectionString(string Server, string Database)
