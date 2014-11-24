@@ -113,7 +113,7 @@ namespace CrazyMelService
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "GetPO/{po}")]
         //string FirstName, string LastName, string PhoneNumber
-        bool GetPO(string po);
+        string GetPO(string po);
 
         [OperationContract]
         [WebInvoke(Method = "GET",//"GET",

@@ -277,12 +277,26 @@ namespace CrazyMelService
             return true;
         }
 
-        public bool GetPO(string po)
+        public string GetPO(string po)
         {
             SearchDatabase mySearch = new SearchDatabase();
+            string sqlQuery = mySearch.SearchPo(po);
 
-            mySearch.SearchPo(po);
-            return true;
+            string sqlResponse = "";
+
+            Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
+            try
+            {
+                d.OpenSQLConnection();
+
+                sqlResponse = d.SearchQuery(sqlQuery, mySearch);
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+
+            return sqlResponse;            
         }
 
         public string Search(string CustomerString, string ProductString, string OrderString, string CartString)

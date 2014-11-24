@@ -42,7 +42,14 @@ namespace CrazyMelService
             //Get all Carts related to OrderID
                 //foreach Cart get product that was in cart by cartID
             //Get CustomerID from CustID related to Order
-            return "success string";
+            string query = @" SELECT [Order].OrderID, [Order].OrderDate, [Order].PoNumber, [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber, [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock, [Cart].Quantity  FROM [Order] 
+  INNER JOIN [Customer] ON [Customer].CustID=[Order].CustID
+  INNER JOIN [Cart] ON [Cart].OrderID=[Order].OrderID
+  INNER JOIN [Product] ON [Product].ProdID=[Cart].ProdID
+  WHERE [Order].PoNumber='" + po + "'";
+            
+            return query;   
+           
         }
         public string Search()
         {

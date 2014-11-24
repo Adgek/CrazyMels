@@ -20,7 +20,7 @@ CREATE TABLE [Order]
 (
 	[OrderID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[CustID] INT NOT NULL REFERENCES [Customer](CustID),
-	[PoNumber] NVARCHAR(30),
+	[PoNumber] NVARCHAR(30) UNIQUE,
 	[OrderDate] DATE NOT NULL
 );
 
