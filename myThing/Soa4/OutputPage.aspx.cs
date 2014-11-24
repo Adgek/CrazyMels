@@ -28,8 +28,12 @@ namespace Soa4
             SortOutOrders();
             CalculatePOValues();
             GeneratePOPanels();
+            if(finalList.Count == 1)
+            {
+                POArea.InnerHtml = "<h2>There are no PO reports to display for the given query.</h2>";
+            }
         }
-
+        
         private void SortOutOrders()
         {
             IEnumerable<string> ids = orders.Select(x => x.ponumber).Distinct();
@@ -145,7 +149,7 @@ namespace Soa4
                     POArea.InnerHtml += "<td></td>";
                     POArea.InnerHtml += "<td></td>";
                     POArea.InnerHtml += "<td><b>SubTotal</b></td>";
-                    POArea.InnerHtml += "<td>"+ p.subtotal+"</td>";
+                    POArea.InnerHtml += "<td>" + String.Format("{0:C}", p.subtotal) + "</td>";
                     POArea.InnerHtml += "</tr>";
                     POArea.InnerHtml += "<tr>";
                     POArea.InnerHtml += "<td></td>";
@@ -153,7 +157,7 @@ namespace Soa4
                     POArea.InnerHtml += "<td>"+p.numberPieces+"</td>";
                     POArea.InnerHtml += "<td></td>";
                     POArea.InnerHtml += "<td><b>Tax (13%)</b></td>";
-                    POArea.InnerHtml += "<td>"+p.taxes+"</td>";
+                    POArea.InnerHtml += "<td>"+  String.Format("{0:C}", p.taxes) +"</td>";
                     POArea.InnerHtml += "</tr>";
                     POArea.InnerHtml += "<tr>";
                     POArea.InnerHtml += "<td></td>";
@@ -161,7 +165,7 @@ namespace Soa4
                     POArea.InnerHtml += "<td>"+p.totalWeight+"</td>";
                     POArea.InnerHtml += "<td></td>";
                     POArea.InnerHtml += "<td><b>Total</b></td>";
-                    POArea.InnerHtml += "<td>"+p.totalCost+"</td>";
+                    POArea.InnerHtml += "<td>"+  String.Format("{0:C}", p.totalCost) +"</td>";
                     POArea.InnerHtml += "</tr>";
 
                     POArea.InnerHtml += "</tbody>";

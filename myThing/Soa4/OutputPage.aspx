@@ -7,7 +7,7 @@
         <p class="lead">Here at Crazy Melvin's we believe in selling things cheap!! That's why our User Interface is cheap!</p>
     </div>
 
-    <div id="POArea" runat="server">
+    <div id="POArea" class="text-center" runat="server">
         
     </div>
 

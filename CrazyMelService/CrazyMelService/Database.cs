@@ -59,7 +59,7 @@ namespace CrazyMelService
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-            if (dt.Rows.Count < 1) { return "No PO report found"; }
+            //if (dt.Rows.Count < 1) { return "No PO report found"; }
 
             string XMLResponse = "\n<response>\n";
                 
@@ -93,6 +93,7 @@ namespace CrazyMelService
         private string GetConnectionString(string Server, string Database)
         {
             string connectionString = "Data Source=" + Server + ";Initial Catalog=" + Database + ";Integrated Security=True";
+            connectionString = "Server=tcp:r2oqwsh7ne.database.windows.net,1433;Database=CrazyMel;User ID=matthew@r2oqwsh7ne;Password=Anselmo1;Trusted_Connection=False;Encrypt=True;Connection Timeout=30";
             return connectionString;
         }
     }

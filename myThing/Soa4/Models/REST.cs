@@ -21,7 +21,7 @@ namespace Soa4.Models
         public string MakeRequest(string xmlinput, string secondUrlPart,string restMethod, string method)
         {
             // Restful service URL
-            string url = "http://localhost:57871/CrazyMel.svc/" + restMethod + secondUrlPart;
+            string url = "http://crazymelserver.azurewebsites.net/CrazyMel.svc/" + restMethod + secondUrlPart;
 
             // declare ascii encoding
             ASCIIEncoding encoding = new ASCIIEncoding();
@@ -45,22 +45,31 @@ namespace Soa4.Models
                 newStream.Write(data, 0, data.Length);
                 newStream.Close();
             }
-            // declare & read response from service
-            HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
 
-            // set utf8 encoding
-            Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
-            // read response stream from response object
-            StreamReader loResponseStream =
-        new StreamReader(webresponse.GetResponseStream(), enc);
-            // read string from stream data
-            strResult = loResponseStream.ReadToEnd();
-            // close the stream object
-            loResponseStream.Close();
-            // close the response object
-            webresponse.Close();
-            // below steps remove unwanted data from response string
-            strResult = strResult.Replace("</string>", "");
+            try
+            {
+                // declare & read response from service
+                HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
+
+                // set utf8 encoding
+                Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
+                // read response stream from response object
+                StreamReader loResponseStream =
+            new StreamReader(webresponse.GetResponseStream(), enc);
+                // read string from stream data
+                strResult = loResponseStream.ReadToEnd();
+                // close the stream object
+                loResponseStream.Close();
+                // close the response object
+                webresponse.Close();
+                // below steps remove unwanted data from response string
+                strResult = strResult.Replace("</string>", "");
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+           
             return HttpUtility.HtmlDecode(strResult);
         }
     }
