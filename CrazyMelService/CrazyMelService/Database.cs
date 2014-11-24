@@ -1,4 +1,11 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: Database.cs
+//Date: 23/11/14
+//Purpose: This file is the Database handler, taking care of database connections and querys to the database
+//***********************
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -43,6 +50,7 @@ namespace CrazyMelService
             cmd.ExecuteNonQuery();            
         }
 
+        //querys a search of the database and puts it in an xml format
         public string SearchQuery(string query, SearchDatabase sd)
         {
             SearchDatabase searchDatabase = sd;            

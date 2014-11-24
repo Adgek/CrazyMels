@@ -1,4 +1,11 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: SearchDatabase.cs
+//Date: 23/11/14
+//Purpose: This file is the handles the generation of search queries based on what the user searches for
+//***********************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -40,7 +47,7 @@ namespace CrazyMelService
         {
             //Get Order table from po number
             //Get all Carts related to OrderID
-                //foreach Cart get product that was in cart by cartID
+            //foreach Cart get product that was in cart by cartID
             //Get CustomerID from CustID related to Order
             string query = @" SELECT [Order].OrderID, [Order].OrderDate, [Order].PoNumber, [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber, [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock, [Cart].Quantity  FROM [Order] 
   INNER JOIN [Customer] ON [Customer].CustID=[Order].CustID
@@ -100,7 +107,7 @@ namespace CrazyMelService
                     return searchProductsQuantitiesInSpecificOrders();
                     break;
 
-                default:
+                default://LOLOLOL Adrian at 4AM xD
                     return "I screwed up the math dudes sorry lol";
                     break;
             }
@@ -126,7 +133,6 @@ namespace CrazyMelService
 
             return query;   
         }
-
         
         public string searchProducts()
         {
@@ -137,9 +143,7 @@ namespace CrazyMelService
             query += GetWheres();
 
             return query;     
-        }
-
-        
+        }        
 
         public string searchOrders()
         {
@@ -149,9 +153,7 @@ namespace CrazyMelService
             query += GetWheres();
 
             return query;    
-        }
-
-        
+        }        
 
         public string searchCustomersOrders()
         {
@@ -192,6 +194,7 @@ namespace CrazyMelService
         }
 
         //This one is funky might be too tired to think straight...lol
+        //...another adrian lol
         public string searchCustomersOrdersQuantities()
         {
             AddCustomerColumnNames();
@@ -263,6 +266,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //create a list of where clauses to append to the search queries
         private string GetWheres()
         {
             string query = "WHERE ";
@@ -288,6 +292,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //add column names being used to a list to pass back the columns to the client
         private void AddCustomerColumnNames()
         {
             searchColumns.Add(customer.custIDColumnName);
