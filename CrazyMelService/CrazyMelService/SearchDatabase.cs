@@ -99,7 +99,7 @@ namespace CrazyMelService
                     return searchProducts();
                     break;
                 case 4://Order Table
-                    return searchOrders();
+                    return searchCustomersOrders();
                     break;
                 case 5://Customers and orders
                     return searchCustomersOrders();
@@ -108,22 +108,22 @@ namespace CrazyMelService
                     return searchProductsInCustomersOrders();
                     break;
                 case 8://Cart Table
-                    return searchCarts();
+                    return searchCustomersQuantitiesInSpecificOrders();
                     break;
                 case 9://Carts and Customers
-                    return searchCustomersOrdersQuantities();
+                    return searchCustomersQuantitiesInSpecificOrders();
                     break;
                 case 10://Carts and Products
-                    return searchProductQuantities();
+                    return searchCustomersQuantitiesInSpecificOrders();
                     break;
                 case 12://Carts and Orders
-                    return searchCartsinOrders();
+                    return searchCustomersQuantitiesInSpecificOrders();
                     break;
                 case 13://Carts, Orders, and Customers
                     return searchCustomersQuantitiesInSpecificOrders();
                     break;
                 case 14://Carts, Orders, and Products
-                    return searchProductsQuantitiesInSpecificOrders();
+                    return searchCustomersQuantitiesInSpecificOrders();
                     break;
 
                 default://LOLOLOL Adrian at 4AM xD
