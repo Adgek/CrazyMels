@@ -1,4 +1,12 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: CrazyMel.cs
+//Date: 23/11/14
+//Purpose: This file is the main route outline of where to route the different 
+//          Rest requests
+//***********************
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,13 +22,11 @@ namespace CrazyMelService
     public interface CrazyMel
     {
         //INSERTS
-
         [OperationContract]
         [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,                                
                                 UriTemplate = "InsertCustomer/")]
-        //string FirstName, string LastName, string PhoneNumber
         string InsertCustomer(Stream data);
 
         [OperationContract]
@@ -28,7 +34,6 @@ namespace CrazyMelService
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "InsertProduct/")]
-        //string ProductName, string Price, string ProdWeight, string InStock
         string InsertProduct(Stream data);
 
         [OperationContract]
@@ -36,7 +41,6 @@ namespace CrazyMelService
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "InsertOrder/")]
-        //string CustID, string PoNumber, string OrderDate
         string InsertOrder(Stream data);
 
         [OperationContract]
@@ -44,11 +48,9 @@ namespace CrazyMelService
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "InsertCart/")]
-        //string OrderID, string ProdID, string Quantity
         string InsertCart(Stream data);
 
         //UPDATES
-
         [OperationContract]
         [WebInvoke(Method = "PUT",
                                 ResponseFormat = WebMessageFormat.Xml,
@@ -77,8 +79,9 @@ namespace CrazyMelService
                                 UriTemplate = "UpdateCart/")]
         string UpdateCart(Stream data);
 
-        //DELETES
 
+
+        //DELETES
         [OperationContract]
         [WebInvoke(Method = "DELETE",
                                 ResponseFormat = WebMessageFormat.Xml,
@@ -107,20 +110,21 @@ namespace CrazyMelService
                                 UriTemplate = "DeleteCart/")]
         string DeleteCart(Stream data);
 
+
+
+        //Searches
         [OperationContract]
         [WebInvoke(Method = "GET",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "GetPO/{po}")]
-        //string FirstName, string LastName, string PhoneNumber
         string GetPO(string po);
 
         [OperationContract]
-        [WebInvoke(Method = "GET",//"GET",
+        [WebInvoke(Method = "GET",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,                                
                                 UriTemplate = "Search/{CustomerString}/{ProductString}/{OrderString}/{CartString}")]
-        //Search/1,Matthew,Anselmo,1231231111/1,Banana,,,,/,,,/,,,
         string Search(string CustomerString, string ProductString, string OrderString, string CartString);
     }
 }
