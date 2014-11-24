@@ -1,4 +1,11 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: Order.cs
+//Date: 23/11/14
+//Purpose: This file defines the Order object
+//***********************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -9,7 +16,6 @@ namespace CrazyMelService
     [DataContract]
     public class Order
     {
-        //Adrian Added value
         //Increment the values by power of two for added on classes
         private const int QUIERED_VALUE = 4;
 
@@ -19,7 +25,6 @@ namespace CrazyMelService
         public string poNumberColumnName { get; set; }
         public string orderDateColumnName { get; set; }
 
-        //Adrian added value
         private bool quiered { get; set; }
 
         [DataMember]
@@ -30,9 +35,7 @@ namespace CrazyMelService
         public string poNumber { get; set; }
         [DataMember]
         public string orderDate { get; set; }
-        
-        //Adrian added Value.... not sure i need the DataMember
-        //This also prob makes errors as it wasnt tested.        
+                
         public List<string> whereQueries;    
 
         public Order() 
@@ -46,6 +49,7 @@ namespace CrazyMelService
             whereQueries = new List<string>();
         }
 
+        //constructor of insert delete update
         public Order(string OrderID, string CustID, string PoNumber, string OrderDate) : this()
         {
             orderID = OrderID;
@@ -54,6 +58,7 @@ namespace CrazyMelService
             orderDate = OrderDate;
         }
 
+        //constructor for searches
         public Order(string constructString, char delimiter) : this()
         {
             string[] namesArray = constructString.Split(delimiter);
@@ -63,7 +68,7 @@ namespace CrazyMelService
             poNumber = namesArray[2];
             orderDate = namesArray[3];
 
-            //Adrian Changes add to the WHERE Query of
+            //add to the WHERE Query of
             //QuieredColumns and set the flag to true
             if(orderID != "")
             {
@@ -87,18 +92,19 @@ namespace CrazyMelService
             }
         }
 
-        //Adrian Added Function. makes a Where query.
-        //Might not work not tested. Might need [ORDER] in here..... not sure.
+        //makes a Where query
         public string AddWhereQuery(string value, string columnName)
         {
             return "[Order]." + columnName + "='" + value + "'";
         }
 
+        //how to insert an Order
         public string SQLInsert()
         {
             return "INSERT INTO " + tableName + "(CustID, OrderDate, PoNumber) VALUES ('" + custID + "', '" + orderDate + "', '" + poNumber + "');";
         }
 
+        //how to update an Order
         public string SQLUpdate()
         {
             string query = "UPDATE " + tableName + " SET ";
@@ -123,6 +129,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //how to delete an Order
         public string SQLDelete()
         {
             string query = "";
@@ -131,6 +138,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //Validate input
         public bool validateInput()
         {
             if (!Validator.ValidateInt(orderID) && orderID != "")
@@ -152,7 +160,7 @@ namespace CrazyMelService
             return true;
         }
 
-        //Adrian changes for Search Delete and Update when blank is valid
+        //for Search Delete and Update when blank is valid
         public bool validateInput(bool blankIsValid)
         {
             if (!Validator.ValidateInt(orderID) && orderID != "")
@@ -174,7 +182,7 @@ namespace CrazyMelService
             return true;
         }
 
-        //Adrian Changes get value of orderQuiery
+        //get value of orderQuiery
         public int WasOrderQuiered()
         {
             if(quiered)

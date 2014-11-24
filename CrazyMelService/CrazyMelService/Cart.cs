@@ -1,4 +1,11 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: Order.cs
+//Date: 23/11/14
+//Purpose: This file defines the Order object
+//***********************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -9,7 +16,6 @@ namespace CrazyMelService
     [DataContract]
     public class Cart
     {
-        //Adrian Added value
         //Increment the values by power of two for added on classes
         private const int QUIERED_VALUE = 8;
 
@@ -17,8 +23,7 @@ namespace CrazyMelService
         public string orderIDColumnName { get; set; }
         public string prodIDColumnName { get; set; }
         public string quantityColumnName { get; set; }
-        
-        //Adrian added value
+
         private bool quiered { get; set; }
 
         [DataMember]
@@ -28,8 +33,6 @@ namespace CrazyMelService
         [DataMember]
         public string quantity { get; set; } 
       
-        //Adrian added Value.... not sure i need the DataMember
-        //This also prob makes errors as it wasnt tested.
         public List<string> whereQueries;
 
         public Cart() 
@@ -42,6 +45,7 @@ namespace CrazyMelService
             whereQueries = new List<string>();
         }
 
+        //constructor of insert delete update
         public Cart(string OrderID, string ProdID, string Quantity) : this()
         {
             orderID = OrderID;
@@ -49,6 +53,7 @@ namespace CrazyMelService
             quantity = Quantity;            
         }
 
+        //constructor for searches
         public Cart(string constructString, char delimiter) : this()
         {
             string[] namesArray = constructString.Split(delimiter);
@@ -57,7 +62,7 @@ namespace CrazyMelService
             prodID = namesArray[1];
             quantity = namesArray[2];
 
-            //Adrian Changes add to the WHERE Query of
+            //add to the WHERE Query of
             //QuieredColumns and set the flag to true
             
             if(orderID != "")
@@ -77,20 +82,19 @@ namespace CrazyMelService
             }
         }
 
-        //Adrian Added Function. makes a Where query.
-        //Might not work not tested. Might need [ORDER] in here..... not sure.
+        //makes a Where query
         public string AddWhereQuery(string value, string columnName)
         {
             return "[Cart]." + columnName + "='" + value + "'";
         }
 
+        //how to insert an Cart
         public string SQLInsert()
         {
-            //FIX THIS MATTTT NO ORDER lol
-            //this is a compileerror so that Matt sees this
             return "INSERT INTO " + tableName + "([OrderID], [ProdID], [Quantity]) VALUES ('" + orderID + "', '" + prodID + "', '" + quantity + "');";
         }
 
+        //how to update an Cart
         public string SQLUpdate()
         {
             string query = "UPDATE " + tableName + " SET ";
@@ -115,6 +119,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //how to delete an Cart
         public string SQLDelete()
         {
             string query = "";
@@ -122,6 +127,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //Validate input
         public bool validateInput()
         {
             if (!Validator.ValidateInt(orderID) && orderID != "")
@@ -139,7 +145,7 @@ namespace CrazyMelService
             return true;
         }
 
-        //Adrian changes for Search Delete and Update when blank is valid
+        //for Search Delete and Update when blank is valid
         public bool validateInput(bool blankIsValid)
         {
             if (!Validator.ValidateInt(orderID) && orderID != "")
@@ -157,7 +163,7 @@ namespace CrazyMelService
             return true;
         }
 
-        //Adrian changes get value of orderQuiery
+        //get value of orderQuiery
         public int WasCartQuiered()
         {
             if(quiered)

@@ -1,4 +1,11 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: Product.cs
+//Date: 23/11/14
+//Purpose: This file defines the Product object
+//***********************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -9,7 +16,6 @@ namespace CrazyMelService
     [DataContract]
     public class Product
     {
-        //Adrian Added value
         //Increment the values by power of two for added on classes
         private const int QUIERED_VALUE = 2;
 
@@ -20,7 +26,6 @@ namespace CrazyMelService
         public string prodWeightColumnName { get; set; }
         public string inStockColumnName { get; set; }
 
-        //Adrian added value
         private bool quiered { get; set; } 
 
         [DataMember]
@@ -33,9 +38,7 @@ namespace CrazyMelService
         public string prodWeight { get; set; }
         [DataMember]
         public string inStock { get; set; }
-    
-        //Adrian added Value.... not sure i need the DataMember
-        //This also prob makes errors as it wasnt tested.        
+           
         public List<string> whereQueries;
     
         public Product() 
@@ -50,6 +53,7 @@ namespace CrazyMelService
             whereQueries = new List<string>();
         }
 
+        //constructor of insert delete update
         public Product(string ProductName, string Price, string ProdWeight, string InStock, string ProductId = "") : this()
         {
             prodID = ProductId;
@@ -59,6 +63,7 @@ namespace CrazyMelService
             inStock = InStock;
         }
 
+        //constructor for searches
         public Product(string constructString, char delimiter) : this()
         {
             string[] namesArray = constructString.Split(delimiter);
@@ -69,7 +74,7 @@ namespace CrazyMelService
             prodWeight = namesArray[3];
             inStock = namesArray[4];
 
-            //Adrian Changes add to the WHERE Query of
+            //add to the WHERE Query of
             //QuieredColumns and set the flag to true           
             if(prodID != "")
             {
@@ -98,18 +103,19 @@ namespace CrazyMelService
             }
         }
 
-        //Adrian Added Function. makes a Where query.
-        //Might not work not tested. Might need [ORDER] in here..... not sure.
+        //makes a Where query
         public string AddWhereQuery(string value, string columnName)
         {
             return "[Product]." + columnName + "='" + value + "'";
         }
 
+        //how to insert an Product
         public string SQLInsert()
         {
             return "INSERT INTO " + tableName + " ([ProdName], [Price], [ProdWeight], [InStock]) VALUES ('" + prodName + "', '" + price + "', '" + prodWeight + "', '" + inStock + "');";
         }
 
+        //how to update an Product
         public string SQLUpdate()
         {
             string query = "UPDATE " + tableName + " SET ";
@@ -134,6 +140,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //how to delete an Product
         public string SQLDelete()
         {
             string query = "";
@@ -142,6 +149,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //Validate input
         public bool validateInput()
         {
             if (!Validator.ValidateInt(prodID) && prodID != "")
@@ -167,6 +175,7 @@ namespace CrazyMelService
             return true;
         }
 
+        //for Search Delete and Update when blank is valid
         public bool validateInput(bool blankIsValid)
         {
             if (!Validator.ValidateInt(prodID) && prodID != "")
@@ -192,7 +201,7 @@ namespace CrazyMelService
             return true;
         }
 
-        //Adrian changes get value of orderQuiery
+        //get value of orderQuiery
         public int WasProductQuiered()
         {
             if(quiered)

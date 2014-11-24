@@ -1,4 +1,11 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: Customer.cs
+//Date: 23/11/14
+//Purpose: This file defines the Customer object
+//***********************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -9,7 +16,6 @@ namespace CrazyMelService
     [DataContract]
     public class Customer
     {
-        //Adrian Added value
         //Increment the values by power of two for added on classes
         private const int QUIERED_VALUE = 1;
 
@@ -19,7 +25,6 @@ namespace CrazyMelService
         public string lastNameColumnName { get; set; }
         public string phoneNumberColumnName { get; set; }  
 
-        //Adrian added value
         private bool quiered { get; set; }
 
         [DataMember]
@@ -30,9 +35,7 @@ namespace CrazyMelService
         private string lastName { get; set; }
         [DataMember]
         private string phoneNumber { get; set; }
-        
-        //Adrian added Value.... not sure i need the DataMember
-        //This also prob makes errors as it wasnt tested.    
+           
         public List<string> whereQueries;
 
         public Customer() 
@@ -46,6 +49,7 @@ namespace CrazyMelService
             whereQueries = new List<string>();
         }
 
+        //constructor of insert delete update
         public Customer(string FirstName, string LastName, string PhoneNumber, string CustID = "") : this()
         {
             custID = CustID;
@@ -54,6 +58,7 @@ namespace CrazyMelService
             phoneNumber = PhoneNumber;            
         }
 
+        //constructor for searches
         public Customer(string constructString, char delimiter) : this()
         {
             string[] namesArray = constructString.Split(delimiter);
@@ -63,9 +68,8 @@ namespace CrazyMelService
             lastName = namesArray[2];
             phoneNumber = namesArray[3];
 
-            //Adrian Changes add to the WHERE Query of
+            //add to the WHERE Query of
             //QuieredColumns and set the flag to true
-            
             if(custID != "")
             {
                 whereQueries.Add(AddWhereQuery(custID, custIDColumnName));
@@ -88,20 +92,20 @@ namespace CrazyMelService
             }
         }
 
-        //Adrian Added Function. makes a Where query.
-        //Might not work not tested. Might need [ORDER] in here..... not sure.
+        //makes a Where query.
         public string AddWhereQuery(string value, string columnName)
         {
             return "[Customer]." + columnName + "='" + value + "'";
         }
 
+        //how to insert an Customer
         public string SQLInsert()
         {
-            //FIX THIS MATTTT NO ORDER lol
-            //this is a compileerror so that Matt sees this
+           
             return "INSERT INTO " + tableName + "([FirstName], [LastName], [PhoneNumber]) VALUES ('" + firstName + "', '" + lastName + "', '" + phoneNumber + "');";
         }
 
+        //how to update an Customer
         public string SQLUpdate()
         {
             string query = "UPDATE " + tableName + " SET ";
@@ -123,6 +127,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //how to delete an Customer
         public string SQLDelete()
         {
             string query = "";
@@ -132,6 +137,7 @@ namespace CrazyMelService
             return query;
         }
 
+        //Validate input
         public bool validateInput()
         {
             if (!Validator.ValidateInt(custID) && custID != "")
@@ -153,7 +159,7 @@ namespace CrazyMelService
             return true;
         }
 
-        //Adrian changes for Search Delete and Update when blank is valid
+        //for Search Delete and Update when blank is valid
         public bool validateInput(bool blankIsValid)
         {
             if (!Validator.ValidateInt(custID) && custID != "")
@@ -175,7 +181,7 @@ namespace CrazyMelService
             return true;
         }
 
-        //Adrian changes get value of orderQuiery
+        //get value of orderQuiery
         public int WasCustomerQuiered()
         {
             if(quiered)
@@ -186,8 +192,4 @@ namespace CrazyMelService
             return 0;
         }
     }
-
-    
-
-  
 }
