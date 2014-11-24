@@ -8,16 +8,18 @@
     </div>
 
     <div class="panel panel-default" runat="server" id="outputTable">
-        
+        <div class="table-responsive" runat="server" id="outputTab">
+            
+        </div>
     </div>
 
     <div class="row text-center">
         <div class="btn-group" role="group">
-            <asp:Button class="btn btn-primary btn-lg" runat="server" Text="Go Back"></asp:Button>
+            <asp:Button class="btn btn-primary btn-lg" runat="server" Text="Go Back" OnClick="Unnamed1_Click"></asp:Button>
 
             <asp:Button class="btn btn-primary btn-lg" runat="server" Text="Print"></asp:Button>
 
-            <asp:Button class="btn btn-primary btn-lg" runat="server" Text="Get me outta here!"></asp:Button>
+            <asp:Button class="btn btn-primary btn-lg" runat="server" Text="Get me outta here!" OnClick="Unnamed3_Click"></asp:Button>
         </div>
     </div>
 
