@@ -278,7 +278,9 @@ namespace CrazyMelService
 
         public bool GetPO(string po)
         {
+            SearchDatabase mySearch = new SearchDatabase();
 
+            mySearch.SearchPo(po);
             return true;
         }
 

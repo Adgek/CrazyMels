@@ -33,6 +33,14 @@ namespace CrazyMelService
             order = new Order(c, delimiter);
             cart = new Cart(c, delimiter);
         }
+        public string SearchPo(string po)
+        {
+            //Get Order table from po number
+            //Get all Carts related to OrderID
+                //foreach Cart get product that was in cart by cartID
+            //Get CustomerID from CustID related to Order
+            return "success string";
+        }
         public string Search()
         {
             if (!ValidateSearchFields())
