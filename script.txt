@@ -20,7 +20,7 @@ CREATE TABLE [Order]
 (
 	[OrderID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[CustID] INT NOT NULL REFERENCES [Customer](CustID),
-	[PoNumber] NVARCHAR(30) UNIQUE,
+	[PoNumber] NVARCHAR(30),
 	[OrderDate] DATE NOT NULL
 );
 
@@ -32,29 +32,36 @@ CREATE TABLE [Cart]
 	PRIMARY KEY([OrderID], [ProdID])
 );
 
-
-USE [CrazyMel]
-GO
-
-INSERT INTO [dbo].[Customer] ([FirstName], [LastName], [PhoneNumber]) VALUES 
-('Joe','Bzolay','555-555-1212'),
-('Nancy','Finklbaum','555-235-4578'),
-('Henry','Svitzinski','555-326-8456');
-
-INSERT INTO [dbo].[Product] ([ProdName], [Price], [ProdWeight], [Instock]) VALUES
-('Grapple Grommet','0.02','0.005', 'true'),
-('Wandoozals','2.35','0.532', 'true'),
-('Kardoofals','8.75','5.650', 'false');
-
-INSERT INTO [dbo].[Order] ([CustID], [PoNumber], [OrderDate]) VALUES
-('1', 'GRAP-09-2011-001', '2011-09-15'),
-('1', 'GRAP-09-2011-056', '2011-09-30'),
-('3', '', '2011-10-05');
-
-INSERT INTO [dbo].[Cart] ([OrderID], [ProdID], [Quantity]) VALUES
-('1','1','500'),
-('1','2','1000'),
-('2','3','10'),
-('3','1','75'),
-('3','2','15'),
-('3','3','5');
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+    <row>
+        <value>[CustID]</value>
+        <value>[FirstName]</value>
+        <value>[LastName]</value>
+        <value>[PhoneNumber]</value>
+        <value>[ProdId]</value>
+        <value>[ProdName]</value>
+        <value>[Price]</value>
+        <value>[ProdWeight]</value>
+        <value>[InStock]</value>
+        <value>[OrderID]</value>
+        <value>[PoNumber]</value>
+        <value>[OrderDate]</value>
+        <value>[Quantity]</value>
+    </row>
+    <row>
+        <value>1</value>
+        <value>5/6/1999 12:00:00 AM</value>
+        <value>someNum1</value>
+        <value>1</value>
+        <value>kyle</value>
+        <value>fowler</value>
+        <value>555-555-5555</value>
+        <value>1</value>
+        <value>doodad</value>
+        <value>55</value>
+        <value>55</value>
+        <value>False</value>
+        <value>2</value>
+    </row>
+</response>

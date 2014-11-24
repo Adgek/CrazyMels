@@ -23,8 +23,8 @@ namespace CrazyMelService
     {       
         private static string SQL_USERNAME = "sa";
         private static string SQL_PASSWORD = "root";
-        private static string SQL_SERVER = "MATT";
-        private static string SQL_DATABASE = "CrazyMel";
+        private static string SQL_SERVER = "KYLESRIG";
+        private static string SQL_DATABASE = "CrazyMels";
 
         //4 inserts, one for each table. in each, check data, if valid data connect to DB,insert data to db 
 

@@ -490,7 +490,7 @@ namespace Soa4
             string restMethod = "";
             if(poCheck.Checked)
             {
-                restMethod = "GetPO";
+                restMethod = "GetPO/";
             }
             else
             {
