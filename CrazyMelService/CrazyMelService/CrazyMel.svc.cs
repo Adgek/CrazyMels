@@ -1,4 +1,12 @@
-﻿using System;
+﻿//***********************
+//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
+//Project: CrazyMels
+//File: CrazyMel.svc.cs
+//Date: 23/11/14
+//Purpose: This file is the main controller which states exactly what happens
+//          when each call comes in
+//***********************
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
@@ -11,8 +19,6 @@ using System.Xml;
 
 namespace CrazyMelService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : CrazyMel
     {       
         private static string SQL_USERNAME = "sa";
@@ -21,15 +27,19 @@ namespace CrazyMelService
         private static string SQL_DATABASE = "CrazyMel";
 
         //4 inserts, one for each table. in each, check data, if valid data connect to DB,insert data to db 
-        public string InsertCustomer(Stream data)//(string FirstName, string LastName, string PhoneNumber)
+
+        //
+        public string InsertCustomer(Stream data)
         {           
             StreamReader reader = new StreamReader(data);           
             string xmlString = reader.ReadToEnd();
 
             Customer c = (Customer)XMLParse.ParseXML(xmlString);
 
+            //return bad input
             if (!c.validateInput()) { return "Data not valid"; }
 
+            //connect to db
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             { 
@@ -44,6 +54,7 @@ namespace CrazyMelService
             return "Insert success";
         }
 
+        //insert product
         public string InsertProduct(Stream data)
         {
             StreamReader reader = new StreamReader(data);           
@@ -66,6 +77,7 @@ namespace CrazyMelService
             return "Insert success";
         }
 
+        //insert order
         public string InsertOrder(Stream data)
         {
             StreamReader reader = new StreamReader(data);           
@@ -88,6 +100,7 @@ namespace CrazyMelService
             return "Insert success";
         }
 
+        //insert cart
         public string InsertCart(Stream data)
         {
             StreamReader reader = new StreamReader(data);           
@@ -110,8 +123,11 @@ namespace CrazyMelService
             return "Insert success";
         }
 
+
+
         //UPDATES
 
+        //update customer
         public string UpdateCustomer(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -131,6 +147,7 @@ namespace CrazyMelService
             return "Update success";            
         }
 
+        //update product
         public string UpdateProduct(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -150,6 +167,7 @@ namespace CrazyMelService
             return "Update success";
         }
 
+        //update order
         public string UpdateOrder(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -169,6 +187,7 @@ namespace CrazyMelService
             return "Update success";
         }
 
+        //update cart
         public string UpdateCart(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -188,8 +207,12 @@ namespace CrazyMelService
             return "Update success";
         }
 
-        //UPDATES
 
+
+
+        //Deletes
+
+        //delete Customer
         public string DeleteCustomer(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -212,6 +235,7 @@ namespace CrazyMelService
             return "Delete success";
         }
 
+        //delete product
         public string DeleteProduct(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -234,6 +258,7 @@ namespace CrazyMelService
             return "Delete success";
         }
 
+        //delete order
         public string DeleteOrder(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -256,6 +281,7 @@ namespace CrazyMelService
             return "Delete success";
         }
 
+        //delete cart
         public string DeleteCart(Stream data)
         {
             StreamReader reader = new StreamReader(data);
@@ -278,6 +304,12 @@ namespace CrazyMelService
             return "Delete success";
         }
 
+
+
+
+        //SEARCHES
+
+        //Get the PO 
         public string GetPO(string po)
         {
             SearchDatabase mySearch = new SearchDatabase();
@@ -300,6 +332,7 @@ namespace CrazyMelService
             return sqlResponse;            
         }
 
+        //General Search of all fields
         public string Search(string CustomerString, string ProductString, string OrderString, string CartString)
         {
             XmlDocument xml = null;
