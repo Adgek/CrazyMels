@@ -25,8 +25,8 @@ namespace Soa4
             xml.LoadXml(response);
             XmlNodeList xnList = xml.SelectNodes("/response/row");
             ParseOrders(xnList);
-
             SortOutOrders();
+            CalculatePOValues();
             GeneratePOPanels();
         }
 
@@ -49,117 +49,138 @@ namespace Soa4
 
         private void GeneratePOPanels()
         {
+            POArea.InnerHtml = "";
+            Boolean doneFirstRow = false;
             foreach (PO p in finalList)
             {
-                POArea.InnerHtml += "<div class=\"panel panel-default\">" + "<div class=\"panel-body\">";
-
-                POArea.InnerHtml += "<div class=\"row\">";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\">Customer Information</asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-6\">";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\">Purchase Date : " + p.orderdate + " </asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "</div>";
-
-                POArea.InnerHtml += "<div class=\"row\">";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\">ID : " + p.custID + "</asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-6\">";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\"></asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "</div> ";
-
-                POArea.InnerHtml += "<div class=\"row\">";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\">Name : " + p.lastname + ", " + p.firstname + "</asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-6\">";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\"> P.O. Number : " + p.ponumber + "</asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "</div>";
-
-                POArea.InnerHtml += "<div class=\"row\">";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\">Phone : " + p.phoneNumber + "</asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-6\">";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "<div class=\"col-md-3\">";
-                POArea.InnerHtml += "<asp:Label runat=\"server\"></asp:Label>";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "</div>";
-
-                POArea.InnerHtml += "<div class=\"row\">";
-                POArea.InnerHtml += "<div class=\"col-md-2\">";
-                POArea.InnerHtml += "</div>";
-
-                POArea.InnerHtml += "<div class=\"col-md-8\">";
-
-                POArea.InnerHtml += "<div class=\"table-responsive\">";
-                POArea.InnerHtml += "<table class=\"table table-hover table-bordered\">";
-                POArea.InnerHtml += "<thead>";
-                POArea.InnerHtml += "<tr>";
-                POArea.InnerHtml += "<th>ID</th>";
-                POArea.InnerHtml += "<th>Product Name</th>";
-                POArea.InnerHtml += "<th>Quantity</th>";
-                POArea.InnerHtml += "<th>Unit Price</th>";
-                POArea.InnerHtml += "<th>Unit Weight</th>";
-                POArea.InnerHtml += "<th>In Stock</th>";
-                POArea.InnerHtml += "</tr>";
-                POArea.InnerHtml += "</thead>";
-                POArea.InnerHtml += "<tbody>";
-                foreach (string s in p.products)
+                if (doneFirstRow)
                 {
-                    string[] split = s.Split(',');
+                    DateTime dt = Convert.ToDateTime(p.orderdate);
+                    POArea.InnerHtml += "<div class=\"panel panel-default\">" + "<div class=\"panel-body\">";
+
+                    POArea.InnerHtml += "<div class=\"row\">";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\">Customer Information</asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-6\">";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\">Purchase Date : " + dt.ToString("MM-dd-yy") + " </asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "</div>";
+
+                    POArea.InnerHtml += "<div class=\"row\">";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\">ID : " + p.custID + "</asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-6\">";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\"></asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "</div> ";
+
+                    POArea.InnerHtml += "<div class=\"row\">";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\">Name : " + p.lastname + ", " + p.firstname + "</asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-6\">";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\"> P.O. Number : " + p.ponumber + "</asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "</div>";
+
+                    POArea.InnerHtml += "<div class=\"row\">";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\">Phone : " + p.phoneNumber + "</asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-6\">";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "<div class=\"col-md-3\">";
+                    POArea.InnerHtml += "<asp:Label runat=\"server\"></asp:Label>";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "</div>";
+
+                    POArea.InnerHtml += "<div class=\"row\">";
+                    POArea.InnerHtml += "<div class=\"col-md-2\">";
+                    POArea.InnerHtml += "</div>";
+
+                    POArea.InnerHtml += "<div class=\"col-md-8\">";
+
+                    POArea.InnerHtml += "<div class=\"table-responsive\">";
+                    POArea.InnerHtml += "<table class=\"table table-hover table-bordered\">";
+                    POArea.InnerHtml += "<thead>";
                     POArea.InnerHtml += "<tr>";
-                    foreach (string sp in split)
-                    {
-                        POArea.InnerHtml += "<td>" + sp + "</td>";
-                    }
+                    POArea.InnerHtml += "<th>ID</th>";
+                    POArea.InnerHtml += "<th>Product Name</th>";
+                    POArea.InnerHtml += "<th>Quantity</th>";
+                    POArea.InnerHtml += "<th>Unit Price</th>";
+                    POArea.InnerHtml += "<th>Unit Weight</th>";
+                    POArea.InnerHtml += "<th>In Stock</th>";
                     POArea.InnerHtml += "</tr>";
+                    POArea.InnerHtml += "</thead>";
+                    POArea.InnerHtml += "<tbody>";
+                    foreach (string s in p.products)
+                    {
+                        string[] split = s.Split(',');
+                        POArea.InnerHtml += "<tr>";
+                        foreach (string sp in split)
+                        {
+                            POArea.InnerHtml += "<td>" + sp + "</td>";
+                        }
+                        POArea.InnerHtml += "</tr>";
+                    }
+                    POArea.InnerHtml += "<tr>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "</tr>";
+                    POArea.InnerHtml += "<tr>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td><b>SubTotal</b></td>";
+                    POArea.InnerHtml += "<td>"+ p.subtotal+"</td>";
+                    POArea.InnerHtml += "</tr>";
+                    POArea.InnerHtml += "<tr>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td><b>Total Pieces</b></td>";
+                    POArea.InnerHtml += "<td>"+p.numberPieces+"</td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td><b>Tax (13%)</b></td>";
+                    POArea.InnerHtml += "<td>"+p.taxes+"</td>";
+                    POArea.InnerHtml += "</tr>";
+                    POArea.InnerHtml += "<tr>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td><b>Total Weight</b></td>";
+                    POArea.InnerHtml += "<td>"+p.totalWeight+"</td>";
+                    POArea.InnerHtml += "<td></td>";
+                    POArea.InnerHtml += "<td><b>Total</b></td>";
+                    POArea.InnerHtml += "<td>"+p.totalCost+"</td>";
+                    POArea.InnerHtml += "</tr>";
+
+                    POArea.InnerHtml += "</tbody>";
+                    POArea.InnerHtml += "</table>";
+                    POArea.InnerHtml += "</div>";
+
+                    POArea.InnerHtml += "</div>";
+
+                    POArea.InnerHtml += "<div class=\"col-md-2\">";
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "</div>";
+
+                    POArea.InnerHtml += "</div>";
+                    POArea.InnerHtml += "</div>";
                 }
-                POArea.InnerHtml += "<tr>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td>SubTotal</td>";
-                POArea.InnerHtml += "<td>1000</td>";
-                POArea.InnerHtml += "</tr>";
-                POArea.InnerHtml += "<tr>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td>Tax (13%)</td>";
-                POArea.InnerHtml += "<td>25</td>";
-                POArea.InnerHtml += "</tr>";
-                POArea.InnerHtml += "<tr>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td></td>";
-                POArea.InnerHtml += "<td>Total</td>";
-                POArea.InnerHtml += "<td>1025</td>";
-                POArea.InnerHtml += "</tr>";
-
-                POArea.InnerHtml += "</tbody>";
-                POArea.InnerHtml += "</table>";
-                POArea.InnerHtml += "</div>";
-
-                POArea.InnerHtml += "</div>";
-
-                POArea.InnerHtml += "<div class=\"col-md-2\">";
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "</div>";
-
-                POArea.InnerHtml += "</div>";
-                POArea.InnerHtml += "</div>";
+                else
+                {
+                    doneFirstRow = true;
+                }
 
             }
         }
@@ -222,5 +243,86 @@ namespace Soa4
                 orders.Add(purchaseOrder);
             }
         }
+
+        public void Subtotal()
+        {
+            foreach(PO p in finalList)
+            {
+                foreach(string s in p.products)
+                {
+                    string[] split = s.Split(',');
+                    if(split[5] == "True")
+                    {
+                        p.subtotal += Convert.ToDouble(split[3]) * Convert.ToDouble(split[2]);
+                    }
+                }                
+            }
+        }
+
+        public void CalulateTaxes()
+        {
+            foreach (PO p in finalList)
+            {
+                p.taxes = Math.Round(p.subtotal * 0.13,2);
+            }
+        }
+
+        public void CalculateTotalCost()
+        {
+            foreach (PO p in finalList)
+            {
+                p.totalCost = p.subtotal + p.taxes;
+            }
+        }
+
+        public void CalculateTotalNumberOfPieces()
+        {
+            foreach (PO p in finalList)
+            {
+                foreach (string s in p.products)
+                {
+                    string[] split = s.Split(',');
+                    if (split[5] == "True")
+                    {
+                        p.numberPieces += Convert.ToInt32(split[2]);
+                    }
+                }  
+            }
+        }
+
+        private void CalculatePOValues()
+        {
+            Subtotal();
+            CalulateTaxes();
+            CalculateTotalCost();
+            CalculateTotalNumberOfPieces();
+            CalculateTotalWeight();
+        }
+
+        public void CalculateTotalWeight()
+        {
+            foreach (PO p in finalList)
+            {
+                foreach (string s in p.products)
+                {
+                    string[] split = s.Split(',');
+                    if (split[5] == "True")
+                    {
+                        p.totalWeight += Convert.ToDouble(split[4]) * Convert.ToInt32(split[2]);
+                    }
+                }
+            }
+        }
+
+        protected void Unnamed1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("inputForm.aspx", true);
+        }
+
+        protected void Unnamed2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("http://www.google.com");
+        }
+		
     }
 }

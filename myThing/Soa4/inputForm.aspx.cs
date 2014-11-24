@@ -16,7 +16,7 @@ namespace Soa4
     {
 
         string[] customer = new string[] { "CustID", "FirstName", "LastName","PhoneNumber" };
-        string[] product = new string[] { "ProdID", "ProdName", "Price", "ProdWeight" };
+        string[] product = new string[] { "ProdID", "ProdName", "Price", "ProdWeight", "InStock" };
         string[] order = new string[] { "OrderID", "CustID", "PoNumber", "OrderDate" };
         string[] cart = new string[] { "OrderID", "ProdID", "Quantity"};
 
@@ -72,7 +72,7 @@ namespace Soa4
             string SearchString = "";
 
             SearchString += BuildStringSection("customer",customer) + "/";
-            SearchString += BuildStringSection("product", product) + "," + GetSoldOut() + "/";
+            SearchString += BuildStringSection("product", product) +  "/";
             SearchString += BuildStringSection("order", order) + "/";
             SearchString += BuildStringSection("cart", cart);
 
@@ -301,7 +301,18 @@ namespace Soa4
         /// <param name="verb">rest verb being used</param>
         private void sendRequest(string verb)
         {
-            string objType = infoPair.Keys.First();
+            string objType = "";
+            try
+            {
+                objType = infoPair.Keys.First();
+            }
+            catch
+            {
+                List<string> response = new List<string>();
+                response.Add("You must enter input in at least 1 field");
+                ShowAlert(CreateErrorJson(response, "info", "glyphicon glyphicon-warning-sign"));
+                return;
+            }
             if (objType == "product")
             {                
                 infoPair[objType].Add("InStock", GetSoldOut());
@@ -309,9 +320,20 @@ namespace Soa4
             string xml = xmlgen.CreateXMLSingle(infoPair[objType], objType);
             string rep = restObject.MakeRequest(xml, objType, (string)Session["firstPageAction"], verb);
             rep = rep.Replace("<string xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">", "");
-            List<string> response = new List<string>();
-            response.Add(rep);
-            ShowAlert(CreateErrorJson(response, "info", "glyphicon glyphicon-warning-sign"));
+            if(rep.Contains("SUCCESS: "))
+            {
+                rep = rep.Replace("SUCCESS: ","");
+                List<string> response = new List<string>();
+                response.Add(rep);
+                ShowAlert(CreateErrorJson(response, "success", "glyphicon glyphicon-warning-sign"));
+            }
+            else
+            {
+                List<string> response = new List<string>();
+                response.Add(rep);
+                ShowAlert(CreateErrorJson(response, "danger", "glyphicon glyphicon-warning-sign"));
+            }
+            
         }
 
         /// <summary>
@@ -376,7 +398,7 @@ namespace Soa4
                 jsonErrors += "{" +
                 "\"icon\" : \"" + icon + "\"," +
                 "\"type\"   : \"" + type + "\"," +
-                "\"message\" : \"" + error + "\"" +
+                "\"message\" : \"" + error.Replace('\'',' ').Replace('\n',' ').Replace('\r',' ') + "\"" +
                 "}";
                 count++;
             }
@@ -480,6 +502,15 @@ namespace Soa4
                     }
                 }
             }
+            string soldOut = GetSoldOut();
+            if (soldOut != "")
+            {
+                if (!infoPair.ContainsKey("product"))
+                {
+                    infoPair.Add("product", new Dictionary<string, string>());
+                }
+                infoPair["product"].Add("InStock", soldOut);
+            }
         }
 
         /// <summary>
@@ -497,8 +528,33 @@ namespace Soa4
                 restMethod = "Search/";
             }
             parseInputForAllRows();
-            ValidateActiveColumns();
-            string response = restObject.MakeRequest("", buildSearchString(), restMethod, "GET");
+            if(!ValidateActiveColumns())
+            {
+                return;
+            }
+            string dataToSend = buildSearchString();
+            if (dataToSend == ",,,/,,,,/,,,/,,")
+            {
+                List<string> responselist = new List<string>();
+                responselist.Add("You must enter input in at least 1 field");
+                ShowAlert(CreateErrorJson(responselist, "info", "glyphicon glyphicon-warning-sign"));
+                return;
+            }
+            string response = restObject.MakeRequest("", dataToSend, restMethod, "GET");
+
+            if(response.Contains("SUCCESS: "))
+            {
+                response = response.Replace("SUCCESS: ", "");
+            }
+            else
+            {
+                response = response.Replace("<string xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">", "");
+                List<string> errors = new List<string>();
+                errors.Add(response);
+                ShowAlert(CreateErrorJson(errors, "danger", "glyphicon glyphicon-warning-sign"));
+                return;
+            }
+
             Session["serviceResponse"] = response;
             if (poCheck.Checked)
             {
@@ -513,15 +569,16 @@ namespace Soa4
         /// <summary>
         /// validate active columns in the form
         /// </summary>
-        private void ValidateActiveColumns()
+        private Boolean ValidateActiveColumns()
         {
             if(infoPair.ContainsKey("product") && infoPair.ContainsKey("customer"))
             {
                 List<string> error = new List<string>();
                 error.Add("You cannot search for both product and customer in the same search.");
                 ShowAlert(CreateErrorJson(error, "danger", "glyphicon glyphicon-warning-sign"));
+                return false ;
             }
-            return;
+            return true;
         }
 
         /// <summary>

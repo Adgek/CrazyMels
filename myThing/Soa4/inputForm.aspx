@@ -179,7 +179,11 @@
                         from: "top",
                         align: "center"
                     },
-                    timer: 100000
+                    timer: 100000,
+                    animate: {
+                    enter: 'animated fadeInDown',
+                    exit: 'animated fadeOutUp'
+                    }
                 });
             }
 

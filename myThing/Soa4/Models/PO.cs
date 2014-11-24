@@ -25,6 +25,12 @@ namespace Soa4.Models
         public string orderdate;
         public string quantity;
 
+        public double subtotal;
+        public double taxes;
+        public double totalCost;
+        public double totalWeight;
+        public int numberPieces;
+
         public List<string> products;
     }
 }
