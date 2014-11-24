@@ -22,6 +22,24 @@ namespace Soa4 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl info;
         
         /// <summary>
+        /// poGen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl poGen;
+        
+        /// <summary>
+        /// poCheck control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox poCheck;
+        
+        /// <summary>
         /// CcustID control.
         /// </summary>
         /// <remarks>

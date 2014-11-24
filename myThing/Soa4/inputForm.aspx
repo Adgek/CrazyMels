@@ -9,14 +9,14 @@
     <br />
 
 
-    <div class="row">
+    <div class="row" runat="server" id="poGen">
         <div class="col-md-4 ">
         </div>
         <div class="col-md-4 text-center">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <label>
-                        <asp:CheckBox runat="server" value="" />
+                        <asp:CheckBox ID="poCheck" runat="server" AutoPostBack="true" Checked="false" OnCheckedChanged="Unnamed1_CheckedChanged" />
                         Please generate a Purchase Order
                     </label>
                 </div>

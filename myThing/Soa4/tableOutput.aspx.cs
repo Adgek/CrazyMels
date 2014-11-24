@@ -107,12 +107,12 @@ namespace Soa4
 
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("inputForm.aspx", true);
         }
 
         protected void Unnamed3_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("http://www.google.com");
         }
 
         //<thead>

@@ -38,6 +38,7 @@ namespace Soa4
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            poGen.Visible = false;
             InitInputList();
             string action = (string)Session["firstPageAction"];
             switch (action)
@@ -52,6 +53,7 @@ namespace Soa4
                     initForDelete();
                     break;
                 case "search":
+                    poGen.Visible = true;
                     initForSearch();
                     break;
                 default:
@@ -61,7 +63,6 @@ namespace Soa4
             }
             info.InnerHtml = "<h3>" + UppercaseFirst((string)Session["firstPageAction"]) + " mode</h3>";            
         }
-
         /// <summary>
         /// build search string to be sent to the rest service
         /// </summary>
@@ -307,6 +308,7 @@ namespace Soa4
             }
             string xml = xmlgen.CreateXMLSingle(infoPair[objType], objType);
             string rep = restObject.MakeRequest(xml, objType, (string)Session["firstPageAction"], verb);
+            rep = rep.Replace("<string xmlns=\"http://schemas.microsoft.com/2003/10/Serialization/\">", "");
             List<string> response = new List<string>();
             response.Add(rep);
             ShowAlert(CreateErrorJson(response, "info", "glyphicon glyphicon-warning-sign"));
@@ -485,11 +487,27 @@ namespace Soa4
         /// </summary>
         private void search()
         {
+            string restMethod = "";
+            if(poCheck.Checked)
+            {
+                restMethod = "GetPO";
+            }
+            else
+            {
+                restMethod = "Search/";
+            }
             parseInputForAllRows();
             ValidateActiveColumns();
-            string response = restObject.MakeRequest("", buildSearchString(), "Search/", "GET");
+            string response = restObject.MakeRequest("", buildSearchString(), restMethod, "GET");
             Session["serviceResponse"] = response;
-            Response.Redirect("tableOutput.aspx", true);
+            if (poCheck.Checked)
+            {
+                Response.Redirect("OutputPage.aspx", true);
+            }
+            else
+            {
+                Response.Redirect("tableOutput.aspx", true);
+            }            
         }
 
         /// <summary>
@@ -524,6 +542,37 @@ namespace Soa4
         protected void getOut_Click(object sender, EventArgs e)
         {           
             Response.Redirect("http://www.google.com");
+        }
+
+        string[] fieldsToKeepEnabled = new string[] { "CcustID", "CfirstName", "OorderID", "ClastName", "OorderDate", "OpoNumber" };
+        protected void Unnamed1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(poCheck.Checked)
+            {
+                foreach (KeyValuePair<string, List<TextBox>> entry in inputBoxes)
+                {
+                    foreach (TextBox tb in entry.Value)
+                    {
+                        if (fieldsToKeepEnabled.Where(f => f == tb.ID).Count() < 1)
+                        {
+                            disableTextbox(tb);
+                            tb.Text = "";
+                        }
+                    }
+                }
+                soldoutDrop.Disabled = true;
+            }
+            else
+            {
+                foreach (KeyValuePair<string, List<TextBox>> entry in inputBoxes)
+                {
+                    foreach (TextBox tb in entry.Value)
+                    {
+                        tb.Attributes.Remove("disabled");                     
+                    }
+                }
+                soldoutDrop.Disabled = false;
+            }
         }
     }
 }
