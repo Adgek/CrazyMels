@@ -37,4 +37,16 @@ public double CalculateTotalWeight()
 			//totalWeight += PO_ROW.quantity
 	return totalWeight;
 }
+
+
+
+//bug fixes
+
+decimals in PO report
+
+dropdown crap
+
+if no PO found, say no po report
+
+phone number validation
 		
