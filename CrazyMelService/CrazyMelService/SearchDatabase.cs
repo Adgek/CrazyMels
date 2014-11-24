@@ -250,9 +250,10 @@ namespace CrazyMelService
         public string searchCartsinOrders()
         {
             AddOrderColumnNames();
-            AddCartColumnNames();
+            searchColumns.Add(cart.prodIDColumnName);
+            searchColumns.Add(cart.quantityColumnName);
 
-            string query = "SELECT * FROM [Order]";
+            string query = "SELECT [Order].OrderID, [Order].PoNumber, [Order].OrderDate, [Cart].ProdID, [Cart].Quantity FROM [Order]";
             query += " INNER JOIN [Cart] ON [Cart].OrderID=[Order].OrderID ";
 
             query += GetWheres();
