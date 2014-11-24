@@ -13,10 +13,10 @@ namespace Soa4
     public partial class inputForm : System.Web.UI.Page
     {
 
-        string[] customer = new string[] { "custID", "firstName", "lastName","phoneNumber" };
-        string[] product = new string[] { "prodID", "prodName", "price", "prodWeight" };
-        string[] order = new string[] { "orderId", "custID", "poNumber", "orderDate" };
-        string[] cart = new string[] { "orderID", "prodID", "quantity", "orderDate" };
+        string[] customer = new string[] { "CustID", "FirstName", "LastName","PhoneNumber" };
+        string[] product = new string[] { "ProdID", "ProdName", "Price", "ProdWeight" };
+        string[] order = new string[] { "OrderID", "CustID", "PoNumber", "OrderDate" };
+        string[] cart = new string[] { "OrderID", "ProdID", "Quantity"};
 
         static string regex = @"^[A-Za-z0-9_.-]+$";
         static Regex reg = new Regex(regex);
@@ -74,12 +74,14 @@ namespace Soa4
             int count = 0;
             foreach (string s in typeArray)
             {
+                if (count > 0)
+                    builtString += ",";
                 temp = null;
-                temp = infoPair[type].Where(c => c.Key == s).First().Value;
+                if(infoPair.ContainsKey(type))
+                    temp = infoPair[type].Where(c => c.Key == s).FirstOrDefault().Value;
                 if (temp == null)
                     temp = "";
-                if (count > 0)
-                    temp += ",";
+                
                 builtString += temp;
                 count++;
             }
