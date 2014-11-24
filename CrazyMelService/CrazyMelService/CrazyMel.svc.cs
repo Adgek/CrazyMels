@@ -285,8 +285,9 @@ namespace CrazyMelService
             return true;
         }
 
-        public bool Search(string CustomerString, string ProductString, string OrderString, string CartString)
+        public XmlDocument Search(string CustomerString, string ProductString, string OrderString, string CartString)
         {
+            XmlDocument xml = null;
             SearchDatabase mySearch = new SearchDatabase(CustomerString, ProductString, OrderString, CartString);
             string sqlQuery = mySearch.Search();
 
@@ -295,14 +296,14 @@ namespace CrazyMelService
             {
                 d.OpenSQLConnection();
 
-                d.SearchQuery(sqlQuery, mySearch);
+                xml = d.SearchQuery(sqlQuery, mySearch);
             }
             catch (Exception e)
             {
-                return false;
+                return null;
             }
 
-            return true;
+            return xml;
         }
     }
 }

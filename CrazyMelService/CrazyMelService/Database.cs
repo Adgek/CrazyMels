@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CrazyMelService
 {
@@ -41,7 +43,7 @@ namespace CrazyMelService
             cmd.ExecuteNonQuery();            
         }
 
-        public void SearchQuery(string query, SearchDatabase sd)
+        public XmlDocument SearchQuery(string query, SearchDatabase sd)
         {
             SearchDatabase searchDatabase = sd;            
             SqlCommand cmd = new SqlCommand(query, con);
@@ -75,6 +77,11 @@ namespace CrazyMelService
 
             XMLResponse += "</response>\n";
 
+            XmlDocument xmlDoc = new XmlDocument();   //Represents an XML document, 
+            // Initializes a new instance of the XmlDocument class.          
+            xmlDoc.LoadXml(XMLResponse);
+
+            return xmlDoc;
         }
 
         private string GetConnectionString(string Server, string Database)

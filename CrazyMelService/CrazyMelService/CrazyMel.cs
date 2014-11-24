@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Xml;
 
 namespace CrazyMelService
 {
@@ -120,6 +121,6 @@ namespace CrazyMelService
                                 BodyStyle = WebMessageBodyStyle.Bare,                                
                                 UriTemplate = "Search/{CustomerString}/{ProductString}/{OrderString}/{CartString}")]
         //Search/1,Matthew,Anselmo,1231231111/1,Banana,,,,/,,,/,,,
-        bool Search(string CustomerString, string ProductString, string OrderString, string CartString);
+        XmlDocument Search(string CustomerString, string ProductString, string OrderString, string CartString);
     }
 }
