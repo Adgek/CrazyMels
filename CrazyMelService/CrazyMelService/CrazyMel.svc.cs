@@ -51,7 +51,7 @@ namespace CrazyMelService
                 return e.Message;
             }          
             
-            return "Insert success";
+            return "SUCCESS: Insert successful";
         }
 
         //insert product
@@ -74,7 +74,7 @@ namespace CrazyMelService
                 return e.Message;
             }          
             
-            return "Insert success";
+            return "SUCCESS: Insert successful";
         }
 
         //insert order
@@ -97,7 +97,7 @@ namespace CrazyMelService
                 return e.Message;
             }          
             
-            return "Insert success";
+            return "SUCCESS: Insert successful";
         }
 
         //insert cart
@@ -120,7 +120,7 @@ namespace CrazyMelService
                 return e.Message;
             }          
             
-            return "Insert success";
+            return "SUCCESS: Insert successful";
         }
 
 
@@ -144,7 +144,7 @@ namespace CrazyMelService
             {
                 return e.Message;
             }
-            return "Update success";            
+            return "SUCCESS: Update success";            
         }
 
         //update product
@@ -164,7 +164,7 @@ namespace CrazyMelService
             {
                 return e.Message;
             }
-            return "Update success";
+            return "SUCCESS: Update success";
         }
 
         //update order
@@ -184,7 +184,7 @@ namespace CrazyMelService
             {
                 return e.Message;
             }
-            return "Update success";
+            return "SUCCESS: Update success";
         }
 
         //update cart
@@ -204,7 +204,7 @@ namespace CrazyMelService
             {
                 return e.Message;
             }
-            return "Update success";
+            return "SUCCESS: Update success";
         }
 
 
@@ -232,7 +232,7 @@ namespace CrazyMelService
                 return e.Message;
             }
 
-            return "Delete success";
+            return "SUCCESS: Delete success";
         }
 
         //delete product
@@ -255,7 +255,7 @@ namespace CrazyMelService
                 return e.Message;
             }
 
-            return "Delete success";
+            return "SUCCESS: Delete success";
         }
 
         //delete order
@@ -278,7 +278,7 @@ namespace CrazyMelService
                 return e.Message;
             }
 
-            return "Delete success";
+            return "SUCCESS: Delete success";
         }
 
         //delete cart
@@ -301,7 +301,7 @@ namespace CrazyMelService
                 return e.Message;
             }
 
-            return "Delete success";
+            return "SUCCESS: Delete success";
         }
 
 
