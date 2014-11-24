@@ -358,6 +358,7 @@
       <DependentUpon>inputForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\PO.cs" />
     <Compile Include="Models\REST.cs" />
     <Compile Include="Models\XMLcreator.cs" />
     <Compile Include="OutputPage.aspx.cs">
