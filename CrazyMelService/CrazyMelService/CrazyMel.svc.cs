@@ -21,14 +21,15 @@ namespace CrazyMelService
         private static string SQL_DATABASE = "CrazyMel";
 
         //4 inserts, one for each table. in each, check data, if valid data connect to DB,insert data to db 
-        public bool InsertCustomer(Stream data)//(string FirstName, string LastName, string PhoneNumber)
+        public string InsertCustomer(Stream data)//(string FirstName, string LastName, string PhoneNumber)
         {           
             StreamReader reader = new StreamReader(data);           
             string xmlString = reader.ReadToEnd();
 
             Customer c = (Customer)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput()) { return "Data not valid"; }
+
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             { 
@@ -37,20 +38,20 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }          
             
-            return true;
+            return "Insert success";
         }
 
-        public bool InsertProduct(Stream data)
+        public string InsertProduct(Stream data)
         {
             StreamReader reader = new StreamReader(data);           
             string xmlString = reader.ReadToEnd();
 
             Product c = (Product)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput()) { return "Data not valid"; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             { 
@@ -59,20 +60,20 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }          
             
-            return true;
+            return "Insert success";
         }
 
-        public bool InsertOrder(Stream data)
+        public string InsertOrder(Stream data)
         {
             StreamReader reader = new StreamReader(data);           
             string xmlString = reader.ReadToEnd();
 
             Order c = (Order)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput()) { return "Data not valid"; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             { 
@@ -81,20 +82,20 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }          
             
-            return true;
+            return "Insert success";
         }
 
-        public bool InsertCart(Stream data)
+        public string InsertCart(Stream data)
         {
             StreamReader reader = new StreamReader(data);           
             string xmlString = reader.ReadToEnd();
 
             Cart c = (Cart)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput()) { return false; }
+            if (!c.validateInput()) { return "Data not valid"; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             { 
@@ -103,15 +104,15 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }          
             
-            return true;
+            return "Insert success";
         }
 
         //UPDATES
 
-        public bool UpdateCustomer(Stream data)
+        public string UpdateCustomer(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
@@ -125,12 +126,12 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }
-            return true;            
+            return "Update success";            
         }
 
-        public bool UpdateProduct(Stream data)
+        public string UpdateProduct(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
@@ -144,12 +145,12 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }
-            return true;
+            return "Update success";
         }
 
-        public bool UpdateOrder(Stream data)
+        public string UpdateOrder(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
@@ -163,12 +164,12 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }
-            return true;
+            return "Update success";
         }
 
-        public bool UpdateCart(Stream data)
+        public string UpdateCart(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
@@ -182,21 +183,21 @@ namespace CrazyMelService
             }
             catch(Exception e)
             {
-                return false;
+                return e.Message;
             }
-            return true;
+            return "Update success";
         }
 
         //UPDATES
 
-        public bool DeleteCustomer(Stream data)
+        public string DeleteCustomer(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
 
             Customer c = (Customer)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput(true)) { return false; }
+            if (!c.validateInput(true)) { return "Data not valid"; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
@@ -205,20 +206,20 @@ namespace CrazyMelService
             }
             catch (Exception e)
             {
-                return false;
+                return e.Message;
             }
 
-            return true;
+            return "Delete success";
         }
 
-        public bool DeleteProduct(Stream data)
+        public string DeleteProduct(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
 
             Product c = (Product)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput(true)) { return false; }
+            if (!c.validateInput(true)) { return "Data not valid"; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
@@ -227,20 +228,20 @@ namespace CrazyMelService
             }
             catch (Exception e)
             {
-                return false;
+                return e.Message;
             }
 
-            return true;
+            return "Delete success";
         }
 
-        public bool DeleteOrder(Stream data)
+        public string DeleteOrder(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
 
             Order c = (Order)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput(true)) { return false; }
+            if (!c.validateInput(true)) { return "Data not valid"; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
@@ -249,20 +250,20 @@ namespace CrazyMelService
             }
             catch (Exception e)
             {
-                return false;
+                return e.Message;
             }
 
-            return true;
+            return "Delete success";
         }
 
-        public bool DeleteCart(Stream data)
+        public string DeleteCart(Stream data)
         {
             StreamReader reader = new StreamReader(data);
             string xmlString = reader.ReadToEnd();
 
             Cart c = (Cart)XMLParse.ParseXML(xmlString);
 
-            if (!c.validateInput(true)) { return false; }
+            if (!c.validateInput(true)) { return "Data not valid"; }
             Database d = new Database(SQL_USERNAME, SQL_PASSWORD, SQL_SERVER, SQL_DATABASE);
             try
             {
@@ -271,10 +272,10 @@ namespace CrazyMelService
             }
             catch (Exception e)
             {
-                return false;
+                return e.Message;
             }
 
-            return true;
+            return "Delete success";
         }
 
         public string GetPO(string po)
@@ -293,7 +294,7 @@ namespace CrazyMelService
             }
             catch (Exception e)
             {
-                return "";
+                return e.Message;
             }
 
             return sqlResponse;            
@@ -315,7 +316,7 @@ namespace CrazyMelService
             }
             catch (Exception e)
             {
-                return "";
+                return e.Message;
             }
 
             return sqlResponse;
