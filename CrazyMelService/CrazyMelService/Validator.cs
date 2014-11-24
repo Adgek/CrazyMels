@@ -68,7 +68,7 @@ namespace CrazyMelService
 
         public static bool ValidatePhoneNumber(string input)
         {
-            Regex rgx = new Regex("(\\([2-9]\\d\\d\\)|[2-9]\\d\\d) ?[-.,]? ?[2-9]\\d\\d ?[-.,]? ?\\d{4})");
+            Regex rgx = new Regex("(\\([2-9]\\d\\d\\)|[2-9]\\d\\d) ?[-.,]? ?[2-9]\\d\\d ?[-.,]? ?\\d{4}");
             if (!rgx.IsMatch(input))
             {
                 return false;
