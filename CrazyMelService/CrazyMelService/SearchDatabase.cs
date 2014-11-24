@@ -266,10 +266,10 @@ namespace CrazyMelService
             searchColumns.Add(order.orderIDColumnName);
             searchColumns.Add(order.poNumberColumnName);
             searchColumns.Add(order.orderDateColumnName);
-            AddCartColumnNames();
+            searchColumns.Add(cart.quantityColumnName);
             AddProductColumnNames();
 
-            string query = "SELECT [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber, [Order].OrderID, [Order].PoNumber, [Order].OrderDate, [Cart].OrderID, [Cart].ProdID, [Cart].Quantity, [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock FROM [Customer]";
+            string query = "SELECT [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber, [Order].OrderID, [Order].PoNumber, [Order].OrderDate, [Cart].Quantity, [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock FROM [Customer]";
             query += " INNER JOIN [Order] ON [Order].CustID=[Customer].CustID";
             query += " INNER JOIN [Cart] ON [Cart].OrderID=[Order].OrderID";
             query += " INNER JOIN [Product] ON [Product].ProdID=[Cart].ProdID ";
@@ -284,10 +284,10 @@ namespace CrazyMelService
             searchColumns.Add(order.orderIDColumnName);
             searchColumns.Add(order.poNumberColumnName);
             searchColumns.Add(order.orderDateColumnName);
-            AddCartColumnNames();
+            searchColumns.Add(cart.quantityColumnName);
             AddCustomerColumnNames();
 
-            string query = "SELECT [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock, [Order].OrderID, [Order].PoNumber, [Order].OrderDate, [Cart].OrderID, [Cart].ProdID, [Cart].Quantity, [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber FROM [Product]";
+            string query = "SELECT [Product].ProdID, [Product].ProdName, [Product].Price, [Product].ProdWeight, [Product].InStock, [Order].OrderID, [Order].PoNumber, [Order].OrderDate, [Cart].Quantity, [Customer].CustID, [Customer].FirstName, [Customer].LastName, [Customer].PhoneNumber FROM [Product]";
             query += " INNER JOIN [Cart] ON [Cart].ProdID=[Product].ProdID";
             query += " INNER JOIN [Order] ON [Order].OrderID=[Cart].OrderID";
             query += " INNER JOIN [Customer] ON [Customer].CustID=[Order].CustID";
