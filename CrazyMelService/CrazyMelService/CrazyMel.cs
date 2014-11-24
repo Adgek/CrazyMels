@@ -27,30 +27,28 @@ namespace CrazyMelService
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,                                
                                 UriTemplate = "InsertCustomer/")]
-        bool InsertCustomer(Stream data);
+        string InsertCustomer(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "InsertProduct/")]
-        bool InsertProduct(Stream data);
+        string InsertProduct(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "InsertOrder/")]
-        bool InsertOrder(Stream data);
+        string InsertOrder(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "InsertCart/")]
-        bool InsertCart(Stream data);
-
-
+        string InsertCart(Stream data);
 
         //UPDATES
         [OperationContract]
@@ -58,28 +56,28 @@ namespace CrazyMelService
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "UpdateCustomer/")]
-        bool UpdateCustomer(Stream data);
+        string UpdateCustomer(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "PUT",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "UpdateProduct/")]
-        bool UpdateProduct(Stream data);
+        string UpdateProduct(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "PUT",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "UpdateOrder/")]
-        bool UpdateOrder(Stream data);
+        string UpdateOrder(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "PUT",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "UpdateCart/")]
-        bool UpdateCart(Stream data);
+        string UpdateCart(Stream data);
 
 
 
@@ -89,28 +87,28 @@ namespace CrazyMelService
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "DeleteCustomer/")]
-        bool DeleteCustomer(Stream data);
+        string DeleteCustomer(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "DeleteProduct/")]
-        bool DeleteProduct(Stream data);
+        string DeleteProduct(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "DeleteOrder/")]
-        bool DeleteOrder(Stream data);
+        string DeleteOrder(Stream data);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
                                 UriTemplate = "DeleteCart/")]
-        bool DeleteCart(Stream data);
+        string DeleteCart(Stream data);
 
 
 
