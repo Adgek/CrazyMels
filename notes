@@ -1,8 +1,35 @@
-//***********************
-//Authors: Kyle Fowler, Matt Anselmo, Adrian Krebs
-//Project: CrazyMels
-//File: CrazyMel.cs
-//Date: 23/11/14
-//Purpose: This file is the main route outline of where to route the different 
-//          Rest requests
-//***********************
+double Subtotal()
+{
+	double subtotal = 0;
+	//foreach PO_ROW
+		//if !PO_ROW.soldout = true
+			//subtotal += PO_ROW.price * PO_ROW.quantity
+	return subtotal;		
+}
+
+double CalulateTaxes(double subTotal)
+{
+	double totalCost = subTotal * 1.13;
+
+	//convert totalCost to only have 2 decimal places
+	return totalCost
+}
+
+int CalculateTotalNumberOfPieces()
+{
+	int totalNum = 0;
+	//foreach PO_ROW
+		//if !PO_ROW.soldout = true
+			//totalNum += PO_ROW.quantity
+	return totalWeight;
+}
+
+double CalculateTotalWeight()
+{
+	double totalWeight = 0;
+	//foreach PO_ROW
+		//if !PO_ROW.soldout = true
+			//totalWeight += PO_ROW.quantity
+	return totalWeight;
+}
+		
