@@ -156,6 +156,10 @@ namespace CrazyMelService
             {
                 return false;
             }
+            if (!Validator.ValidatePhoneNumber(phoneNumber))
+            {
+                return false;
+            }
             return true;
         }
 

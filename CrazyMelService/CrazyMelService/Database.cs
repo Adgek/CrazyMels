@@ -59,6 +59,8 @@ namespace CrazyMelService
             DataTable dt = new DataTable();
             da.Fill(dt);
 
+            if (dt.Rows.Count < 1) { return "No PO report found"; }
+
             string XMLResponse = "\n<response>\n";
                 
             XMLResponse += "    <row>\n";

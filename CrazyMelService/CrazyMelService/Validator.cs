@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace CrazyMelService
@@ -64,5 +65,16 @@ namespace CrazyMelService
 			}
 			return true;
 		}
+
+        public static bool ValidatePhoneNumber(string input)
+        {
+            Regex rgx = new Regex("(\\([2-9]\\d\\d\\)|[2-9]\\d\\d) ?[-.,]? ?[2-9]\\d\\d ?[-.,]? ?\\d{4})");
+            if (!rgx.IsMatch(input))
+            {
+                return false;
+            }
+            return true;
+        }
+
 	}    
 }
