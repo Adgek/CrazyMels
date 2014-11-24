@@ -117,8 +117,8 @@ namespace CrazyMelService
         [WebInvoke(Method = "GET",
                                 ResponseFormat = WebMessageFormat.Xml,
                                 BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "GetPO/{po}")]
-        string GetPO(string po);
+                                UriTemplate = "GetPO/{CustomerString}/{ProductString}/{OrderString}/{CartString}")]
+        string GetPO(string CustomerString, string ProductString, string OrderString, string CartString);
 
         [OperationContract]
         [WebInvoke(Method = "GET",

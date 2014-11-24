@@ -23,8 +23,8 @@ namespace CrazyMelService
     {       
         private static string SQL_USERNAME = "sa";
         private static string SQL_PASSWORD = "root";
-        private static string SQL_SERVER = "KYLESRIG";
-        private static string SQL_DATABASE = "CrazyMels";
+        private static string SQL_SERVER = "MATT";
+        private static string SQL_DATABASE = "CrazyMel";
 
         //4 inserts, one for each table. in each, check data, if valid data connect to DB,insert data to db 
 
@@ -310,10 +310,10 @@ namespace CrazyMelService
         //SEARCHES
 
         //Get the PO 
-        public string GetPO(string po)
+        public string GetPO(string CustomerString, string ProductString, string OrderString, string CartString)
         {
-            SearchDatabase mySearch = new SearchDatabase();
-            string sqlQuery = mySearch.SearchPo(po);
+            SearchDatabase mySearch = new SearchDatabase(CustomerString, ProductString, OrderString, CartString);
+            string sqlQuery = mySearch.SearchPo();
 
             string sqlResponse = "";
 
