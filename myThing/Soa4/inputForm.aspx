@@ -4,7 +4,7 @@
 
     <div class="jumbotron">
         <h1>Crazy Melvin's Shopping Emporium</h1>
-        <div runat="server" ID="info" class="text-center"></div>
+        <div runat="server" id="info" class="text-center"></div>
     </div>
     <br />
 
@@ -76,12 +76,20 @@
                     <label for="custID">prodWeight</label>
                     <asp:TextBox runat="server" ToolTip="ProdWeight" class="form-control" ID="Pweight" placeholder="Enter prodWeight" />
                 </div>
-                <div class="col-md-3 vertical-center">
-                    <br />
-                    <label>
-                        <asp:CheckBox ID="Psoldout" ToolTip="InStock" runat="server" value="" />
-                        Sold Out
-                    </label>
+                <div class="col-md-3"> 
+                    <label>soldOut</label> <br />                
+                    <div class="btn-group" id="soldoutDiv">
+                        
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="soldoutDrop" runat="server">
+                            Don't Care(Default)  <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><asp:button class="btn btn-link" runat="Server" id="dontcare" OnClick="soldout_Click" text="Don't Care(Default)"></asp:button></li>
+                            <li class="divider"></li>
+                            <li><asp:button class="btn btn-link" runat="Server" id="yes" OnClick="soldout_Click" Text="Yes"></asp:button></li>
+                            <li><asp:button class="btn btn-link" runat="Server" id="no" OnClick="soldout_Click" Text="No"></asp:button></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,35 +156,35 @@
         </div>
     </div>
 
-<script>
-    function ShowAlert(text) {
-        var json = JSON.parse(text);
-        for (var i = 0; i < json.length; i++) {
-            var obj = json[i];
-            icon = obj.icon;
-            type = obj.type;
-            message = obj.message;
-            $.growl({
-                icon: icon,
-                title: '',
-                message: message
-            }, {
-                element: 'body',
-                type: type,
-                placement: {
-                    from: "top",
-                    align: "center"
-                },
-                timer: 100000
-            });
+    <script>
+        function ShowAlert(text) {
+            var json = JSON.parse(text);
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                icon = obj.icon;
+                type = obj.type;
+                message = obj.message;
+                $.growl({
+                    icon: icon,
+                    title: '',
+                    message: message
+                }, {
+                    element: 'body',
+                    type: type,
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    },
+                    timer: 100000
+                });
+            }
+
         }
-            
-    }
-</script>
+    </script>
 </asp:Content>
 
 
 
 
 
-    
+

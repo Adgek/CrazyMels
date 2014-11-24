@@ -12,6 +12,12 @@ namespace Soa4
     //http://stackoverflow.com/questions/17013300/insert-datetime-into-sql-server-2008-from-c-sharp
     public partial class inputForm : System.Web.UI.Page
     {
+
+        string[] customer = new string[] { "custID", "firstName", "lastName","phoneNumber" };
+        string[] product = new string[] { "prodID", "prodName", "price", "prodWeight" };
+        string[] order = new string[] { "orderId", "custID", "poNumber", "orderDate" };
+        string[] cart = new string[] { "orderID", "prodID", "quantity", "orderDate" };
+
         static string regex = @"^[A-Za-z0-9_.-]+$";
         static Regex reg = new Regex(regex);
 
@@ -46,7 +52,50 @@ namespace Soa4
                     break;
 
             }
-            info.InnerHtml += "<h3>" + (string)Session["firstPageAction"] + " mode</h3>";            
+            info.InnerHtml = "<h3>" + UppercaseFirst((string)Session["firstPageAction"]) + " mode</h3>";            
+        }
+
+        private string buildSearchString()
+        {
+            string SearchString = "";
+
+            SearchString += BuildStringSection("customer",customer) + "/";
+            SearchString += BuildStringSection("product", product) + "," + GetSoldOut() + "/";
+            SearchString += BuildStringSection("order", order) + "/";
+            SearchString += BuildStringSection("cart", cart);
+
+            return SearchString;
+        }
+
+        private string BuildStringSection(string type, string[] typeArray)
+        {
+            string builtString = "";
+            string temp = null;
+            int count = 0;
+            foreach (string s in typeArray)
+            {
+                temp = null;
+                temp = infoPair[type].Where(c => c.Key == s).First().Value;
+                if (temp == null)
+                    temp = "";
+                if (count > 0)
+                    temp += ",";
+                builtString += temp;
+                count++;
+            }
+
+            return builtString;
+        }
+
+        private string UppercaseFirst(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
         }
 
         private void InitInputList()
@@ -98,7 +147,7 @@ namespace Soa4
                     }
                 }
             }
-            Psoldout.Enabled = false;
+            soldoutDrop.Disabled = true;
         }
 
         private void initForUpdate()
@@ -143,6 +192,12 @@ namespace Soa4
             }
         }
 
+        protected void soldout_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            soldoutDrop.InnerHtml = b.Text + "  <span class=\"caret\"></span>";
+        }
+
         private void insert()
         {
             if(parseAndCheckInput())
@@ -171,14 +226,21 @@ namespace Soa4
         {
             string objType = infoPair.Keys.First();
             if (objType == "product")
-            {
-                string Checked = "false";
-                if (Psoldout.Checked)
-                    Checked = "true";
-                infoPair[objType].Add("InStock", Checked.ToString());
+            {                
+                infoPair[objType].Add("InStock", GetSoldOut());
             }
             string xml = xmlgen.CreateXMLSingle(infoPair[objType], objType);
             restObject.MakeRequest(xml, objType, (string)Session["firstPageAction"], verb);
+        }
+
+        private string GetSoldOut()
+        {
+            string Checked = "";
+            if (soldoutDrop.InnerText.Contains("Yes"))
+                Checked = "true";
+            else if (soldoutDrop.InnerText.Contains("No"))
+                Checked = "false";
+            return Checked;
         }
 
         private Boolean parseAndCheckInput()
@@ -312,11 +374,24 @@ namespace Soa4
         private void search()
         {
             parseInputForAllRows();
+            ValidateActiveColumns();
+            restObject.MakeRequest("", buildSearchString(), "Search", "GET");
         }
-        //glyphicon glyphicon-warning-sign
+
+        private void ValidateActiveColumns()
+        {
+            if(infoPair.ContainsKey("product") && infoPair.ContainsKey("customer"))
+            {
+                List<string> error = new List<string>();
+                error.Add("You cannot search for both product and customer in the same search.");
+                ShowAlert(CreateErrorJson(error, "danger", "glyphicon glyphicon-warning-sign"));
+            }
+            return;
+        }
+
         private void ShowAlert(string json)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "close", "ShowAlert('"+ json+ "');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "close", "ShowAlert('"+ json + "');", true);
             return;
         }
 

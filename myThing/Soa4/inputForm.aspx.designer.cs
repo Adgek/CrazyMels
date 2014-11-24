@@ -94,13 +94,40 @@ namespace Soa4 {
         protected global::System.Web.UI.WebControls.TextBox Pweight;
         
         /// <summary>
-        /// Psoldout control.
+        /// soldoutDrop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox Psoldout;
+        protected global::System.Web.UI.HtmlControls.HtmlButton soldoutDrop;
+        
+        /// <summary>
+        /// dontcare control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button dontcare;
+        
+        /// <summary>
+        /// yes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button yes;
+        
+        /// <summary>
+        /// no control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button no;
         
         /// <summary>
         /// OorderID control.
